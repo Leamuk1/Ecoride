@@ -1,0 +1,32 @@
+# Configuration Apache pour EcoRide
+RewriteEngine On
+
+# Redirection de toutes les requêtes vers index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Headers de sécurité
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# Cache pour les ressources statiques
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+</IfModule>
+
+# Empêcher l'accès aux fichiers sensibles
+<Files ~ "\.php$">
+    # Autorise l'accès aux fichiers PHP normalement
+</Files>
+
+<Files ~ "\.(inc|conf|sql|log)$">
+    Deny from all
+</Files>

@@ -1,0 +1,186 @@
+# ================================================
+# GITIGNORE ECORIDE
+# Fichiers à ignorer pour le projet EcoRide
+# ================================================
+
+# ================================================
+# CONFIGURATION ET SÉCURITÉ
+# ================================================
+# Fichiers de configuration sensibles
+app/config/database.php
+config/database.php
+.env
+.env.local
+.env.production
+
+# Clés API et secrets
+config/secrets.php
+app/config/secrets.php
+*.key
+*.pem
+
+# ================================================
+# UPLOADS ET FICHIERS UTILISATEURS
+# ================================================
+# Dossier uploads (photos de profil, documents)
+public/uploads/*
+!public/uploads/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# Images temporaires
+public/images/temp/*
+public/images/cache/*
+
+# ================================================
+# LOGS ET CACHE
+# ================================================
+# Logs d'application
+logs/*
+*.log
+app/logs/*
+public/logs/*
+
+# Cache PHP et application
+cache/*
+app/cache/*
+tmp/*
+temp/*
+
+# ================================================
+# DÉPENDANCES ET VENDORS
+# ================================================
+# Composer (PHP)
+vendor/
+composer.lock
+
+# Node.js (si utilisé plus tard)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# ================================================
+# ENVIRONNEMENT DE DÉVELOPPEMENT
+# ================================================
+# IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ================================================
+# FICHIERS DE BUILD ET DIST
+# ================================================
+# Fichiers compilés
+dist/
+build/
+public/assets/compiled/*
+
+# Minified files
+*.min.js
+*.min.css
+
+# ================================================
+# BACKUP ET ARCHIVES
+# ================================================
+# Sauvegardes automatiques
+*.backup
+*.bak
+*.orig
+*.rej
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# ================================================
+# TESTS ET DÉVELOPPEMENT
+# ================================================
+# Données de test sensibles
+database/data/*
+!database/data/.gitkeep
+
+# Coverage reports
+coverage/
+*.coverage
+
+# PHPUnit
+.phpunit.result.cache
+tests/_output/*
+
+# ================================================
+# DÉPLOIEMENT
+# ================================================
+# Fichiers de déploiement spécifiques
+deploy.php
+deploy/
+.deployment
+
+# Scripts de production
+scripts/production/*
+!scripts/production/.gitkeep
+
+# ================================================
+# MONGODB (pour plus tard)
+# ================================================
+# Fichiers MongoDB locaux
+data/db/*
+mongod.lock
+
+# ================================================
+# FICHIERS TEMPORAIRES PHP
+# ================================================
+# Sessions PHP
+sessions/*
+!sessions/.gitkeep
+
+# Erreurs PHP
+php_errors.log
+error_log
+
+# ================================================
+# SPÉCIFIQUE ECORIDE
+# ================================================
+# Fichiers de test temporaires
+public/test-*.php
+!public/test-db.php
+!public/test-final.php
+
+# Copies de sauvegarde BDD
+database/backup/*
+!database/backup/.gitkeep
+
+# Documentation temporaire
+docs/temp/*
+docs/draft/*
+
+# ================================================
+# XAMPP SPÉCIFIQUE
+# ================================================
+# Fichiers XAMPP à ignorer
+.htaccess.bak
+php.ini.bak
+
+# ================================================
+# AUTRES
+# ================================================
+# Fichiers de configuration locale
+local.config.php
+app/config/local.php
+
+# Fichiers de migration
+migrations/*.applied
+database/migrations/temp/*
