@@ -1,0 +1,1503 @@
+/* ===================================
+   ECORIDE - CSS PRINCIPAL UNIFIÉ
+   Styles complets pour le projet MVC
+=================================== */
+
+/* ===================================
+   1. VARIABLES CSS - CHARTE GRAPHIQUE
+=================================== */
+:root {
+    /* Couleurs principales EcoRide */
+    --primary-color: #2C3E20;      /* Vert principal */
+    --secondary-color: #CEDEBD;    /* Vert secondaire */
+    --text-color: #18230F;         /* Couleur texte */
+    --eco-green: #435334;          /* Vert éco */
+    --eco-green-light: rgba(67,83,52,0.6); /* Vert éco transparent */
+    --black: #000000;          /* Noir logo */
+    --green-logo: #809D3C;     /* Vert logo EcoRide */
+    
+    /* Couleurs système */
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --background-light: rgba(249,249,245,1); /* Background site */
+    --border-gray: #e5e7eb;
+    --form-background: rgba(225, 225, 225, 0.70); /* Background formulaire */
+    
+    /* Ombres */
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    
+    /* Typography */
+    --font-roboto: 'Roboto', sans-serif;
+    --font-size-hero: 3.5rem;
+    --font-size-section: 2.5rem;
+    --font-size-large: 1.5rem;
+    --font-size-base: 1rem;
+    --font-size-small: 0.9rem;
+}
+
+/* ===================================
+   2. BASE STYLES
+=================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-roboto);
+    font-size: 14px;
+    color: var(--text-color);
+    background-color: var(--background-light);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Classes utilitaires */
+.font-roboto { font-family: var(--font-roboto); }
+.text-text-color { color: var(--text-color); }
+.text-primary { color: var(--primary-color); }
+.text-secondary { color: var(--secondary-color); }
+.bg-light { background-color: var(--background-light); }
+
+/* ===================================
+   3. HEADER / NAVIGATION
+=================================== */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo EcoRide */
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: var(--font-roboto);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo .eco .barre {
+    color: var(--black);
+}
+.logo .ride {
+    color: var(--green-logo);
+}
+
+/* Navigation */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li a:not(.btn-connexion) {
+    color: var(--eco-green-light);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    font-family: var(--font-roboto);
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li a:not(.btn-connexion):hover,
+.nav-menu li a:not(.btn-connexion).active {
+    color: var(--text-color);
+}
+
+/* Bouton connexion */
+header .btn-connexion {
+    background: rgba(24, 35, 15, 0.80);
+    color: #FFFFFF;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 200;
+    font-family: var(--font-roboto);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+header .btn-connexion:hover {
+    background: var(--text-color);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(67, 83, 52, 0.3);
+}
+
+/* Dropdown utilisateur */
+.user-dropdown {
+    position: relative;
+}
+
+.user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.user-toggle:hover {
+    background: rgba(67, 83, 52, 0.1);
+    color: var(--eco-green);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #FFFFFF;
+    border: 1px solid rgba(67, 83, 52, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(67, 83, 52, 0.1);
+    color: var(--eco-green);
+}
+
+.dropdown-divider {
+    height: 1px;
+    background: rgba(67, 83, 52, 0.2);
+    margin: 0.5rem 0;
+}
+
+.logout-link {
+    color: #dc3545 !important;
+}
+
+.logout-link:hover {
+    background: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* Menu mobile */
+.mobile-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 4px;
+    padding: 8px;
+}
+
+.mobile-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--eco-green);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* ===================================
+   4. HERO SECTION
+=================================== */
+.hero-section {
+    min-height: 100vh;
+    background-image: url('../images/hero-road.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 100px 25px 0 25px;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 150px;
+}
+
+.hero-content .row {
+    gap: 3rem; 
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 600px;
+    color: var(--secondary-color);
+    text-align: justify;
+}
+
+.hero-title {
+    font-size: var(--font-size-hero);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.hero-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.95;
+    max-width: 500px;
+    color: var(--secondary-color);
+}
+
+/* Forcer l'ordre sur desktop */
+@media (min-width: 992px) {
+    .hero-content .row {
+        display: flex !important;
+        flex-direction: row !important;
+    }
+    
+    .hero-content .col-lg-6:first-child {
+        order: 2 !important; /* Texte à droite */
+    }
+    
+    .hero-content .col-lg-6:last-child {
+        order: 1 !important; /* Formulaire à gauche */
+    }
+}
+
+/* Ordre normal sur mobile */
+@media (max-width: 991px) {
+    .hero-content .col-lg-6 {
+        order: unset !important;
+    }
+}
+
+/* ===================================
+   5. FORMULAIRE DE RECHERCHE
+=================================== */
+.search-form-container {
+    width: 610px; 
+    height: 480px; 
+    max-width: none; 
+    
+    /* Centrage si nécessaire */
+    margin: 0 auto;
+    
+    /* Flexbox pour organiser le contenu verticalement */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.search-form {
+    background: var(--form-background);
+    padding: 2.5rem 3rem; 
+    border: 1px solid var(--eco-green-light);
+    border-radius: 4px;
+    
+    /* Prendre toute la hauteur disponible */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Répartir l'espace équitablement */
+}
+
+.form-group {
+    margin-bottom: 1.5rem; 
+    flex: 1; 
+    display: flex;
+    align-items: center; 
+}
+
+.form-group:last-child {
+    margin-bottom: 1.5rem; 
+    flex: none; 
+}
+
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--eco-green-light);
+    pointer-events: none;
+    z-index: 10;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* STYLES DES CHAMPS - Couleurs dynamiques */
+
+.form-input {
+    width: 100%;
+    padding: 15px 12px 13px 36px;
+    border: 1px solid var(--eco-green-light);
+    border-radius: 3px;
+    font-size: 18px;
+    background: var(--white);
+    font-family: var(--font-roboto);
+    height: 55px;
+    color: var(--eco-green-light);
+}
+
+/* Couleur des placeholders */
+.form-input::placeholder {
+    color: var(--eco-green-light);
+    opacity: 0.7;
+}
+
+/* Couleur au focus */
+.form-input:focus {
+    border-color: var(--eco-green-light);
+    outline: none;
+}
+
+/* SPÉCIFICITÉS PAR TYPE DE CHAMP */
+
+/* Champs texte - couleur change quand rempli */
+.form-input[type="text"]:not(:placeholder-shown) {
+    color: var(--text-color);
+}
+
+/* Réinitialiser la couleur du champ date */
+.form-input[type="date"] {
+    color: var(--eco-green-light);
+}
+
+/* Permettre au JavaScript de changer la couleur */
+.form-input[type="date"][data-filled="true"] {
+    color: var(--text-color) !important;
+}
+
+/* Champ date - masquer icône par défaut */
+.form-input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45px;
+    height: 100%;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.input-with-icon .fas.fa-calendar-alt {
+    pointer-events: none;
+}
+
+/* Select - masquer flèche par défaut */
+select.form-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    cursor: pointer;
+}
+
+/* Options du select */
+select.form-input option {
+    color: var(--text-color);
+    background: var(--white);
+}
+
+/* Icônes spécifiques */
+.input-with-icon .fa-user {
+    pointer-events: none;
+    color: var(--eco-green-light);
+}
+
+.btn-search {
+    width: 100%;
+    background: rgba(24, 35, 15, 0.8);
+    color: var(--white);
+    padding: 18px 14px; 
+    border: none;
+    border-radius: 3px;
+    font-size: 1.1rem; 
+    font-weight: 200;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: var(--font-roboto);
+    height: 60px; 
+    margin-top: 1rem;
+    backdrop-filter: blur(2rem);
+}
+
+.btn-search:hover {
+    background: var(--text-color);
+}
+
+/* ===================================
+   6. SECTIONS GÉNÉRALES
+=================================== */
+.section {
+    padding: 5rem 0;
+}
+
+.about-section {
+    padding: 5rem 0;
+    background: var(--light-gray);
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text {
+    order: 1;
+    text-align: justify;
+}
+
+.about-image {
+    order: 2;
+    text-align: center;
+    font-size: 8rem;
+}
+
+.about-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.section-title {
+    font-size: var(--font-size-section);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-align: justify;
+}
+
+.section-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-color);
+}
+
+/* Section écologique */
+.eco-section {
+    padding: 5rem 0;
+    background: #8c9681;
+    margin: 36px;
+}
+
+.eco-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.eco-image {
+    order: 1;
+    text-align: center;
+    font-size: 6rem;
+}
+
+.eco-text {
+    order: 2;
+    text-align: justify;
+}
+
+.eco-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.section-title-white {
+    font-size: var(--font-size-section);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.eco-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(24, 35, 15, 0.8);
+}
+
+/* Section call to action */
+.cta-section {
+    padding: 5rem 0;
+    background: var(--background-light);
+}
+
+.cta-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.cta-text {
+    order: 1;
+    text-align: justify;
+}
+
+.cta-image {
+    order: 2;
+    text-align: center;
+    font-size: 6rem;
+}
+
+.cta-img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cta-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--text-color);
+    font-weight: 400;
+}
+
+/* Features */
+.features-section {
+    padding: 4rem 0;
+    background: var(--background-light);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.feature-card {
+    background: var(--white);
+    border: 1px solid var(--eco-green-light);
+    border-radius: 10px;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.feature-card.eco {
+    border-color: var(--primary-color);
+}
+
+.feature-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(24, 35, 15, 0.8);
+}
+
+/* ===================================
+   7. RIDES / COVOITURAGES
+=================================== */
+.rides-section {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.ride-card {
+    background: var(--white);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-gray);
+}
+
+.ride-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ride-header {
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.ride-route {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.ride-date {
+    color: rgba(24, 35, 15, 0.7);
+    font-size: 0.9rem;
+}
+
+.ride-body {
+    padding: 1.5rem;
+}
+
+.price-tag {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: inline-block;
+}
+
+.eco-badge {
+    background: rgba(67, 83, 52, 0.1);
+    color: var(--eco-green);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+/* ===================================
+   8. PAGES D'ERREUR
+=================================== */
+.navbar-logo {
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: var(--font-roboto);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+
+}
+.navbar-logo .eco {
+    color: var(--black); 
+}
+.navbar-logo .barre {
+    color: var(--black);
+}
+.navbar-logo .ride {
+    color: var(--green-logo);
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
+}
+
+
+.error-page {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.error-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.error-icon {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: #bdc3c7;
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.error-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    font-size: 1.125rem;
+    color: rgba(24, 35, 15, 0.7);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.error-suggestions {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.error-suggestions h3 {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.suggestions-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: rgba(67, 83, 52, 0.1);
+    border-radius: 8px;
+    color: var(--eco-green);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.suggestions-list li a:hover {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+/* ===================================
+   9. FOOTER
+=================================== */
+.footer {
+    background: rgba(24, 35, 15, 0.80);
+    color: #FFFFFF;
+    padding: 2rem 0 1rem;
+    margin-top: auto;
+    font-family: var(--font-roboto);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: footerSlideIn 0.6s ease forwards;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-family: var(--font-roboto);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer-logo:hover {
+    transform: scale(1.05);
+}
+
+.footer-logo .eco {
+    color: var(--black); 
+}
+
+.footer-logo .barre {
+    color: var(--black);
+}
+
+.footer-logo .ride {
+    color: var(--green-logo);
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-email {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    opacity: 1;
+}
+
+.footer-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--green-logo);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-link:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.footer-link1 {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1rem;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.footer-link1:hover {
+    color: var(--green-logo);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-link1:focus {
+    outline: 2px solid var(--text-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.footer-email:hover {
+    color: var(--green-logo);
+    opacity: 1;
+    text-decoration: underline;
+}
+
+.footer-email:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* ===================================
+   10. BOUTONS GÉNÉRAUX
+=================================== */
+.btn-outline-primary {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    background: transparent;
+    padding: 0.75rem 2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+/* ===================================
+   11. ANIMATIONS
+=================================== */
+@keyframes footerSlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.about-content,
+.eco-content,
+.cta-content,
+.ride-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.98);
+    padding: 0.5rem 0;
+}
+
+.header.scrolled .nav-container {
+    padding: 0.75rem 1.5rem;
+}
+
+/* ===================================
+   12. RESPONSIVE DESIGN
+=================================== */
+
+/* ===================================
+   BREAKPOINTS MOBILES
+=================================== */
+
+/* Tablette et petits desktop */
+@media (max-width: 992px) {
+    .hero-section {
+        margin: 100px 0 0 0; /* Supprime les marges latérales */
+        padding: 0 1rem;
+    }
+
+    .hero-content .row {
+        gap: 2rem; 
+    }
+    
+    .hero-content {
+        margin: 2rem 0; /* Marges raisonnables */
+    }
+    
+    .search-form-container {
+        width: 100% !important;
+        max-width: 500px;
+        height: auto !important;
+    }
+}
+
+/* BREAKPOINT TABLETTE - iPad Pro */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Inverser l'ordre : texte au-dessus, formulaire en dessous */
+    .hero-content .row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem;
+    }
+    
+    .hero-content .col-lg-6:first-child {
+        order: 1 !important; 
+    }
+    
+    .hero-content .col-lg-6:last-child {
+        order: 2 !important; 
+    }
+    
+    .hero-section {
+        margin: 100px 1rem 0 1rem;
+        padding: 2rem 1rem;
+    }
+    
+    .hero-content {
+        margin: 2rem;
+        text-align: center; 
+    }
+    
+    .hero-text {
+        max-width: 100%;
+        text-align: center; 
+        margin-bottom: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto; 
+        text-align: center;
+    }
+    
+    /* Formulaire centré */
+    .search-form-container {
+        width: 90% !important;
+        max-width: 500px;
+        height: auto !important;
+        margin: 0 auto; 
+    }
+    
+    .search-form {
+        padding: 2rem 2.5rem;
+    }
+}
+
+/* IPHONE SE ET TRÈS PETITS ÉCRANS (375px et moins)*/
+@media (max-width: 375px) {
+    /* Header ultra compact */
+    .nav-container {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .logo {
+        font-size: 1.3rem;
+    }
+    
+    .mobile-toggle {
+        padding: 4px;
+    }
+    
+    .mobile-toggle span {
+        width: 20px;
+        height: 2px;
+    }
+    
+    /* Hero section */
+    .hero-section {
+        padding: 1rem 0.75rem;
+        margin: 70px 0 0 0;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.1;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
+    }
+    
+    /* Formulaire ultra compact */
+    .search-form {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    .form-input {
+        height: 45px;
+        padding: 10px 10px 10px 35px;
+        font-size: 16px; /* Important pour iOS */
+    }
+    
+    .input-icon {
+        left: 10px;
+        font-size: 12px;
+        width: 14px;
+        height: 14px;
+    }
+    
+    .btn-search {
+        height: 45px;
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+    
+    /* Sections */
+    .about-section,
+    .eco-section,
+    .cta-section {
+        padding: 2rem 0;
+    }
+    
+    .section-title,
+    .section-title-white {
+        font-size: 1.75rem;
+    }
+    
+    .about-img,
+    .eco-img,
+    .cta-img {
+        height: 200px;
+    }
+    
+    /* Container */
+    .container {
+        padding: 0 1rem;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 1.5rem 0 1rem;
+    }
+    
+    .footer-logo {
+        font-size: 1.2rem;
+    }
+    
+    .footer-email,
+    .footer-link {
+        font-size: 0.85rem;
+    }
+    
+    /* Navigation mobile */
+    .nav-menu {
+        padding: 0.75rem;
+    }
+    
+    .nav-menu li a {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    /*  HERO SECTION RESPONSIVE */
+   .search-form-container {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 600px;
+    }
+    
+    .search-form {
+        height: auto;
+        padding: 2rem 3rem;
+    }
+    
+    .form-group {
+        flex: none;
+        margin-bottom: 1.25rem;
+    }
+    
+    .form-input {
+        height: auto;
+        padding: 9px 12px 7px 36px;
+    }
+
+    .hero-section {
+        margin: 80px 0 0 0; 
+        min-height: auto;
+        padding: 2rem 1rem;
+        background-attachment: scroll; /* Fix pour mobile */
+    }
+    
+    .hero-content {
+        margin: 1rem 0;
+        width: 100%;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem; 
+        line-height: 1.2;
+        text-align: center;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        text-align: center;
+        max-width: 100%;
+    }
+    
+    /* FORMULAIRE MOBILE*/
+    .search-form-container {
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100%;
+        margin: 1rem 0;
+    }
+    
+    .search-form {
+        height: auto;
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .form-group {
+        flex: none;
+        margin-bottom: 1rem;
+        align-items: stretch;
+    }
+    
+    .form-input {
+        height: 50px;
+        padding: 12px 12px 12px 40px;
+        font-size: 16px; /* Empêche le zoom sur iOS */
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 14px;
+    }
+    
+    .btn-search {
+        height: 50px;
+        padding: 12px;
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+    
+    /*SECTIONS GRID RESPONSIVE*/
+    .about-content,
+    .eco-content,
+    .cta-content {
+        grid-template-columns: 1fr !important;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .about-text,
+    .eco-text,
+    .cta-text {
+        order: 2; 
+        text-align: left;
+    }
+    
+    .about-image,
+    .eco-image,
+    .cta-image {
+        order: 1;
+    }
+    
+    .about-img,
+    .eco-img,
+    .cta-img {
+        width: 100%;
+        height: 250px; 
+        object-fit: cover;
+        border-radius: 8px;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+    
+    .section-title-white {
+        font-size: 2rem;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+    
+    .section-description,
+    .eco-description,
+    .cta-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+    
+    /* SECTIONS SPACING MOBILE*/
+    .about-section,
+    .eco-section,
+    .cta-section,
+    .rides-section {
+        padding: 3rem 0;
+    }
+    
+    .eco-section {
+        margin: 0;
+    }
+    
+    /* HEADER MOBILE*/
+    .mobile-toggle {
+        display: flex;
+    }
+    
+    .nav-container {
+        padding: 0.75rem 1rem;
+    }
+    
+    .logo {
+        font-size: 1.5rem; 
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #FFFFFF;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.3s ease;
+        padding: 1rem;
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .nav-menu li {
+        width: 100%;
+    }
+    
+    .nav-menu li a {
+        display: block;
+        padding: 0.75rem;
+        border-bottom: 1px solid rgba(67, 83, 52, 0.1);
+        font-size: 0.95rem;
+    }
+    
+    .nav-menu li:last-child a {
+        border-bottom: none;
+    }
+    
+    .btn-connexion {
+        padding: 0.6rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /*FOOTER MOBILE*/
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .footer-logo {
+        font-size: 1.4rem;
+    }
+    
+    .footer-email,
+    .footer-link {
+        font-size: 0.9rem;
+    }
+    
+    /*  CARDS RESPONSIVE*/
+    .ride-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .price-tag {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+
+
+/*CORRECTIONS AUTO-COMPLÉTION MOBILE*/
+@media (max-width: 768px) {
+    .autocomplete-suggestions {
+        position: fixed !important;
+        z-index: 9999 !important;
+        max-height: 150px !important;
+        font-size: 14px !important;
+    }
+    
+    .autocomplete-item {
+        padding: 8px 10px !important;
+        font-size: 14px !important;
+    }
+}
+
+/*FIXES GÉNÉRAUX MOBILE*/
+@media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+    
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .section-description {
+        text-align: left !important;
+    }
+    
+    .btn-outline-primary {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
