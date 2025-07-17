@@ -106,25 +106,37 @@ try {
         // ROUTES FUTURES (à implémenter plus tard)
         // ================================================
         case 'rides':
-            // TODO: Créer RideController
-            echo "<h1>Page Covoiturages</h1>";
-            echo "<p>En cours de développement...</p>";
-            echo "<a href='/'>Retour à l'accueil</a>";
+            // Charger la page covoiturages
+            $title = "Covoiturages - EcoRide";
+            require_once '../app/views/layouts/header.php';
+            require_once '../app/views/rides/index.php';
+            require_once '../app/views/layouts/footer.php';
+            break;
+
+            case 'contact':
+            // Charger la page contact
+            $title = "Contact - EcoRide";
+            require_once '../app/views/layouts/header.php';
+            require_once '../app/views/contact/index.php';
+            require_once '../app/views/layouts/footer.php';
             break;
             
         case 'login':
-            // TODO: Créer AuthController
-            echo "<h1>Page Connexion</h1>";
-            echo "<p>En cours de développement...</p>";
-            echo "<a href='/'>Retour à l'accueil</a>";
-            break;
-            
+        case 'auth':
+    // Page connexion temporaire
+    $title = "Connexion - EcoRide";
+    require_once '../app/views/layouts/header.php';
+    require_once '../app/views/auth/login.php';
+    require_once '../app/views/layouts/footer.php';
+    break;
+    
         case 'register':
-            // TODO: Créer AuthController
-            echo "<h1>Page Inscription</h1>";
-            echo "<p>En cours de développement...</p>";
-            echo "<a href='/'>Retour à l'accueil</a>";
-            break;
+    // Page inscription temporaire
+    $title = "Inscription - EcoRide";
+    require_once '../app/views/layouts/header.php';
+    require_once '../app/views/auth/register.php';
+    require_once '../app/views/layouts/footer.php';
+    break;
             
         case 'about':
             // TODO: Créer PageController
@@ -133,12 +145,6 @@ try {
             echo "<a href='/'>Retour à l'accueil</a>";
             break;
             
-        case 'contact':
-            // TODO: Créer PageController
-            echo "<h1>Contact</h1>";
-            echo "<p>En cours de développement...</p>";
-            echo "<a href='/'>Retour à l'accueil</a>";
-            break;
             
         // ================================================
         // GESTION DES ERREURS 404

@@ -224,5 +224,20 @@ class HomeController {
         // Inclure le layout principal
         include '../app/views/layouts/main.php';
     }
+
+    // app/controllers/HomeController.php ou nouveau contrôleur
+public function contact() {
+    $title = "Contact - EcoRide";
+    require_once 'app/views/layouts/header.php';
+    require_once 'app/views/contact/index.php';
+    require_once 'app/views/layouts/footer.php';
+}
+
+public function rides() {
+    $title = "Covoiturages - EcoRide";
+    require_once 'app/views/layouts/header.php';
+    require_once 'app/views/rides/index.php';
+    require_once 'app/views/layouts/footer.php';
+}
     
 }

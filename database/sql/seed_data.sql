@@ -2,7 +2,7 @@
 -- DONNÉES DE TEST ECORIDE - VERSION FINALE
 -- Script de données complètes et fonctionnelles
 -- Date : Juillet 2025
--- Status : ✅ VALIDÉ ET TESTÉ
+-- Status :  VALIDÉ ET TESTÉ
 -- ================================================
 
 -- Désactiver les vérifications temporairement
@@ -37,7 +37,7 @@ ALTER TABLE preference AUTO_INCREMENT = 1;
 -- ================================================
 -- RÔLES
 -- ================================================
-INSERT INTO role (libelle, description) VALUES 
+INSERT INTO role (nom_role, description) VALUES 
 ('administrateur', 'Administrateur de la plateforme'),
 ('employe', 'Employé EcoRide'),
 ('chauffeur', 'Utilisateur pouvant proposer des covoiturages'),
@@ -95,7 +95,7 @@ INSERT INTO utilisateur_role (id_utilisateur, id_role) VALUES
 -- ================================================
 -- PRÉFÉRENCES UTILISATEURS
 -- ================================================
-INSERT INTO preference (id_utilisateur, notification_email, notification_sms, partage_trajet_auto, recherche_automatique) VALUES
+INSERT INTO preference (id_utilisateur, fumeur, animal, musique, discussion) VALUES
 (1, 1, 1, 0, 0), -- Admin
 (2, 1, 0, 1, 1), -- Employé
 (3, 1, 1, 1, 0), -- Jean (chauffeur actif)
@@ -108,45 +108,63 @@ INSERT INTO preference (id_utilisateur, notification_email, notification_sms, pa
 (10, 1, 1, 0, 0); -- Sarah
 
 -- ================================================
--- VÉHICULES
+-- DONNÉES CORRIGÉES ECORIDE - FONCTIONNELLES
 -- ================================================
-INSERT INTO vehicule (id_utilisateur, id_marque, modele, couleur, nb_places, type_carburant, consommation, annee) VALUES
+
+-- VÉHICULES CORRIGÉS
+INSERT INTO vehicule (id_utilisateur, id_marque, modele, couleur, nb_places, energie, immatriculation, date_premiere_immatriculation) VALUES
 -- Véhicules écologiques
-(3, 1, 'Model 3', 'Blanc', 4, 'electrique', 0.15, 2022), -- Jean - Tesla électrique
-(4, 2, 'Leaf', 'Bleu', 4, 'electrique', 0.17, 2021), -- Marie - Nissan électrique  
-(5, 3, 'Prius', 'Gris', 4, 'hybride', 3.8, 2020), -- Pierre - Toyota hybride
+(3, 1, 'Model 3', 'Blanc', 4, 'electrique', 'AB-123-CD', '2022-01-01'), -- Jean - Tesla électrique
+(4, 2, 'Leaf', 'Bleu', 4, 'electrique', 'EF-456-GH', '2021-01-01'), -- Marie - Nissan électrique  
+(5, 3, 'Prius', 'Gris', 4, 'hybride', 'IJ-789-KL', '2020-01-01'), -- Pierre - Toyota hybride
 
 -- Véhicules standards
-(6, 5, 'Clio', 'Rouge', 4, 'essence', 5.2, 2019), -- Julie - Renault essence
-(3, 4, 'Golf', 'Noir', 4, 'essence', 5.8, 2018), -- Jean - VW essence (2ème véhicule)
-(4, 3, 'Yaris', 'Vert', 4, 'hybride', 3.5, 2021), -- Marie - Toyota hybride (2ème véhicule)
-(5, 6, 'Fiesta', 'Bleu', 4, 'essence', 5.5, 2020); -- Pierre - Ford essence (2ème véhicule)
+(6, 5, 'Clio', 'Rouge', 4, 'essence', 'MN-012-OP', '2019-01-01'), -- Julie - Renault essence
+(3, 4, 'Golf', 'Noir', 4, 'essence', 'QR-345-ST', '2018-01-01'), -- Jean - VW essence (2ème véhicule)
+(4, 3, 'Yaris', 'Vert', 4, 'hybride', 'UV-678-WX', '2021-01-01'), -- Marie - Toyota hybride (2ème véhicule)
+(5, 6, 'Fiesta', 'Bleu', 4, 'essence', 'YZ-901-AB', '2020-01-01'); -- Pierre - Ford essence (2ème véhicule)
 
--- ================================================
--- COVOITURAGES
--- ================================================
-INSERT INTO covoiturage (id_utilisateur, id_vehicule, ville_depart, ville_arrivee, adresse_depart, adresse_arrivee, date_depart, date_arrivee_prevue, nb_places_disponibles, prix_par_personne, description, statut) VALUES
+-- COVOITURAGES CORRIGÉS
+INSERT INTO covoiturage (id_conducteur, id_vehicule, ville_depart, ville_arrivee, lieu_depart, lieu_arrivee, date_depart, heure_depart, date_arrivee, heure_arrivee, nb_places_total, nb_places_disponibles, prix_par_personne, commentaire, statut) VALUES
 
 -- Trajets futurs (disponibles pour réservation)
-(3, 1, 'Paris', 'Marseille', 'Gare de Lyon, Paris', 'Gare Saint-Charles, Marseille', '2025-07-25 08:00:00', '2025-07-25 16:30:00', 3, 73.00, 'Trajet écologique en Tesla Model 3. Voyage confortable et silencieux !', 'actif'),
+(3, 1, 'Paris', 'Marseille', 'Gare de Lyon, Paris', 'Gare Saint-Charles, Marseille', '2025-07-25', '08:00', '2025-07-25', '16:30', 3, 2, 73.00, 'Trajet écologique en Tesla Model 3. Voyage confortable et silencieux !', 'planifie'),
 
-(4, 2, 'Lyon', 'Toulouse', 'Part-Dieu, Lyon', 'Capitole, Toulouse', '2025-07-26 09:30:00', '2025-07-26 14:45:00', 2, 56.00, 'Voyage 100% électrique en Nissan Leaf. Partage des frais équitable.', 'actif'),
+(4, 2, 'Lyon', 'Toulouse', 'Part-Dieu, Lyon', 'Capitole, Toulouse', '2025-07-26', '09:30', '2025-07-26', '14:45', 3, 2, 56.00, 'Voyage 100% électrique en Nissan Leaf. Partage des frais équitable.', 'planifie'),
 
-(3, 5, 'Marseille', 'Nice', 'Centre-ville Marseille', 'Promenade des Anglais, Nice', '2025-07-27 14:00:00', '2025-07-27 16:30:00', 3, 28.00, 'Trajet côtier magnifique. Volkswagen Golf confortable.', 'actif'),
+(3, 5, 'Marseille', 'Nice', 'Centre-ville Marseille', 'Promenade des Anglais, Nice', '2025-07-27', '14:00', '2025-07-27', '16:30', 3, 3, 28.00, 'Trajet côtier magnifique. Volkswagen Golf confortable.', 'planifie'),
 
-(5, 3, 'Nice', 'Cannes', 'Gare SNCF Nice', 'Palais des Festivals, Cannes', '2025-07-28 10:15:00', '2025-07-28 11:00:00', 3, 18.00, 'Court trajet hybride Toyota Prius. Économique et écologique.', 'actif'),
+(5, 3, 'Nice', 'Cannes', 'Gare SNCF Nice', 'Palais des Festivals, Cannes', '2025-07-28', '10:15', '2025-07-28', '11:00', 3, 3, 18.00, 'Court trajet hybride Toyota Prius. Économique et écologique.', 'planifie'),
 
-(6, 4, 'Bordeaux', 'Toulouse', 'Place Gambetta, Bordeaux', 'Place Wilson, Toulouse', '2025-07-29 07:45:00', '2025-07-29 10:15:00', 3, 43.00, 'Renault Clio récente. Trajet matinal pour éviter la circulation.', 'actif'),
+(6, 4, 'Bordeaux', 'Toulouse', 'Place Gambetta, Bordeaux', 'Place Wilson, Toulouse', '2025-07-29', '07:45', '2025-07-29', '10:15', 3, 3, 43.00, 'Renault Clio récente. Trajet matinal pour éviter la circulation.', 'planifie'),
 
-(5, 7, 'Toulouse', 'Montpellier', 'Capitole, Toulouse', 'Place de la Comédie, Montpellier', '2025-07-30 16:30:00', '2025-07-30 19:00:00', 2, 38.00, 'Ford Fiesta économique. Partage des frais d\'autoroute inclus.', 'actif'),
+(5, 7, 'Toulouse', 'Montpellier', 'Capitole, Toulouse', 'Place de la Comédie, Montpellier', '2025-07-30', '16:30', '2025-07-30', '19:00', 3, 2, 38.00, 'Ford Fiesta économique. Partage des frais d\'autoroute inclus.', 'planifie'),
 
-(4, 6, 'Montpellier', 'Marseille', 'Gare Montpellier', 'Vieux-Port, Marseille', '2025-07-31 11:00:00', '2025-07-31 13:30:00', 3, 49.00, 'Toyota Yaris hybride. Trajet écologique vers Marseille.', 'actif'),
+(4, 6, 'Montpellier', 'Marseille', 'Gare Montpellier', 'Vieux-Port, Marseille', '2025-07-31', '11:00', '2025-07-31', '13:30', 3, 3, 49.00, 'Toyota Yaris hybride. Trajet écologique vers Marseille.', 'planifie'),
 
+
+-- Trajets depuis villes proches de Paris
+(4, 2, 'Versailles', 'Bordeaux', 'Château de Versailles', 'Centre-ville Bordeaux', '2025-07-25', '09:00', '2025-07-25', '15:00', 3, 3, 65.00, 'Trajet direct Versailles-Bordeaux en Nissan Leaf électrique', 'planifie'),
+
+(5, 3, 'Créteil', 'Marseille', 'Préfecture Créteil', 'Gare Saint-Charles Marseille', '2025-07-25', '08:30', '2025-07-25', '16:00', 3, 2, 70.00, 'Trajet Créteil-Marseille via autoroute A6', 'planifie'),
+
+(3, 1, 'Meaux', 'Lyon', 'Gare de Meaux', 'Part-Dieu Lyon', '2025-07-25', '10:00', '2025-07-25', '14:30', 3, 3, 55.00, 'Tesla Model 3, trajet confortable vers Lyon', 'planifie'),
+
+-- Trajets vers villes proches des destinations
+(6, 4, 'Paris', 'Nantes', 'Gare Montparnasse', 'Gare de Nantes', '2025-07-25', '11:00', '2025-07-25', '15:30', 3, 2, 60.00, 'Trajet direct Paris-Nantes en Renault Clio', 'planifie'),
+
+(4, 6, 'Lyon', 'Saint-Étienne', 'Part-Dieu Lyon', 'Centre-ville Saint-Étienne', '2025-07-25', '14:00', '2025-07-25', '15:30', 3, 3, 25.00, 'Court trajet Lyon-Saint-Étienne en Toyota Yaris hybride', 'planifie'),
+
+-- Trajets populaires pour enrichir les alternatives
+(5, 7, 'Paris', 'Tours', 'Gare d\'Austerlitz', 'Gare de Tours', '2025-07-25', '12:00', '2025-07-25', '14:30', 3, 2, 45.00, 'Trajet Paris-Tours via A10', 'planifie'),
+
+(3, 5, 'Lille', 'Paris', 'Gare Lille Europe', 'Gare du Nord Paris', '2025-07-25', '16:00', '2025-07-25', '17:15', 3, 3, 35.00, 'Trajet rapide Lille-Paris', 'planifie'),
+
+(6, 4, 'Marseille', 'Montpellier', 'Gare Saint-Charles', 'Gare Montpellier', '2025-07-25', '13:00', '2025-07-25', '15:30', 3, 1, 40.00, 'Trajet côte méditerranéenne', 'planifie');
 -- Trajets passés (pour historique et avis)
-(3, 1, 'Paris', 'Agde', 'République, Paris', 'Centre-ville Agde', '2025-07-09 08:00:00', '2025-07-09 16:00:00', 0, 76.00, 'Long trajet Paris-Agde en Tesla. Voyage réalisé avec succès.', 'termine'),
+(3, 1, 'Paris', 'Agde', 'République, Paris', 'Centre-ville Agde', '2025-07-09', '08:00', '2025-07-09', '16:00', 3, 0, 76.00, 'Long trajet Paris-Agde en Tesla. Voyage réalisé avec succès.', 'termine'),
 
-(4, 2, 'Colombes', 'Montpellier', 'RER Colombes', 'Gare Montpellier', '2025-07-11 07:30:00', '2025-07-11 15:30:00', 0, 68.00, 'Trajet Colombes-Montpellier en Nissan Leaf. Terminé avec satisfaction.', 'termine');
-
+(4, 2, 'Colombes', 'Montpellier', 'RER Colombes', 'Gare Montpellier', '2025-07-11', '07:30', '2025-07-11', '15:30', 3, 0, 68.00, 'Trajet Colombes-Montpellier en Nissan Leaf. Terminé avec satisfaction.', 'termine');
 -- ================================================
 -- PARTICIPATIONS
 -- ================================================
@@ -300,9 +318,9 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ================================================
 -- STATISTIQUES FINALES
 -- ================================================
-SELECT '🎉================================🎉' AS '';
+SELECT '================================' AS '';
 SELECT '   DONNÉES ECORIDE INSÉRÉES AVEC SUCCÈS !   ' AS '';
-SELECT '🎉================================🎉' AS '';
+SELECT '================================' AS '';
 
 SELECT 
     (SELECT COUNT(*) FROM utilisateur) AS 'Utilisateurs',
@@ -312,13 +330,13 @@ SELECT
     (SELECT COUNT(*) FROM avis) AS 'Avis',
     (SELECT COUNT(*) FROM transaction_credit) AS 'Transactions';
 
-SELECT '💰 COMMISSIONS PLATEFORME :' AS '';
+SELECT 'COMMISSIONS PLATEFORME :' AS '';
 SELECT CONCAT(SUM(commission), ' crédits') AS 'Total Commissions EcoRide' FROM transaction_credit;
 
-SELECT '🏦 CRÉDITS EN CIRCULATION :' AS '';
+SELECT 'CRÉDITS EN CIRCULATION :' AS '';
 SELECT CONCAT(SUM(credit), ' crédits') AS 'Total Crédits Utilisateurs' FROM utilisateur;
 
-SELECT '🏆 TOP UTILISATEURS :' AS '';
+SELECT 'TOP UTILISATEURS :' AS '';
 SELECT 
     pseudo AS 'Pseudo',
     CONCAT(credit, ' crédits') AS 'Solde',
@@ -334,14 +352,14 @@ SELECT
 FROM utilisateur 
 ORDER BY credit DESC LIMIT 5;
 
-SELECT '🌱 COVOITURAGES ÉCOLOGIQUES DISPONIBLES :' AS '';
+SELECT 'COVOITURAGES ÉCOLOGIQUES DISPONIBLES :' AS '';
 SELECT 
     CONCAT(ville_depart, ' → ', ville_arrivee) AS 'Trajet',
     CONCAT(prix_par_personne, ' crédits') AS 'Prix',
     type_carburant AS 'Carburant',
     CASE 
-        WHEN type_carburant IN ('electrique', 'hybride') THEN '🌱 Écologique'
-        ELSE '⚡ Standard'
+        WHEN type_carburant IN ('electrique') THEN '<i class="fas fa-leaf"></i>Écologique'
+        ELSE 'Standard'
     END AS 'Impact'
 FROM covoiturage c
 JOIN vehicule v ON c.id_vehicule = v.id_vehicule
@@ -352,14 +370,14 @@ ORDER BY
          ELSE 3 END,
     c.date_depart;
 
-SELECT '🔑 IDENTIFIANTS POUR TESTS :' AS '';
+SELECT 'IDENTIFIANTS POUR TESTS :' AS '';
 SELECT 'admin_eco (admin) → admin@ecoride.fr → password123' AS '';
 SELECT 'jean_eco (chauffeur) → jean.dupont@email.com → password123' AS '';
 SELECT 'marie_green (chauffeur) → marie.leblanc@email.com → password123' AS '';
 SELECT 'alex_passenger → alex.rousseau@email.com → password123' AS '';
 
-SELECT '✅ Base de données EcoRide prête pour le développement !' AS '';
-SELECT '✅ Système de crédits opérationnel !' AS '';
-SELECT '✅ Données de test cohérentes et réalistes !' AS '';
-SELECT '✅ Triggers de sécurité activés !' AS '';
-SELECT '✅ Relations entre tables validées !' AS '';
+SELECT 'Base de données EcoRide prête pour le développement !' AS '';
+SELECT 'Système de crédits opérationnel !' AS '';
+SELECT 'Données de test cohérentes et réalistes !' AS '';
+SELECT 'Triggers de sécurité activés !' AS '';
+SELECT 'Relations entre tables validées !' AS '';

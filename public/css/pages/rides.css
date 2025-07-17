@@ -1,0 +1,1289 @@
+/* ===================================
+   STYLES PAGE COVOITURAGES
+=================================== */
+
+body {
+    background-color: var(--background-light);
+}
+
+/* Hero Rides */
+.rides-hero {
+    background-image: url('/images/passager.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--white);
+    padding: 8rem 0 4rem;
+    margin-top: 80px;
+    text-align: center;
+
+    /* Overlay sombre pour la lisibilité du texte */
+    background-blend-mode: overlay;
+    background-color: rgba(21, 22, 21, 0.5); /* var(--primary-color) avec transparence */
+    
+    color: var(--white);
+    padding: 8rem 0 4rem;
+    margin-top: 80px;
+    text-align: center;
+    position: relative;
+}
+
+.rides-title {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.rides-subtitle {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+    line-height: 1.6;
+    color: var(--secondary-color);
+}
+
+/* ===================================
+   FORMULAIRE DE RECHERCHE HARMONISÉ
+=================================== */
+
+/* Section recherche */
+.rides-search-section {
+    padding: 4rem 0 2rem;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.rides-search-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-section-title {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+.search-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.search-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-group label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Input avec icône - HARMONISÉ avec page d'accueil */
+.input-with-icon {
+    position: relative;
+    width: 100%;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--eco-green-light);
+    pointer-events: none;
+    z-index: 10;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+/* STYLES DES CHAMPS - HARMONISÉS avec page d'accueil */
+.search-input {
+    width: 100%;
+    padding: 15px 12px 13px 36px; /* Même padding que page d'accueil */
+    border: 1px solid var(--eco-green-light);
+    border-radius: 3px; /* Même border-radius que page d'accueil */
+    font-size: 18px; /* Même font-size que page d'accueil */
+    background: var(--white);
+    font-family: var(--font-roboto);
+    height: 55px; /* Même hauteur que page d'accueil */
+    
+    /* COULEUR HARMONISÉE - même pour tous les champs */
+    color: var(--eco-green-light);
+    transition: border-color 0.3s ease;
+}
+
+/* Couleur des placeholders */
+.search-input::placeholder {
+    color: var(--eco-green-light);
+    opacity: 0.7;
+}
+
+/* Couleur au focus */
+.search-input:focus {
+    border-color: var(--eco-green-light);
+    outline: none;
+}
+
+/* SPÉCIFICITÉS PAR TYPE DE CHAMP - HARMONISÉES */
+
+/* Champs texte - couleur change quand rempli */
+.search-input[type="text"]:not(:placeholder-shown) {
+    color: var(--text-color);
+}
+
+/* Champ date - CORRIGÉ pour avoir la même couleur */
+.search-input[type="date"] {
+    color: var(--eco-green-light);
+}
+
+/* Permettre au JavaScript de changer la couleur */
+.search-input[type="date"][data-filled="true"] {
+    color: var(--text-color) !important;
+}
+
+/* Champ date - masquer icône par défaut */
+.search-input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45px;
+    height: 100%;
+    cursor: pointer;
+    z-index: 11;
+}
+
+/* Select - CORRIGÉ pour avoir la même couleur */
+select.search-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    cursor: pointer;
+    color: var(--eco-green-light); /* Couleur par défaut */
+}
+
+/* Options du select */
+select.search-input option {
+    color: var(--text-color);
+    background: var(--white);
+}
+
+/* Icônes spécifiques */
+.input-with-icon .fa-user {
+    pointer-events: none;
+    color: var(--eco-green-light);
+}
+
+/* Bouton recherche */
+.btn-search-rides {
+    background: rgba(24, 35, 15, 0.8); /* Même style que page d'accueil */
+    color: var(--white);
+    padding: 0.75rem 2rem; /* Même padding que page d'accueil */
+    border: none;
+    border-radius: 3px; /* Même border-radius que page d'accueil */
+    font-size: 1.1rem;
+    font-weight: 200; /* Même font-weight que page d'accueil */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: var(--font-roboto);
+    height: 60px; /* Même hauteur que page d'accueil */
+    backdrop-filter: blur(2rem); /* Même effet que page d'accueil */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.btn-search-rides:hover {
+    background: var(--text-color); /* Même hover que page d'accueil */
+}
+
+/* STYLES UNIFIÉS POUR TOUS LES CHAMPS - comme page d'accueil */
+.search-input:hover {
+    border-color: #999 !important;
+    background-color: #f8f9fa !important;
+    transition: all 0.2s ease !important;
+}
+
+.search-input:focus {
+    border-color: #007bff !important;
+    background-color: white !important;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25) !important;
+    outline: none !important;
+}
+
+/* Style unifié pour les options du select */
+#searchPassengers option {
+    background-color: white !important;
+    color: #333 !important;
+    padding: 8px 12px !important;
+}
+
+#searchPassengers option:hover {
+    background-color: #007bff !important;
+    color: white !important;
+}
+
+#searchPassengers option:checked,
+#searchPassengers option:selected {
+    background-color: #0056b3 !important;
+    color: white !important;
+}
+
+/* ===================================
+   AUTO-COMPLÉTION RIDES - STYLES CORRIGÉS
+=================================== */
+
+/* Container principal de l'auto-complétion */
+.autocomplete-suggestions {
+    position: fixed !important;
+    background-color: white;
+    border: 2px solid var(--eco-green-light) !important;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(67, 83, 52, 0.15) !important;
+    z-index: 99999 !important;
+    overflow-y: auto;
+    font-family: var(--font-roboto);
+    max-height: 200px;
+}
+
+/* Items de suggestion */
+.autocomplete-item {
+    padding: 12px 15px !important;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    color: #333 !important;
+    font-family: var(--font-roboto) !important;
+    font-size: 16px !important;
+    transition: all 0.2s ease;
+    background-color: transparent !important;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item:hover {
+    background-color: var(--eco-green-light) !important;
+    color: white !important;
+}
+
+/* S'assurer que les input relatifs sont positionnés correctement */
+.input-with-icon {
+    position: relative !important;
+}
+
+.search-input,
+.form-input {
+    position: relative !important;
+    z-index: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .search-form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-input {
+        height: 50px;
+        padding: 12px 12px 12px 40px;
+        font-size: 16px; /* Empêche le zoom sur iOS */
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 14px;
+    }
+    
+    .btn-search-rides {
+        height: 50px;
+        padding: 12px;
+        font-size: 1rem;
+        max-width: 100%;
+    }
+    
+    .autocomplete-suggestions {
+        position: fixed !important;
+        z-index: 9999 !important;
+        max-height: 150px !important;
+        font-size: 14px !important;
+    }
+    
+    .autocomplete-item {
+        padding: 8px 10px !important;
+        font-size: 14px !important;
+    }
+}
+
+/* ===================================
+   SECTION FILTRES - NETTOYÉE
+=================================== */
+
+.rides-filters-section {
+    padding: 2rem 0;
+    background: var(--light-gray);
+}
+
+.filters-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.filters-title {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    align-items: end;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px
+}
+
+.filter-group label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+/* SLIDER DE PRIX/CRÉDITS */
+.price-slider {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.price-display {
+    font-weight: 600;
+    color: var(--eco-green);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* CHECKBOXES PERSONNALISÉES - VERSION NETTOYÉE */
+.checkbox-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-left: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+/* CACHER COMPLÈTEMENT LA VRAIE CHECKBOX */
+.filter-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* CHECKBOX PERSONNALISÉE VISIBLE */
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-gray);
+    border-radius: 4px;
+    position: relative;
+    background-color: var(--white);
+    flex-shrink: 0; /* Empêche la déformation */
+}
+
+/* État coché */
+.filter-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: var(--eco-green);
+    border-color: var(--eco-green);
+}
+
+/* Icône de la coche */
+.filter-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Effet hover sur la checkbox personnalisée */
+.filter-checkbox:hover .checkmark {
+    border-color: var(--eco-green);
+    background-color: rgba(67, 83, 52, 0.1);
+}
+
+/* S'assurer que le texte est bien aligné */
+.filter-checkbox span:not(.checkmark) {
+    line-height: 1;
+    user-select: none;
+}
+
+/* SELECT ET BOUTON RESET */
+.filter-select {
+    padding: 0.75rem;
+    border: 2px solid var(--border-gray);
+    border-radius: 6px;
+    background: var(--white);
+}
+
+.btn-reset-filters {
+    background: transparent;
+    color: var(--eco-green);
+    border: 2px solid var(--eco-green);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-reset-filters:hover {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+/* ===================================
+   BADGE DE PRIX/CRÉDITS
+=================================== */
+
+.price-badge {
+    background: var(--eco-green);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: center;
+}
+
+/* TOOLTIP POUR EXPLIQUER LE SYSTÈME DE CRÉDITS */
+.credits-info {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+    margin-left: 0.5rem;
+}
+
+.credits-info::after {
+    content: "ⓘ";
+    color: var(--eco-green-light);
+    font-size: 0.8rem;
+}
+
+.credits-info:hover::before {
+    content: "1 crédit = valeur fixée par le chauffeur";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-color);
+    color: var(--white);
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 0.25rem;
+}
+
+/* ===================================
+   SECTION RÉSULTATS
+=================================== */
+
+.rides-results-section {
+    padding: 3rem 0;
+    background: var(--background-light);
+    border-top: 1px solid var(--border-gray);
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.results-title {
+    font-size: 1.8rem;
+    color: var(--text-color);
+}
+
+.results-count {
+    color: var(--eco-green);
+    font-weight: 600;
+}
+
+/* Grille des trajets */
+.rides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* ===================================
+   CARTES DE TRAJETS MODERNES
+=================================== */
+
+.ride-card-modern {
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-gray);
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ride-card-modern:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.ride-card-header {
+    padding: 1.5rem;
+    background: var(--light-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.route {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.date-time {
+    color: var(--eco-green);
+    font-weight: 500;
+}
+
+.ride-card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.driver-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.driver-avatar {
+    font-size: 2.5rem;
+    color: var(--eco-green);
+}
+
+.driver-details h4 {
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.driver-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.stars {
+    color: #ffc107;
+}
+
+.rating-value {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.reviews-count {
+    color: var(--eco-green-light);
+}
+
+.ride-details {
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.detail-item i {
+    width: 16px;
+    color: var(--eco-green);
+}
+
+.ride-details .price-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.ride-details .price-detail i {
+    width: 16px;
+    color: var(--eco-green);
+}
+
+.ride-details .price-detail .credits-amount {
+    color: var(--eco-green);
+    font-weight: 600;
+}
+
+.ride-badges {
+    margin-bottom: 0; /* Enlever la marge du bas */
+    margin-top: auto;
+}
+
+.eco-badge {
+    background: rgba(67, 83, 52, 0.1);
+    color: var(--eco-green);
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.ride-card-footer {
+    padding: 1rem 1.5rem;
+    background: var(--light-gray);
+    display: flex;
+    gap: 1rem;
+     margin-top: auto;
+}
+
+.btn-details,
+.btn-book {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-details {
+    background: transparent;
+    color: var(--eco-green);
+    border: 2px solid var(--eco-green);
+}
+
+.btn-details:hover {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+.btn-book {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+.btn-book:hover {
+    background: var(--primary-color);
+}
+
+.btn-book.booked {
+    background: #28a745;
+    cursor: not-allowed;
+}
+
+/* ===================================
+   MESSAGE AUCUN RÉSULTAT
+=================================== */
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+}
+
+.no-results-content i {
+    font-size: 4rem;
+    color: var(--eco-green-light);
+    margin-bottom: 1rem;
+}
+
+.no-results-content h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.btn-reset-search {
+    background: var(--eco-green);
+    color: var(--white);
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+/* ===================================
+   PAGINATION
+=================================== */
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-btn,
+.pagination-number {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-gray);
+    background: var(--white);
+    color: var(--text-color);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled),
+.pagination-number:hover {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+.pagination-number.active {
+    background: var(--eco-green);
+    color: var(--white);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===================================
+   CTA SECTION
+=================================== */
+
+.rides-cta-section {
+    background-image: url('/images/passager.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--secondary-color);
+    padding: 8rem 0 4rem;
+    margin-top: 80px;
+    text-align: center;
+    
+
+    /* Overlay sombre pour la lisibilité du texte */
+    background-blend-mode: overlay;
+    background-color: rgba(21, 22, 21, 0.5); /* var(--primary-color) avec transparence */
+    
+    
+    color: var(--secondary-color);
+    padding: 8rem 0 4rem;
+    margin-top: 80px;
+    text-align: center;
+    position: relative;
+}
+
+.rides-cta-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--secondary-color) !important;
+    position: relative;
+    z-index: 2;
+    background: none !important;
+}
+
+.rides-cta-section p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 1;
+    color: var(--secondary-color) !important;
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    background: none !important;
+}
+
+.cta-content {
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+}
+
+.cta-content h2,
+.cta-content p {
+    color: var(--secondary-color) !important;
+    background: none !important;
+    text-shadow: none !important;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-alert,
+.btn-create {
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.btn-alert {
+    background: transparent !important;
+    color: var(--secondary-color) !important;
+    border: 2px solid var(--secondary-color) !important;
+}
+
+.btn-alert:hover {
+    background: var(--secondary-color) !important;
+    color: var(--text-color) !important;
+}
+
+.btn-create {
+    background: var(--secondary-color) !important;
+    color:  var(--text-color) !important;
+    border: 2px solid var(--secondary-color) !important;
+}
+
+.btn-create:hover {
+    background: transparent !important;
+    color: var(--secondary-color) !important;
+}
+
+/* SUPPRESSION AGRESSIVE DE TOUT CE QUI POURRAIT MASQUER */
+.rides-cta-section *::before,
+.rides-cta-section *::after {
+    display: none !important;
+}
+
+.rides-cta-section::before,
+.rides-cta-section::after {
+    display: none !important;
+}
+
+/* STYLES SPÉCIFIQUES POUR FORCER L'AFFICHAGE */
+.rides-cta-section .container,
+.rides-cta-section .cta-content,
+.rides-cta-section h2,
+.rides-cta-section p {
+    background: none !important;
+    color: var(--secondary-color) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* ===================================
+   AUTO-COMPLÉTION RIDES - STYLES SPÉCIFIQUES
+=================================== */
+
+.autocomplete-suggestions-rides {
+    position: fixed !important;
+    background-color: white !important;
+    border: 2px solid #435334 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 12px rgba(67, 83, 52, 0.15) !important;
+    z-index: 999999 !important;
+    overflow-y: auto !important;
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.autocomplete-item-rides {
+    cursor: pointer !important;
+    color: #333 !important;
+    font-family: 'Roboto', sans-serif !important;
+    transition: all 0.2s ease !important;
+    background-color: transparent !important;
+}
+
+.autocomplete-item-rides:hover {
+    background-color: #435334 !important;
+    color: white !important;
+}
+
+/* ===================================
+   STYLES POUR LES ÉLÉMENTS API
+=================================== */
+
+/* Informations API dans les filtres */
+.api-info {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--eco-green);
+    font-style: italic;
+}
+
+/* Loader API */
+.api-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    grid-column: 1 / -1;
+}
+
+.api-loader i {
+    font-size: 2rem;
+    color: var(--eco-green);
+    margin-bottom: 1rem;
+}
+
+.api-loader p {
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Erreur API */
+.api-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    grid-column: 1 / -1;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+.api-error i {
+    font-size: 2rem;
+    color: #dc3545;
+    margin-bottom: 1rem;
+}
+
+.api-error p {
+    color: #dc3545;
+    margin: 0 0 1rem 0;
+    font-weight: 500;
+}
+
+.api-error button {
+    padding: 0.5rem 1rem;
+    background: var(--eco-green);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.api-error button:hover {
+    background: var(--primary-color);
+}
+
+/* Stats temps réel */
+.realtime-stats {
+    background: rgba(67, 83, 52, 0.1);
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid rgba(67, 83, 52, 0.2);
+}
+
+.realtime-stats h4 {
+    color: var(--eco-green);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.realtime-stats div {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-color);
+}
+
+.realtime-stats div:last-child {
+    margin-bottom: 0;
+}
+
+/* Slider de durée */
+.duration-slider {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.duration-display {
+    font-weight: 600;
+    color: var(--eco-green);
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+/* Responsive pour les éléments API */
+@media (max-width: 768px) {
+    .api-loader {
+        padding: 1.5rem;
+    }
+    
+    .api-loader i {
+        font-size: 1.5rem;
+    }
+    
+    .api-error {
+        padding: 1.5rem;
+    }
+    
+    .api-error i {
+        font-size: 1.5rem;
+    }
+    
+    .realtime-stats {
+        padding: 0.75rem;
+    }
+    
+    .realtime-stats h4 {
+        font-size: 0.9rem;
+    }
+    
+    .realtime-stats div {
+        font-size: 0.8rem;
+    }
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+    .rides-hero {
+        padding: 6rem 0 3rem;
+    }
+    
+    .rides-title {
+        font-size: 2.5rem;
+    }
+    
+    .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .rides-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .price-badge {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+        min-width: 70px;
+    }
+    
+    .price-display {
+        font-size: 0.9rem;
+    }
+    
+    .filter-group label {
+        font-size: 0.9rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .btn-alert,
+    .btn-create {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+        padding: 0.875rem 1.5rem;
+    }
+    
+    .rides-cta-section {
+        padding: 3rem 1rem;
+    }
+    
+    .rides-cta-section h2 {
+        font-size: 1.7rem;
+    }
+    
+    .rides-cta-section p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* ===================================
+   AVATARS DE PROFIL
+=================================== */
+
+.driver-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--eco-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-gray);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Fallback si l'image ne charge pas */
+.driver-avatar i {
+    font-size: 2.5rem;
+    color: var(--eco-green);
+    display: none; /* Masquer par défaut */
+}
+
+.avatar-img:error + i {
+    display: block; /* Afficher l'icône en cas d'erreur */
+}
+
+/* ===================================
+   STYLES POUR LES TRAJETS ALTERNATIFS
+=================================== */
+
+.alternatives-section {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    border-top: 2px dashed var(--eco-green-light);
+    background: rgba(67, 83, 52, 0.02);
+    border-radius: 8px;
+    grid-column: 1 / -1;
+}
+
+.alternatives-title {
+    font-size: 1.3rem;
+    color: var(--eco-green);
+    margin-bottom: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.alternatives-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.alternative-group {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--eco-green-light);
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(67, 83, 52, 0.1);
+}
+
+.alternative-route {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--eco-green);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.ride-card-alternative {
+    border: 1px solid var(--eco-green-light);
+    margin-bottom: 0;
+}
+
+.ride-card-alternative .price-badge {
+    background: var(--eco-green-light);
+}
+
+@media (max-width: 768px) {
+    .alternatives-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .alternatives-section {
+        padding: 1rem;
+    }
+}

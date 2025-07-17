@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 passengers: passengers
             });
             
-            window.location.href = `/ecoride/rides/search?${searchParams.toString()}`;
+            window.location.href = `/ecoride/public/rides?${searchParams.toString()}`;
         });
     }
     
@@ -366,28 +366,23 @@ function createAutocomplete(inputElement) {
     let selectedIndex = -1;
     let currentRequest = null;
     let isMouseDownOnSuggestion = false;
-
-    // Cache pour éviter les requêtes répétées
     const cache = new Map();
 
     async function searchCities(query) {
-        // Vérifier le cache d'abord
         if (cache.has(query)) {
             return cache.get(query);
         }
 
         try {
-            // Annuler la requête précédente si elle existe
             if (currentRequest) {
                 currentRequest.abort();
             }
 
-            // Créer un AbortController pour cette requête
             const controller = new AbortController();
             currentRequest = controller;
 
             const response = await fetch(
-                `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(query)}&fields=nom,code,population&limit=10`,
+                `https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(query)}&fields=nom,code,population&limit=8`,
                 { signal: controller.signal }
             );
 
@@ -397,44 +392,30 @@ function createAutocomplete(inputElement) {
 
             const cities = await response.json();
             
-            // Traiter et trier les résultats - SANS codes postaux
             const processedCities = cities
                 .map(city => ({
                     name: city.nom,
                     population: city.population || 0
                 }))
                 .sort((a, b) => {
-                    // Priorité aux villes qui commencent par la recherche
                     const aStarts = a.name.toLowerCase().startsWith(query.toLowerCase());
                     const bStarts = b.name.toLowerCase().startsWith(query.toLowerCase());
                     
                     if (aStarts && !bStarts) return -1;
                     if (!aStarts && bStarts) return 1;
                     
-                    // Ensuite trier par population (plus grande d'abord)
                     return b.population - a.population;
                 });
 
-            // Mettre en cache le résultat
             cache.set(query, processedCities);
             return processedCities;
 
         } catch (error) {
             if (error.name === 'AbortError') {
-                // Requête annulée, normal
                 return [];
             }
             console.warn('Erreur lors de la recherche de villes:', error);
-            
-            // Fallback sur une liste locale minimale en cas d'erreur
-            const fallbackCities = [
-                'Paris', 'Marseille', 'Lyon', 'Toulouse', 'Nice', 'Nantes', 
-                'Strasbourg', 'Montpellier', 'Bordeaux', 'Lille', 'Rennes'
-            ];
-            
-            return fallbackCities
-                .filter(city => city.toLowerCase().includes(query.toLowerCase()))
-                .map(city => ({ name: city, population: 0 }));
+            return [];
         }
     }
 
@@ -446,68 +427,47 @@ function createAutocomplete(inputElement) {
         autocompleteContainer = document.createElement('div');
         autocompleteContainer.className = 'autocomplete-suggestions';
         
-        // CALCUL DE POSITION MOBILE
+        // CORRECTION : Positionnement fixé à l'input
         const inputRect = inputElement.getBoundingClientRect();
-        const viewport = {
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
         
-        // Détection mobile
-        const isMobile = viewport.width <= 768;
+        const topPosition = inputRect.bottom + scrollTop + 2;
+        const leftPosition = inputRect.left + scrollLeft;
         
-        let topPosition, leftPosition, widthValue;
-        
-        if (isMobile) {
-            // MOBILE : Position relative au champ avec vérification
-            const containerRect = inputElement.closest('.search-form').getBoundingClientRect();
-            const inputRelativeTop = inputRect.top - containerRect.top;
-            
-            topPosition = (containerRect.top + inputRelativeTop + inputRect.height + 2) + 'px';
-            leftPosition = Math.max(inputRect.left, 10) + 'px'; // Min 10px du bord
-            widthValue = Math.min(inputRect.width, viewport.width - 20) + 'px'; // Max largeur - 20px
-        } else {
-            // DESKTOP : Position normale
-            topPosition = (inputRect.bottom + window.scrollY + 2) + 'px';
-            leftPosition = (inputRect.left + window.scrollX) + 'px';
-            widthValue = inputRect.width + 'px';
-        }
-        
-        // Styles cohérents avec le reste du formulaire
-        autocompleteContainer.style.position = 'fixed';
-        autocompleteContainer.style.top = topPosition;
-        autocompleteContainer.style.left = leftPosition;
-        autocompleteContainer.style.width = widthValue;
-        autocompleteContainer.style.backgroundColor = 'white';
-        autocompleteContainer.style.border = '1px solid #ccc';
-        autocompleteContainer.style.borderRadius = '4px';
-        autocompleteContainer.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        autocompleteContainer.style.zIndex = '9999';
-        autocompleteContainer.style.maxHeight = isMobile ? '120px' : '200px';
-        autocompleteContainer.style.overflowY = 'auto';
+        // Styles pour positionnement fixe
+        Object.assign(autocompleteContainer.style, {
+            position: 'absolute',
+            top: topPosition + 'px',
+            left: leftPosition + 'px',
+            width: inputRect.width + 'px',
+            backgroundColor: 'white',
+            border: '2px solid var(--eco-green-light)',
+            borderRadius: '4px',
+            boxShadow: '0 4px 12px rgba(67, 83, 52, 0.15)',
+            zIndex: '99999',
+            maxHeight: '200px',
+            overflowY: 'auto',
+            fontFamily: 'var(--font-roboto)'
+        });
 
         suggestions.forEach((city, index) => {
             const item = document.createElement('div');
+            item.textContent = city.name;
             item.className = 'autocomplete-item';
             
-            // Affichage simple - SEULEMENT le nom de la ville
-            item.textContent = city.name;
-            
-            // Styles adaptés mobile/desktop
-            const itemPadding = isMobile ? '8px 10px' : '10px 12px';
-            const itemFontSize = isMobile ? '14px' : '16px';
-            
-            item.style.padding = itemPadding;
-            item.style.cursor = 'pointer';
-            item.style.borderBottom = '1px solid #eee';
-            item.style.color = '#333';
-            item.style.fontFamily = '"Roboto", sans-serif';
-            item.style.fontSize = itemFontSize;
-            item.style.transition = 'all 0.2s ease';
+            Object.assign(item.style, {
+                padding: '12px 15px',
+                cursor: 'pointer',
+                borderBottom: index === suggestions.length - 1 ? 'none' : '1px solid #eee',
+                color: '#333',
+                fontSize: '16px',
+                transition: 'all 0.2s ease',
+                backgroundColor: 'transparent'
+            });
 
-            // Gestion des événements souris pour éviter les conflits
             item.addEventListener('mouseenter', () => {
-                item.style.backgroundColor = '#007bff';
+                item.style.backgroundColor = 'var(--eco-green-light)';
                 item.style.color = 'white';
                 selectedIndex = index;
             });
@@ -517,13 +477,12 @@ function createAutocomplete(inputElement) {
                 item.style.color = '#333';
             });
 
-            // Marquer quand on commence à cliquer
             item.addEventListener('mousedown', (e) => {
-                e.preventDefault(); // Empêche le blur de l'input
+                e.preventDefault();
                 isMouseDownOnSuggestion = true;
+                selectCity(city.name);
             });
 
-            // Gérer le clic
             item.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -533,26 +492,7 @@ function createAutocomplete(inputElement) {
             autocompleteContainer.appendChild(item);
         });
 
-        // Vérification finale de position pour éviter les débordements
         document.body.appendChild(autocompleteContainer);
-        
-        if (isMobile) {
-            // Vérification mobile : ajuster si débordement
-            const containerRect = autocompleteContainer.getBoundingClientRect();
-            
-            // Si débordement à droite
-            if (containerRect.right > viewport.width - 10) {
-                autocompleteContainer.style.left = '10px';
-                autocompleteContainer.style.width = (viewport.width - 20) + 'px';
-            }
-            
-            // Si débordement en bas
-            if (containerRect.bottom > viewport.height - 10) {
-                autocompleteContainer.style.top = (inputRect.top - 120 + window.scrollY) + 'px';
-                autocompleteContainer.style.maxHeight = '100px';
-            }
-        }
-        
         selectedIndex = -1;
     }
 
@@ -562,72 +502,94 @@ function createAutocomplete(inputElement) {
             autocompleteContainer = null;
             selectedIndex = -1;
         }
-        isMouseDownOnSuggestion = false; // Reset du flag
+        isMouseDownOnSuggestion = false;
     }
 
     function selectCity(cityName) {
-        inputElement.value = cityName;
-        hideSuggestions();
+    // CORRECTION 1 : Flag pour empêcher le déclenchement de l'auto-complétion
+    inputElement.setAttribute('data-selecting', 'true');
+    
+    // CORRECTION 2 : Fermer immédiatement
+    hideSuggestions();
+    
+    // CORRECTION 3 : Mettre à jour la valeur
+    inputElement.value = cityName;
+    
+    // CORRECTION 4 : Changer la couleur
+    inputElement.style.setProperty('color', 'var(--text-color)', 'important');
+    
+    // CORRECTION 5 : Déclencher les événements APRÈS un délai
+    setTimeout(() => {
+        const changeEvent = new Event('change', { bubbles: true });
+        inputElement.dispatchEvent(changeEvent);
         
-        // Déclencher l'événement input pour la couleur
-        const event = new Event('input', { bubbles: true });
-        inputElement.dispatchEvent(event);
-        
-        inputElement.focus();
-    }
+        // CORRECTION 6 : Retirer le flag après les événements
+        setTimeout(() => {
+            inputElement.removeAttribute('data-selecting');
+        }, 100);
+    }, 50);
+    
+    console.log('🏙️ Ville sélectionnée:', cityName);
+}
 
     function updateSelection() {
         if (!autocompleteContainer) return;
         
-        const items = autocompleteContainer.querySelectorAll('.autocomplete-item');
-        items.forEach((item, index) => {
-            if (index === selectedIndex) {
-                item.style.backgroundColor = '#007bff';
-                item.style.color = 'white';
+        const items = autocompleteContainer.children;
+        for (let i = 0; i < items.length; i++) {
+            if (i === selectedIndex) {
+                items[i].style.backgroundColor = 'var(--eco-green-light)';
+                items[i].style.color = 'white';
             } else {
-                item.style.backgroundColor = 'transparent';
-                item.style.color = '#333';
+                items[i].style.backgroundColor = 'transparent';
+                items[i].style.color = '#333';
             }
-        });
+        }
     }
 
-    // Debounce pour éviter trop de requêtes
     let timeoutId = null;
 
-    // Événements sur l'input
     inputElement.addEventListener('input', function() {
-        const value = this.value.trim();
-        
-        if (value.length < 2) {
-            hideSuggestions();
+    // CORRECTION : Ignorer si on est en train de sélectionner une ville
+    if (this.getAttribute('data-selecting') === 'true') {
+        return;
+    }
+    
+    const value = this.value.trim();
+    
+    if (value.length < 2) {
+        hideSuggestions();
+        return;
+    }
+
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(async () => {
+        // Double vérification
+        if (inputElement.getAttribute('data-selecting') === 'true') {
             return;
         }
-
-        // Annuler le timeout précédent
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-
-        // Attendre 300ms avant de faire la requête
-        timeoutId = setTimeout(async () => {
-            try {
-                const suggestions = await searchCities(value);
-                if (suggestions.length > 0) {
-                    showSuggestions(suggestions);
-                } else {
-                    hideSuggestions();
-                }
-            } catch (error) {
-                console.warn('Erreur lors de la recherche:', error);
+        
+        try {
+            const suggestions = await searchCities(value);
+            if (suggestions.length > 0) {
+                showSuggestions(suggestions);
+            } else {
                 hideSuggestions();
             }
-        }, 300);
-    });
+        } catch (error) {
+            console.warn('Erreur lors de la recherche:', error);
+            hideSuggestions();
+        }
+    }, 300);
+});
 
     inputElement.addEventListener('keydown', function(e) {
         if (!autocompleteContainer) return;
 
-        const items = autocompleteContainer.querySelectorAll('.autocomplete-item');
+        const items = autocompleteContainer.children;
         
         switch(e.key) {
             case 'ArrowDown':
@@ -651,23 +613,14 @@ function createAutocomplete(inputElement) {
                 break;
                 
             case 'Escape':
+                e.preventDefault();
                 hideSuggestions();
                 break;
         }
     });
 
-    // Gestion du blur
+    // CORRECTION : Meilleure gestion du blur
     inputElement.addEventListener('blur', function() {
-        // Si on est en train de cliquer sur une suggestion, ne pas masquer
-        if (isMouseDownOnSuggestion) {
-            // Remettre le focus sur l'input après un court délai
-            setTimeout(() => {
-                inputElement.focus();
-            }, 10);
-            return;
-        }
-        
-        // Sinon, masquer les suggestions après un court délai
         setTimeout(() => {
             if (!isMouseDownOnSuggestion) {
                 hideSuggestions();
@@ -675,16 +628,13 @@ function createAutocomplete(inputElement) {
         }, 150);
     });
 
-    // Masquer l'auto-complétion lors du scroll sur mobile
-    window.addEventListener('scroll', function() {
-        if (window.innerWidth <= 768 && autocompleteContainer) {
-            hideSuggestions();
-        }
-    });
+    // CORRECTION : Fermer lors du scroll
+    window.addEventListener('scroll', hideSuggestions);
+    window.addEventListener('resize', hideSuggestions);
 
-    // Recalculer la position lors du redimensionnement
-    window.addEventListener('resize', function() {
-        if (autocompleteContainer) {
+    // CORRECTION : Fermer si clic ailleurs
+    document.addEventListener('click', function(e) {
+        if (!inputElement.contains(e.target) && !autocompleteContainer?.contains(e.target)) {
             hideSuggestions();
         }
     });

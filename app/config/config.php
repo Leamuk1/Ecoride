@@ -131,9 +131,9 @@ define('LOG_MAX_FILES', 30); // Garder 30 jours de logs
  * Fonction pour obtenir une URL complète
  */
 function url($path = '') {
-    return BASE_URL . '/' . ltrim($path, '/');
+    $base = '/ecoride/public';
+    return $base . '/' . ltrim($path, '/');
 }
-
 /**
  * Fonction pour obtenir une URL d'asset
  */
