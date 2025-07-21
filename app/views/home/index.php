@@ -1,5 +1,5 @@
 <?php 
-// app/views/home/index.php - Page d'accueil EcoRide
+// app/views/home/index.php - Page d'accueil
 ?>
 
 <!-- Hero Section -->

@@ -1,12 +1,15 @@
 /* ===================================
-   STYLES PAGE COVOITURAGES
+   STYLES PAGE COVOITURAGES COMPLET - US3
 =================================== */
 
 body {
     background-color: var(--background-light);
 }
 
-/* Hero Rides */
+/* ===================================
+   HERO SECTION
+=================================== */
+
 .rides-hero {
     background-image: url('/images/passager.jpg');
     background-size: cover;
@@ -16,15 +19,8 @@ body {
     padding: 8rem 0 4rem;
     margin-top: 80px;
     text-align: center;
-
-    /* Overlay sombre pour la lisibilité du texte */
     background-blend-mode: overlay;
-    background-color: rgba(21, 22, 21, 0.5); /* var(--primary-color) avec transparence */
-    
-    color: var(--white);
-    padding: 8rem 0 4rem;
-    margin-top: 80px;
-    text-align: center;
+    background-color: rgba(21, 22, 21, 0.5);
     position: relative;
 }
 
@@ -45,10 +41,226 @@ body {
 }
 
 /* ===================================
+   MODE RECHERCHE - STYLES SPÉCIFIQUES
+=================================== */
+
+.search-main {
+    min-height: calc(100vh - 140px);
+    background: var(--background-light);
+    padding: 6rem 2rem 2rem;
+}
+
+.search-criteria {
+    background: rgba(67, 83, 52, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.search-criteria h3 {
+    color: var(--eco-green);
+    margin-bottom: 1rem;
+}
+
+.search-criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.search-criteria strong {
+    color: var(--text-color);
+}
+
+.search-criteria span {
+    color: var(--eco-green);
+}
+
+.search-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.search-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--eco-green);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.search-action-link:hover {
+    text-decoration: underline;
+}
+
+/* Styles pour les cartes de résultats */
+.search-results {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.search-results h2 {
+    color: var(--eco-green);
+    margin-bottom: 1.5rem;
+}
+
+.search-count {
+    color: var(--eco-green);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.ride-result-card {
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.ride-result-card:hover {
+    box-shadow: 0 4px 12px rgba(67, 83, 52, 0.15);
+}
+
+.ride-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 1rem;
+}
+
+.ride-route {
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.ride-datetime {
+    color: var(--eco-green-light);
+    margin: 0;
+}
+
+.ride-price {
+    background: var(--eco-green);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.ride-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.ride-info-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ride-info span {
+    color: var(--text-color);
+}
+
+.ride-info strong {
+    font-weight: 600;
+}
+
+.ride-vehicle {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.ride-vehicle-info {
+    margin-bottom: 0.5rem;
+}
+
+.ride-duration-distance {
+    color: var(--text-color);
+}
+
+.vehicle-badge {
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 1rem;
+}
+
+.eco-trip-badge {
+    background: #28a745;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.ride-comment {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--text-color);
+}
+
+.ride-actions {
+    text-align: right;
+}
+
+.ride-action-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 6px;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.btn-contact {
+    background: transparent;
+    color: var(--eco-green);
+    border: 2px solid var(--eco-green);
+}
+
+.btn-contact:hover {
+    background: var(--eco-green);
+    color: white;
+}
+
+.btn-details {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-reserve {
+    background: var(--eco-green);
+    color: white;
+}
+
+.btn-details:hover,
+.btn-reserve:hover {
+    opacity: 0.9;
+}
+
+/* ===================================
    FORMULAIRE DE RECHERCHE HARMONISÉ
 =================================== */
 
-/* Section recherche */
 .rides-search-section {
     padding: 4rem 0 2rem;
     border-bottom: 1px solid var(--border-gray);
@@ -109,49 +321,39 @@ body {
 /* STYLES DES CHAMPS - HARMONISÉS avec page d'accueil */
 .search-input {
     width: 100%;
-    padding: 15px 12px 13px 36px; /* Même padding que page d'accueil */
+    padding: 15px 12px 13px 36px;
     border: 1px solid var(--eco-green-light);
-    border-radius: 3px; /* Même border-radius que page d'accueil */
-    font-size: 18px; /* Même font-size que page d'accueil */
+    border-radius: 3px;
+    font-size: 18px;
     background: var(--white);
     font-family: var(--font-roboto);
-    height: 55px; /* Même hauteur que page d'accueil */
-    
-    /* COULEUR HARMONISÉE - même pour tous les champs */
+    height: 55px;
     color: var(--eco-green-light);
     transition: border-color 0.3s ease;
 }
 
-/* Couleur des placeholders */
 .search-input::placeholder {
     color: var(--eco-green-light);
     opacity: 0.7;
 }
 
-/* Couleur au focus */
 .search-input:focus {
     border-color: var(--eco-green-light);
     outline: none;
 }
 
-/* SPÉCIFICITÉS PAR TYPE DE CHAMP - HARMONISÉES */
-
-/* Champs texte - couleur change quand rempli */
 .search-input[type="text"]:not(:placeholder-shown) {
     color: var(--text-color);
 }
 
-/* Champ date - CORRIGÉ pour avoir la même couleur */
 .search-input[type="date"] {
     color: var(--eco-green-light);
 }
 
-/* Permettre au JavaScript de changer la couleur */
 .search-input[type="date"][data-filled="true"] {
     color: var(--text-color) !important;
 }
 
-/* Champ date - masquer icône par défaut */
 .search-input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
     position: absolute;
@@ -163,43 +365,34 @@ body {
     z-index: 11;
 }
 
-/* Select - CORRIGÉ pour avoir la même couleur */
 select.search-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-image: none;
     cursor: pointer;
-    color: var(--eco-green-light); /* Couleur par défaut */
+    color: var(--eco-green-light);
 }
 
-/* Options du select */
 select.search-input option {
     color: var(--text-color);
     background: var(--white);
 }
 
-/* Icônes spécifiques */
-.input-with-icon .fa-user {
-    pointer-events: none;
-    color: var(--eco-green-light);
-}
-
 /* Bouton recherche */
 .btn-search-rides {
-    background: rgba(24, 35, 15, 0.8); /* Même style que page d'accueil */
+    background: rgba(24, 35, 15, 0.8);
     color: var(--white);
-    padding: 0.75rem 2rem; /* Même padding que page d'accueil */
+    padding: 0.75rem 2rem;
     border: none;
-    border-radius: 3px; /* Même border-radius que page d'accueil */
+    border-radius: 3px;
     font-size: 1.1rem;
-    font-weight: 200; /* Même font-weight que page d'accueil */
+    font-weight: 200;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: var(--font-roboto);
-    height: 60px; /* Même hauteur que page d'accueil */
-    backdrop-filter: blur(2rem); /* Même effet que page d'accueil */
-    
+    height: 60px;
+    backdrop-filter: blur(2rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,10 +402,9 @@ select.search-input option {
 }
 
 .btn-search-rides:hover {
-    background: var(--text-color); /* Même hover que page d'accueil */
+    background: var(--text-color);
 }
 
-/* STYLES UNIFIÉS POUR TOUS LES CHAMPS - comme page d'accueil */
 .search-input:hover {
     border-color: #999 !important;
     background-color: #f8f9fa !important;
@@ -226,33 +418,14 @@ select.search-input option {
     outline: none !important;
 }
 
-/* Style unifié pour les options du select */
-#searchPassengers option {
-    background-color: white !important;
-    color: #333 !important;
-    padding: 8px 12px !important;
-}
-
-#searchPassengers option:hover {
-    background-color: #007bff !important;
-    color: white !important;
-}
-
-#searchPassengers option:checked,
-#searchPassengers option:selected {
-    background-color: #0056b3 !important;
-    color: white !important;
-}
-
 /* ===================================
-   AUTO-COMPLÉTION RIDES 
+   AUTO-COMPLÉTION
 =================================== */
 
-/* Container principal de l'auto-complétion */
-.autocomplete-suggestions {
-    position: fixed !important;
+.ecoride-autocomplete {
+    position: absolute !important;
     background-color: white;
-    border: 2px solid var(--eco-green-light) !important;
+    border: 2px solid #435334 !important;
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(67, 83, 52, 0.15) !important;
     z-index: 99999 !important;
@@ -261,8 +434,7 @@ select.search-input option {
     max-height: 200px;
 }
 
-/* Items de suggestion */
-.autocomplete-item {
+.ecoride-autocomplete-item {
     padding: 12px 15px !important;
     cursor: pointer;
     border-bottom: 1px solid #eee;
@@ -273,249 +445,13 @@ select.search-input option {
     background-color: transparent !important;
 }
 
-.autocomplete-item:last-child {
+.ecoride-autocomplete-item:last-child {
     border-bottom: none;
 }
 
-.autocomplete-item:hover {
-    background-color: var(--eco-green-light) !important;
+.ecoride-autocomplete-item:hover {
+    background-color: #435334 !important;
     color: white !important;
-}
-
-/* S'assurer que les input relatifs sont positionnés correctement */
-.input-with-icon {
-    position: relative !important;
-}
-
-.search-input,
-.form-input {
-    position: relative !important;
-    z-index: 1;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .search-form-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .search-input {
-        height: 50px;
-        padding: 12px 12px 12px 40px;
-        font-size: 16px; /* Empêche le zoom sur iOS */
-    }
-    
-    .input-icon {
-        left: 12px;
-        font-size: 14px;
-    }
-    
-    .btn-search-rides {
-        height: 50px;
-        padding: 12px;
-        font-size: 1rem;
-        max-width: 100%;
-    }
-    
-    .autocomplete-suggestions {
-        position: fixed !important;
-        z-index: 9999 !important;
-        max-height: 150px !important;
-        font-size: 14px !important;
-    }
-    
-    .autocomplete-item {
-        padding: 8px 10px !important;
-        font-size: 14px !important;
-    }
-}
-
-/* ===================================
-   SECTION FILTRES 
-=================================== */
-
-.rides-filters-section {
-    padding: 2rem 0;
-    background: var(--light-gray);
-}
-
-.filters-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.filters-title {
-    font-size: 1.2rem;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-}
-
-.filters-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    align-items: end;
-}
-
-.filter-group {
-    display: flex;
-    flex-direction: column;
-    border-radius: 4px
-}
-
-.filter-group label {
-    font-weight: 500;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-/* SLIDER DE PRIX/CRÉDITS */
-.price-slider {
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
-
-.price-display {
-    font-weight: 600;
-    color: var(--eco-green);
-    font-size: 1rem;
-    white-space: nowrap;
-}
-
-/* CHECKBOXES PERSONNALISÉES - VERSION NETTOYÉE */
-.checkbox-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-left: 0.5rem;
-    margin-top: 0.25rem;
-}
-
-.filter-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-/* CACHER COMPLÈTEMENT LA VRAIE CHECKBOX */
-.filter-checkbox input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* CHECKBOX PERSONNALISÉE VISIBLE */
-.checkmark {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border-gray);
-    border-radius: 4px;
-    position: relative;
-    background-color: var(--white);
-    flex-shrink: 0; /* Empêche la déformation */
-}
-
-/* État coché */
-.filter-checkbox input[type="checkbox"]:checked + .checkmark {
-    background: var(--eco-green);
-    border-color: var(--eco-green);
-}
-
-/* Icône de la coche */
-.filter-checkbox input[type="checkbox"]:checked + .checkmark::after {
-    content: '✓';
-    position: absolute;
-    top: -2px;
-    left: 3px;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-/* Effet hover sur la checkbox personnalisée */
-.filter-checkbox:hover .checkmark {
-    border-color: var(--eco-green);
-    background-color: rgba(67, 83, 52, 0.1);
-}
-
-/* S'assurer que le texte est bien aligné */
-.filter-checkbox span:not(.checkmark) {
-    line-height: 1;
-    user-select: none;
-}
-
-/* SELECT ET BOUTON RESET */
-.filter-select {
-    padding: 0.75rem;
-    border: 2px solid var(--border-gray);
-    border-radius: 6px;
-    background: var(--white);
-}
-
-.btn-reset-filters {
-    background: transparent;
-    color: var(--eco-green);
-    border: 2px solid var(--eco-green);
-    padding: 0.75rem 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.btn-reset-filters:hover {
-    background: var(--eco-green);
-    color: var(--white);
-}
-
-/* ===================================
-   BADGE DE PRIX/CRÉDITS
-=================================== */
-
-.price-badge {
-    background: var(--eco-green);
-    color: var(--white);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    min-width: 80px;
-    text-align: center;
-}
-
-/* TOOLTIP POUR EXPLIQUER LE SYSTÈME DE CRÉDITS */
-.credits-info {
-    position: relative;
-    display: inline-block;
-    cursor: help;
-    margin-left: 0.5rem;
-}
-
-.credits-info::after {
-    content: "ⓘ";
-    color: var(--eco-green-light);
-    font-size: 0.8rem;
-}
-
-.credits-info:hover::before {
-    content: "1 crédit = valeur fixée par le chauffeur";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--text-color);
-    color: var(--white);
-    padding: 0.5rem;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    z-index: 1000;
-    margin-bottom: 0.25rem;
 }
 
 /* ===================================
@@ -564,7 +500,6 @@ select.search-input option {
     overflow: hidden;
     transition: all 0.3s ease;
     border: 1px solid var(--border-gray);
-
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -595,6 +530,17 @@ select.search-input option {
     font-weight: 500;
 }
 
+.price-badge {
+    background: var(--eco-green);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-width: 80px;
+    text-align: center;
+}
+
 .ride-card-body {
     padding: 1.5rem;
     flex: 1;
@@ -610,8 +556,15 @@ select.search-input option {
 }
 
 .driver-avatar {
-    font-size: 2.5rem;
-    color: var(--eco-green);
+    border: solid 3px var(--eco-green-light);
+    border-radius: 50%;
+    background: var(--eco-green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
 }
 
 .driver-details h4 {
@@ -624,19 +577,6 @@ select.search-input option {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-}
-
-.stars {
-    color: #ffc107;
-}
-
-.rating-value {
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.reviews-count {
-    color: var(--eco-green-light);
 }
 
 .ride-details {
@@ -657,54 +597,34 @@ select.search-input option {
     color: var(--eco-green);
 }
 
-.ride-details .price-detail {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-    font-weight: 500;
-}
-
-.ride-details .price-detail i {
-    width: 16px;
-    color: var(--eco-green);
-}
-
-.ride-details .price-detail .credits-amount {
-    color: var(--eco-green);
-    font-weight: 600;
-}
-
 .ride-badges {
-    margin-bottom: 0; /* Enlever la marge du bas */
+    margin-bottom: 0;
     margin-top: auto;
 }
 
 .eco-badge {
-    background: rgba(67, 83, 52, 0.1);
-    color: var(--eco-green);
-    padding: 0.4rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.85rem;
+    background: #28a745;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
     font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
+    display: inline-block;
 }
 
 .ride-card-footer {
     padding: 1rem 1.5rem;
     background: var(--light-gray);
     display: flex;
-    gap: 1rem;
-     margin-top: auto;
+    gap: 0.5rem;
+    margin-top: auto;
 }
 
+.btn-contact,
 .btn-details,
 .btn-book {
     flex: 1;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.8rem;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -713,7 +633,19 @@ select.search-input option {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+}
+
+.btn-contact {
+    background: transparent;
+    color: var(--eco-green);
+    border: 2px solid var(--eco-green);
+}
+
+.btn-contact:hover {
+    background: var(--eco-green);
+    color: var(--white);
 }
 
 .btn-details {
@@ -734,44 +666,6 @@ select.search-input option {
 
 .btn-book:hover {
     background: var(--primary-color);
-}
-
-.btn-book.booked {
-    background: #28a745;
-    cursor: not-allowed;
-}
-
-/* ===================================
-   MESSAGE AUCUN RÉSULTAT
-=================================== */
-
-.no-results {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
-
-.no-results-content i {
-    font-size: 4rem;
-    color: var(--eco-green-light);
-    margin-bottom: 1rem;
-}
-
-.no-results-content h3 {
-    color: var(--text-color);
-    margin-bottom: 1rem;
-}
-
-.btn-reset-search {
-    background: var(--eco-green);
-    color: var(--white);
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-top: 1rem;
 }
 
 /* ===================================
@@ -799,6 +693,7 @@ select.search-input option {
     cursor: pointer;
     border-radius: 6px;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .pagination-btn:hover:not(:disabled),
@@ -817,6 +712,120 @@ select.search-input option {
     cursor: not-allowed;
 }
 
+.pagination-info {
+    margin-top: 1rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+/* Pagination pour recherches */
+.search-pagination {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.search-pagination-nav {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.pagination-btn.active {
+    background: var(--eco-green);
+    color: white;
+}
+
+.pagination-btn:not(.active) {
+    background: #f8f9fa;
+    color: var(--text-color);
+    border: 1px solid #ddd;
+}
+
+.pagination-btn:not(.active):hover {
+    background: #e9ecef;
+}
+
+/* ===================================
+   ALTERNATIVES
+=================================== */
+
+.alternatives-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.alternatives-section h4 {
+    color: var(--eco-green);
+    margin-bottom: 1rem;
+}
+
+.alternatives-grid {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.alternative-btn {
+    background: var(--eco-green);
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.alternative-btn:hover {
+    background: #218838;
+}
+
+.alternative-btn.secondary {
+    background: #17a2b8;
+}
+
+.alternative-btn.secondary:hover {
+    background: #138496;
+}
+
+.alternative-count {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+/* ===================================
+   MESSAGE AUCUN RÉSULTAT
+=================================== */
+
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    color: var(--eco-green-light);
+}
+
+.no-results-content i {
+    font-size: 4rem;
+    color: var(--eco-green-light);
+    margin-bottom: 1rem;
+}
+
+.no-results-content h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.no-results ul {
+    text-align: left;
+    max-width: 400px;
+    margin: 1rem auto;
+}
+
 /* ===================================
    CTA SECTION
 =================================== */
@@ -827,20 +836,11 @@ select.search-input option {
     background-position: center;
     background-repeat: no-repeat;
     color: var(--secondary-color);
-    padding: 8rem 0 4rem;
+    padding: 3rem 0 4rem;
     margin-top: 80px;
     text-align: center;
-    
-
-    /* Overlay sombre pour la lisibilité du texte */
     background-blend-mode: overlay;
-    background-color: rgba(21, 22, 21, 0.5); /* var(--primary-color) avec transparence */
-    
-    
-    color: var(--secondary-color);
-    padding: 8rem 0 4rem;
-    margin-top: 80px;
-    text-align: center;
+    background-color: rgba(21, 22, 21, 0.5);
     position: relative;
 }
 
@@ -873,13 +873,6 @@ select.search-input option {
     background: transparent !important;
 }
 
-.cta-content h2,
-.cta-content p {
-    color: var(--secondary-color) !important;
-    background: none !important;
-    text-shadow: none !important;
-}
-
 .cta-buttons {
     display: flex;
     gap: 1rem;
@@ -901,6 +894,8 @@ select.search-input option {
     transition: all 0.3s ease;
     position: relative;
     z-index: 3;
+    cursor: pointer;
+    border: none;
 }
 
 .btn-alert {
@@ -916,206 +911,13 @@ select.search-input option {
 
 .btn-create {
     background: var(--secondary-color) !important;
-    color:  var(--text-color) !important;
+    color: var(--text-color) !important;
     border: 2px solid var(--secondary-color) !important;
 }
 
 .btn-create:hover {
     background: transparent !important;
     color: var(--secondary-color) !important;
-}
-
-/* SUPPRESSION AGRESSIVE DE TOUT CE QUI POURRAIT MASQUER */
-.rides-cta-section *::before,
-.rides-cta-section *::after {
-    display: none !important;
-}
-
-.rides-cta-section::before,
-.rides-cta-section::after {
-    display: none !important;
-}
-
-/* STYLES SPÉCIFIQUES POUR FORCER L'AFFICHAGE */
-.rides-cta-section .container,
-.rides-cta-section .cta-content,
-.rides-cta-section h2,
-.rides-cta-section p {
-    background: none !important;
-    color: var(--secondary-color) !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-}
-
-/* ===================================
-   AUTO-COMPLÉTION RIDES - STYLES SPÉCIFIQUES
-=================================== */
-
-.autocomplete-suggestions-rides {
-    position: fixed !important;
-    background-color: white !important;
-    border: 2px solid #435334 !important;
-    border-radius: 4px !important;
-    box-shadow: 0 4px 12px rgba(67, 83, 52, 0.15) !important;
-    z-index: 999999 !important;
-    overflow-y: auto !important;
-    font-family: 'Roboto', sans-serif !important;
-}
-
-.autocomplete-item-rides {
-    cursor: pointer !important;
-    color: #333 !important;
-    font-family: 'Roboto', sans-serif !important;
-    transition: all 0.2s ease !important;
-    background-color: transparent !important;
-}
-
-.autocomplete-item-rides:hover {
-    background-color: #435334 !important;
-    color: white !important;
-}
-
-/* ===================================
-   STYLES POUR LES ÉLÉMENTS API
-=================================== */
-
-/* Informations API dans les filtres */
-.api-info {
-    display: block;
-    margin-top: 0.25rem;
-    font-size: 0.8rem;
-    color: var(--eco-green);
-    font-style: italic;
-}
-
-/* Loader API */
-.api-loader {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    grid-column: 1 / -1;
-}
-
-.api-loader i {
-    font-size: 2rem;
-    color: var(--eco-green);
-    margin-bottom: 1rem;
-}
-
-.api-loader p {
-    color: var(--text-color);
-    margin: 0;
-}
-
-/* Erreur API */
-.api-error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    grid-column: 1 / -1;
-    background: rgba(220, 53, 69, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(220, 53, 69, 0.2);
-}
-
-.api-error i {
-    font-size: 2rem;
-    color: #dc3545;
-    margin-bottom: 1rem;
-}
-
-.api-error p {
-    color: #dc3545;
-    margin: 0 0 1rem 0;
-    font-weight: 500;
-}
-
-.api-error button {
-    padding: 0.5rem 1rem;
-    background: var(--eco-green);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.api-error button:hover {
-    background: var(--primary-color);
-}
-
-/* Stats temps réel */
-.realtime-stats {
-    background: rgba(67, 83, 52, 0.1);
-    padding: 1rem;
-    border-radius: 6px;
-    border: 1px solid rgba(67, 83, 52, 0.2);
-}
-
-.realtime-stats h4 {
-    color: var(--eco-green);
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-.realtime-stats div {
-    font-size: 0.9rem;
-    margin-bottom: 0.25rem;
-    color: var(--text-color);
-}
-
-.realtime-stats div:last-child {
-    margin-bottom: 0;
-}
-
-/* Slider de durée */
-.duration-slider {
-    width: 100%;
-    margin-bottom: 0.5rem;
-}
-
-.duration-display {
-    font-weight: 600;
-    color: var(--eco-green);
-    font-size: 1rem;
-    white-space: nowrap;
-}
-
-/* Responsive pour les éléments API */
-@media (max-width: 768px) {
-    .api-loader {
-        padding: 1.5rem;
-    }
-    
-    .api-loader i {
-        font-size: 1.5rem;
-    }
-    
-    .api-error {
-        padding: 1.5rem;
-    }
-    
-    .api-error i {
-        font-size: 1.5rem;
-    }
-    
-    .realtime-stats {
-        padding: 0.75rem;
-    }
-    
-    .realtime-stats h4 {
-        font-size: 0.9rem;
-    }
-    
-    .realtime-stats div {
-        font-size: 0.8rem;
-    }
 }
 
 /* ===================================
@@ -1131,9 +933,34 @@ select.search-input option {
         font-size: 2.5rem;
     }
     
-    .filters-grid {
+    .search-main {
+        padding: 6rem 1rem 2rem;
+    }
+    
+    .search-criteria-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+    }
+    
+    .search-form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-input {
+        height: 50px;
+        padding: 12px 12px 12px 40px;
+        font-size: 16px;
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 14px;
+    }
+    
+    .btn-search-rides {
+        height: 50px;
+        padding: 12px;
+        font-size: 1rem;
+        max-width: 100%;
     }
     
     .results-header {
@@ -1146,18 +973,37 @@ select.search-input option {
         grid-template-columns: 1fr;
     }
     
+    .ride-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .ride-info {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .ride-info-left {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .alternatives-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .alternative-btn {
+        width: 200px;
+        text-align: center;
+    }
+    
     .price-badge {
         font-size: 1rem;
         padding: 0.4rem 0.8rem;
         min-width: 70px;
-    }
-    
-    .price-display {
-        font-size: 0.9rem;
-    }
-    
-    .filter-group label {
-        font-size: 0.9rem;
     }
     
     .cta-buttons {
@@ -1186,104 +1032,16 @@ select.search-input option {
         font-size: 1rem;
         margin-bottom: 1.5rem;
     }
-}
-
-/* ===================================
-   AVATARS DE PROFIL
-=================================== */
-
-.driver-avatar {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid var(--eco-green-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--light-gray);
-}
-
-.avatar-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-/* Fallback si l'image ne charge pas */
-.driver-avatar i {
-    font-size: 2.5rem;
-    color: var(--eco-green);
-    display: none; /* Masquer par défaut */
-}
-
-.avatar-img:error + i {
-    display: block; /* Afficher l'icône en cas d'erreur */
-}
-
-/* ===================================
-   STYLES POUR LES TRAJETS ALTERNATIFS
-=================================== */
-
-.alternatives-section {
-    margin-top: 2rem;
-    padding: 1.5rem 0;
-    border-top: 2px dashed var(--eco-green-light);
-    background: rgba(67, 83, 52, 0.02);
-    border-radius: 8px;
-    grid-column: 1 / -1;
-}
-
-.alternatives-title {
-    font-size: 1.3rem;
-    color: var(--eco-green);
-    margin-bottom: 1rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.alternatives-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.alternative-group {
-    background: var(--white);
-    border-radius: 8px;
-    border: 1px solid var(--eco-green-light);
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(67, 83, 52, 0.1);
-}
-
-.alternative-route {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--eco-green);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.ride-card-alternative {
-    border: 1px solid var(--eco-green-light);
-    margin-bottom: 0;
-}
-
-.ride-card-alternative .price-badge {
-    background: var(--eco-green-light);
-}
-
-@media (max-width: 768px) {
-    .alternatives-grid {
-        grid-template-columns: 1fr;
+    
+    .ecoride-autocomplete {
+        position: fixed !important;
+        z-index: 9999 !important;
+        max-height: 150px !important;
+        font-size: 14px !important;
     }
     
-    .alternatives-section {
-        padding: 1rem;
+    .ecoride-autocomplete-item {
+        padding: 8px 10px !important;
+        font-size: 14px !important;
     }
 }

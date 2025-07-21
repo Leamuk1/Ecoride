@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             e.stopPropagation();
             
-            if (window.innerWidth <= 768) {
+             if (window.innerWidth <= 768) {
                 userDropdown.classList.toggle('mobile-active');
             } else {
                 // Desktop : toggle normal
