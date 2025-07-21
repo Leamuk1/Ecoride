@@ -16,7 +16,7 @@
 
     /* Overlay sombre pour la lisibilité du texte */
     background-blend-mode: overlay;
-    background-color: rgba(21, 22, 21, 0.5); /* var(--primary-color) avec transparence */
+    background-color: rgba(21, 22, 21, 0.5); 
     
     color: var(--white);
     padding: 8rem 0 4rem;

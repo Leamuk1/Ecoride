@@ -1,118 +1,340 @@
 <?php
-// app/views/auth/register.php - Page inscription temporaire EcoRide
+// app/views/auth/register.php - Page inscription
+$title = "Inscription - EcoRide";
+include_once __DIR__ . '/../layouts/header.php';
+
+
 ?>
 
-<main style="padding: 6rem 2rem 2rem; min-height: 80vh; background: var(--background-light);">
+<link rel="stylesheet" href="/css/pages/register.css">
+
+<main class="auth-main">
     <div class="container">
-        <div style="max-width: 500px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <i class="fas fa-user-plus" style="font-size: 3rem; color: var(--eco-green); margin-bottom: 1rem;"></i>
-                <h1 style="color: var(--text-color); margin-bottom: 0.5rem;">Inscription</h1>
-                <p style="color: var(--eco-green-light);">Rejoignez la communauté EcoRide</p>
-            </div>
-            
-            <div style="background: white; padding: 2.5rem; border-radius: 8px; box-shadow: var(--shadow); margin-bottom: 2rem;">
-                <div style="background: rgba(67, 83, 52, 0.1); padding: 1.5rem; border-radius: 6px; border-left: 4px solid var(--eco-green); margin-bottom: 2rem;">
-                    <h3 style="color: var(--eco-green); margin-bottom: 1rem; display: flex; align-items: center;">
-                        <i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>
-                        Bientôt disponible !
-                    </h3>
-                    <p style="color: var(--text-color); margin-bottom: 1rem;">
-                        L'inscription sera implémentée dans l'US7 avec un système complet et sécurisé.
-                    </p>
+        <div class="auth-container register-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h1 class="auth-title">Inscription</h1>
+                    <p class="auth-subtitle">Rejoignez la communauté EcoRide</p>
                 </div>
-                
-                <!-- Aperçu du futur formulaire d'inscription -->
-                <form style="opacity: 0.6; pointer-events: none;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color);">
+
+                <!-- Messages d'erreur/succès -->
+                <div id="auth-messages" class="auth-messages"></div>
+
+                <form class="auth-form" id="registerForm" action="/ecoride/public/auth/register" method="POST">
+                    <!-- Protection CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?? '' ?>">
+
+
+                    <!-- Honeypot anti-bot -->
+                    <div style="position: absolute; left: -9999px; opacity: 0;">
+                        <input type="text" name="robot_check" value="" autocomplete="off" tabindex="-1">
+                    </div>
+                    
+                    <!-- Pseudo -->
+                    <div class="form-group">
+                        <label for="pseudo" class="form-label">
+                            Pseudo
+                        </label>
+                        <input type="text" 
+                               id="pseudo" 
+                               name="pseudo" 
+                               class="form-control" 
+                               placeholder="Mon pseudo"
+                               required
+                               autocomplete="username">
+                        <div class="field-error" id="pseudo-error"></div>
+                    </div>
+
+                    <!-- Nom et Prénom -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="prenom" class="form-label">
                                 Prénom
                             </label>
                             <input type="text" 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 6px;" 
-                                   placeholder="Jean"
-                                   disabled>
+                                   id="prenom" 
+                                   name="prenom" 
+                                   class="form-control" 
+                                   placeholder="Prénom"
+                                   autocomplete="given-name">
+                            <div class="field-error" id="prenom-error"></div>
                         </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color);">
+                        
+                        <div class="form-group">
+                            <label for="nom" class="form-label">
                                 Nom
                             </label>
                             <input type="text" 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 6px;" 
-                                   placeholder="Dupont"
-                                   disabled>
+                                   id="nom" 
+                                   name="nom" 
+                                   class="form-control" 
+                                   placeholder="Nom"
+                                   autocomplete="family-name">
+                            <div class="field-error" id="nom-error"></div>
                         </div>
                     </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color);">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
                             Email
                         </label>
                         <input type="email" 
-                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 6px;" 
-                               placeholder="jean.dupont@email.com"
-                               disabled>
+                               id="email" 
+                               name="email" 
+                               class="form-control" 
+                               placeholder="mon.email@email.com"
+                               required
+                               autocomplete="email">
+                        <div class="field-error" id="email-error"></div>
                     </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color);">
+
+                    <!-- Téléphone -->
+                    <div class="form-group">
+                        <label for="telephone" class="form-label">
                             Téléphone
                         </label>
                         <input type="tel" 
-                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 6px;" 
+                               id="telephone" 
+                               name="telephone" 
+                               class="form-control" 
                                placeholder="06 12 34 56 78"
-                               disabled>
+                               autocomplete="tel">
+                        <div class="field-error" id="telephone-error"></div>
                     </div>
-                    
-                    <div style="margin-bottom: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-color);">
+
+                    <!-- Mot de passe -->
+                    <div class="form-group">
+                        <label for="password" class="form-label">
                             Mot de passe
                         </label>
-                        <input type="password" 
-                               style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-gray); border-radius: 6px;" 
-                               placeholder="••••••••"
-                               disabled>
+                        <div class="password-input-wrapper">
+                            <input type="password" 
+                                   id="password" 
+                                   name="password" 
+                                   class="form-control" 
+                                   placeholder="Mot de passe"
+                                   required
+                                   autocomplete="new-password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                                <i class="fas fa-eye" id="password-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error" id="password-error"></div>
                     </div>
-                    
-                    <div style="margin-bottom: 2rem;">
-                        <label style="display: flex; align-items: flex-start; gap: 0.75rem; cursor: not-allowed;">
-                            <input type="checkbox" 
-                                   style="margin-top: 0.25rem;" 
-                                   disabled>
-                            <span style="color: var(--text-color); font-size: 0.9rem; line-height: 1.4;">
-                                J'accepte les <a href="#" style="color: var(--eco-green);">conditions d'utilisation</a> 
-                                et la <a href="#" style="color: var(--eco-green);">politique de confidentialité</a>
+
+                    <!-- Confirmation mot de passe -->
+                    <div class="form-group">
+                        <label for="password_confirm" class="form-label">
+                            Confirmer le mot de passe
+                        </label>
+                        <div class="password-input-wrapper">
+                            <input type="password" 
+                                   id="password_confirm" 
+                                   name="password_confirm" 
+                                   class="form-control" 
+                                   placeholder="Confirmation mot de passe"
+                                   required
+                                   autocomplete="new-password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('password_confirm')">
+                                <i class="fas fa-eye" id="password_confirm-eye"></i>
+                            </button>
+                        </div>
+                        <div class="field-error" id="password_confirm-error"></div>
+                    </div>
+
+                    <!-- Conditions d'utilisation -->
+                    <div class="form-group terms-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <span class="checkmark"></span>
+                            <span class="checkbox-text">
+                                J'accepte les <a href="#" target="_blank">conditions d'utilisation</a> 
+                                et la <a href="#" target="_blank">politique de confidentialité</a>
                             </span>
                         </label>
+                        <div class="field-error" id="terms-error"></div>
                     </div>
-                    
-                    <button type="submit" 
-                            style="width: 100%; background: var(--eco-green); color: white; padding: 0.875rem; border: none; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: not-allowed;"
-                            disabled>
+
+                    <!-- Information sur les crédits -->
+                    <div class="credits-info">
+                        <i class="fas fa-coins"></i>
+                        <span>Vous recevrez automatiquement 20 crédits à l'inscription !</span>
+                    </div>
+
+                    <!-- Bouton d'inscription -->
+                    <button type="submit" class="btn-auth" id="registerBtn">
                         Créer mon compte
+                        <div class="btn-loader" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
                     </button>
                 </form>
-                
-                <div style="text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-gray);">
-                    <p style="color: var(--eco-green-light); margin-bottom: 1rem;">
-                        Vous avez déjà un compte ?
-                    </p>
-                    <a href="/ecoride/public/login" 
-                       style="color: var(--eco-green); text-decoration: none; font-weight: 500; opacity: 0.6; pointer-events: none;">
-                        Se connecter
-                    </a>
+
+                <!-- Lien vers connexion -->
+                <div class="auth-footer">
+                    <p class="auth-link-text">
+                        Vous avez déjà un compte ? 
+                        <a href="/ecoride/public/auth/login" class="auth-link">
+                            Se connecter
+                        </a>
+                     </p>
                 </div>
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="/ecoride/public/" 
-                   class="btn-outline-primary"
-                   style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
-                    <i class="fas fa-arrow-left"></i>
-                    Retour à l'accueil
-                </a>
-            </div>
+             </div>
         </div>
     </div>
 </main>
+
+<!-- JavaScript inscription -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registerForm');
+    const submitBtn = document.getElementById('registerBtn');
+    
+    // Validation en temps réel
+    document.getElementById('pseudo').addEventListener('blur', () => validateField('pseudo', value => {
+        if (!value) return 'Le pseudo est requis';
+        if (value.length < 3) return 'Au moins 3 caractères';
+        return null;
+    }));
+    
+    document.getElementById('email').addEventListener('blur', () => validateField('email', value => {
+        if (!value) return 'L\'email est requis';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Format invalide';
+        return null;
+    }));
+    
+    document.getElementById('password').addEventListener('input', () => validateField('password', value => {
+        if (!value) return 'Le mot de passe est requis';
+        if (value.length < 8) return 'Au moins 8 caractères';
+        if (!/[A-Z]/.test(value)) return 'Au moins une majuscule';
+        if (!/[0-9]/.test(value)) return 'Au moins un chiffre';
+        
+        const faibles = ['password', 'password123', '123456', 'azerty', 'qwerty'];
+        if (faibles.includes(value.toLowerCase())) return 'Mot de passe trop commun';
+        
+        return null;
+    }));
+    
+    document.getElementById('password_confirm').addEventListener('input', () => {
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('password_confirm').value;
+        
+        const error = !confirm ? 'Confirmation requise' : 
+                     password !== confirm ? 'Les mots de passe ne correspondent pas' : null;
+        
+        showFieldError('password_confirm', error);
+    });
+    
+    // Soumission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!validateAllFields()) return;
+        
+        setLoading(true);
+        
+        try {
+            const response = await fetch('/ecoride/public/auth/register', {
+                method: 'POST',
+                body: new FormData(form)
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                showMessage('Compte créé avec succès ! Redirection...', 'success');
+                setTimeout(() => window.location.href = data.redirect, 2000);
+            } else {
+                showMessage(data.message, 'error');
+            }
+            
+        } catch (error) {
+            showMessage('Erreur de connexion', 'error');
+        } finally {
+            setLoading(false);
+        }
+    });
+    
+    // Fonctions utiles
+    function validateField(fieldId, validator) {
+        const field = document.getElementById(fieldId);
+        const error = validator(field.value.trim());
+        showFieldError(fieldId, error);
+        return !error;
+    }
+    
+    function validateAllFields() {
+        const pseudo = validateField('pseudo', value => value.length < 3 ? 'Au moins 3 caractères' : null);
+        const email = validateField('email', value => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) ? 'Email invalide' : null);
+        const password = validateField('password', value => {
+            if (value.length < 8) return 'Au moins 8 caractères';
+            if (!/[A-Z]/.test(value)) return 'Au moins une majuscule';
+            if (!/[0-9]/.test(value)) return 'Au moins un chiffre';
+            return null;
+        });
+        
+        return pseudo && email && password;
+    }
+    
+    function showFieldError(fieldId, message) {
+        const errorElement = document.getElementById(fieldId + '-error');
+        const input = document.getElementById(fieldId);
+        
+        if (message) {
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            input.style.borderColor = '#c53030';
+        } else {
+            errorElement.classList.remove('show');
+            input.style.borderColor = '';
+        }
+    }
+    
+    function showMessage(message, type) {
+        const container = document.getElementById('auth-messages');
+        const alertClass = type === 'error' ? 'alert-error' : 'alert-success';
+        const icon = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+        
+        container.innerHTML = `
+            <div class="alert ${alertClass}">
+                <i class="fas ${icon}"></i>
+                ${message}
+            </div>
+        `;
+    }
+    
+    function setLoading(loading) {
+        submitBtn.disabled = loading;
+        const icon = submitBtn.querySelector('i');
+        const loader = submitBtn.querySelector('.btn-loader');
+        
+        if (loading) {
+            icon.style.display = 'none';
+            loader.style.display = 'block';
+        } else {
+            icon.style.display = 'inline';
+            loader.style.display = 'none';
+        }
+    }
+});
+
+// Toggle password visibility
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const eye = document.getElementById(inputId + '-eye');
+    
+    if (input.type === 'password') {
+        input.type = 'text';
+        eye.classList.remove('fa-eye');
+        eye.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        eye.classList.remove('fa-eye-slash');
+        eye.classList.add('fa-eye');
+    }
+}
+</script>

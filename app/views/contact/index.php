@@ -1,5 +1,5 @@
 <?php
-// app/views/contact/index.php - Page Contact EcoRide
+// app/views/contact/index.php - Page Contact
 ?>
 <!-- CSS de la page -->
 <link rel="stylesheet" href="/css/pages/contact.css">
@@ -213,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
             
             if (isValid) {
-                // Simulation envoi (à remplacer par vraie logique)
+                // Simulation envoi
                 const submitBtn = contactForm.querySelector('.btn-contact');
                 const originalText = submitBtn.innerHTML;
                 

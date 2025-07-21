@@ -5,7 +5,7 @@
 
 // ================================================
 // COLLECTION: activity_logs
-// Purpose: Tracer toutes les actions utilisateurs
+// Purpose: Tracer toutes les actions utilisateur
 // ================================================
 db.activity_logs.insertOne({
   user_id: 3,

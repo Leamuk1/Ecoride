@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS marque;
 
 -- ================================================
--- TABLE UTILISATEURS
+-- TABLE utilisateur
 -- ================================================
 CREATE TABLE utilisateur(
    id_utilisateur INT AUTO_INCREMENT,
@@ -281,12 +281,12 @@ CREATE INDEX idx_vehicule_ecologique ON vehicule (energie);
 -- ================================================
 -- COMMENTAIRES DES TABLES
 -- ================================================
-ALTER TABLE utilisateur COMMENT = 'Table des utilisateurs avec système de crédits';
-ALTER TABLE role COMMENT = 'Table des rôles utilisateurs';
+ALTER TABLE utilisateur COMMENT = 'Table des utilisateur avec système de crédits';
+ALTER TABLE role COMMENT = 'Table des rôles utilisateur';
 ALTER TABLE utilisateur_role COMMENT = 'Table de liaison utilisateur-rôle';
 ALTER TABLE marque COMMENT = 'Table des marques de véhicules';
 ALTER TABLE vehicule COMMENT = 'Table des véhicules avec type énergie';
-ALTER TABLE preference COMMENT = 'Table des préférences utilisateurs';
+ALTER TABLE preference COMMENT = 'Table des préférences utilisateur';
 ALTER TABLE covoiturage COMMENT = 'Table des trajets avec prix en crédits';
 ALTER TABLE participation COMMENT = 'Table des participations avec paiement crédits';
 ALTER TABLE avis COMMENT = 'Table des avis et évaluations';

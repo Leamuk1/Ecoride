@@ -1,0 +1,430 @@
+/* CSS Auth US7 - Page inscription avec labels au-dessus */
+
+/* ===================================
+   STRUCTURE PRINCIPALE
+=================================== */
+.auth-main {
+    min-height: calc(100vh - 140px);
+    background: var(--background-light);
+    display: flex;
+    align-items: center;
+    padding: 8rem 1rem 2rem;
+}
+
+.auth-container {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.auth-card {
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(67, 83, 52, 0.15);
+    padding: 3rem;
+    border: 1px solid rgba(67, 83, 52, 0.1);
+}
+
+/* ===================================
+   HEADER AUTH
+=================================== */
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--eco-green), var(--eco-green-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 4px 20px rgba(67, 83, 52, 0.2);
+}
+
+.auth-icon i {
+    font-size: 2rem;
+    color: var(--white);
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* ===================================
+   MESSAGES D'ALERTE
+=================================== */
+.auth-messages {
+    margin-bottom: 1.5rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.alert-error {
+    background: #fee;
+    color: #c53030;
+    border: 1px solid #feb2b2;
+}
+
+.alert-success {
+    background: #f0fff4;
+    color: #38a169;
+    border: 1px solid #9ae6b4;
+}
+
+/* ===================================
+   FORMULAIRE ET LABELS
+=================================== */
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Labels au-dessus des champs */
+.form-label {
+    display: flex;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    align-items: left;
+}
+
+
+/* ===================================
+   CHAMPS AVEC ICÔNES
+=================================== */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: left;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--eco-green);
+    z-index: 2;
+    font-size: 14px;
+    width: 16px;
+}
+
+.input-with-icon .form-control {
+    padding-left: 5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-gray);
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: var(--white);
+    box-sizing: border-box;
+    color: var(--eco-green-light);
+}
+
+.form-control:focus {
+    border-color: var(--eco-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67, 83, 52, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-control::placeholder {
+    color: var(--text-light);
+}
+
+/* ===================================
+   CHAMPS MOT DE PASSE
+=================================== */
+.password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: left;
+}
+
+.password-input-wrapper .input-icon {
+    position: absolute;
+    left: 12px;
+    color: var(--eco-green);
+    z-index: 2;
+    font-size: 14px;
+    gap: 0.5rem;
+}
+form-label{
+    display: flex;
+     text-align: left;
+}
+
+.password-input-wrapper .form-control {
+    padding-left: 1rem;
+    padding-right: 45px;
+}
+
+.password-input-wrapper .password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    z-index: 3;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover {
+    color: var(--eco-green);
+}
+
+/* ===================================
+   CHECKBOX CONDITIONS
+=================================== */
+.terms-group {
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-gray);
+    border-radius: 4px;
+    background-color: var(--white);
+    position: relative;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.checkbox-container input:checked + .checkmark {
+    background-color: var(--eco-green);
+    border-color: var(--eco-green);
+}
+
+.checkbox-container input:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 3px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-text a {
+    color: var(--green-logo);
+    text-decoration: none;
+}
+
+.checkbox-text a:hover {
+    text-decoration: underline;
+}
+
+/* ===================================
+   INFO CRÉDITS
+=================================== */
+.credits-info {
+    background: rgba(67, 83, 52, 0.1);
+    border: 1px solid var(--eco-green);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--eco-green);
+    font-weight: 500;
+}
+
+.credits-info i {
+    color: #ffd700;
+    font-size: 1.2rem;
+}
+
+/* ===================================
+   BOUTON INSCRIPTION
+=================================== */
+.btn-auth {
+    width: 100%;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--eco-green);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(67, 83, 52, 0.3);
+}
+
+.btn-auth:hover {
+    background: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(67, 83, 52, 0.4);
+}
+
+.btn-auth:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-loader {
+    position: absolute;
+    right: 16px;
+}
+
+/* ===================================
+   FOOTER AUTH
+=================================== */
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.auth-link-text {
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.auth-link {
+    color: var(--green-logo);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+    color: var(--green-logo);
+}
+
+/* ===================================
+   ERREURS DE CHAMP
+=================================== */
+.field-error {
+    color: #c53030;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+    font-weight: 500;
+}
+
+.field-error.show {
+    display: block;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 768px) {
+    .auth-main {
+        padding: 6rem 1rem 2rem;
+    }
+    
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .auth-title {
+        font-size: 1.75rem;
+    }
+    
+    .auth-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .auth-icon i {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-main {
+        padding: 5rem 0.5rem 1rem;
+    }
+    
+    .auth-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .form-control {
+        padding: 10px 14px;
+        font-size: 16px;
+    }
+}

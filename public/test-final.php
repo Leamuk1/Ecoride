@@ -63,9 +63,9 @@ try {
     echo "</div>";
     
     // ================================================
-    // TOP UTILISATEURS
+    // TOP utilisateur
     // ================================================
-    echo "<h2>🏆 Top Utilisateurs (Système Crédits)</h2>";
+    echo "<h2>🏆 Top utilisateur (Système Crédits)</h2>";
     
     $stmt = $conn->prepare("
         SELECT pseudo, credit, note_moyenne, nb_avis_recus,
@@ -100,7 +100,7 @@ try {
         SELECT c.ville_depart, c.ville_arrivee, c.prix_par_personne, 
                c.date_depart, v.type_carburant,
                CASE 
-                   WHEN v.type_carburant IN ('electrique', 'hybride') THEN '🌱 Écologique'
+                   WHEN v.type_carburant IN ('electrique', 'hybride') THEN ' Écologique'
                    ELSE '⚡ Standard'
                END as impact_eco
         FROM covoiturage c

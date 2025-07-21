@@ -1,16 +1,16 @@
-# 📊 Documentation Base de Données EcoRide
+# Documentation Base de Données EcoRide
 
-## 🎯 Vue d'ensemble
+## Vue d'ensemble
 
 EcoRide utilise une architecture de base de données hybride :
 - **MySQL** : Données relationnelles principales
 - **MongoDB** : Logs, analytics et données non-structurées (prévu pour les phases ultérieures)
 
-## 🗄️ Structure MySQL
+## Structure MySQL
 
-### 📋 Tables Principales
+### Tables Principales
 
-#### 👤 Table `utilisateur`
+#### Table `utilisateur`
 ```sql
 - id_utilisateur (INT, PK, AUTO_INCREMENT)
 - nom, prenom, email (VARCHAR)
@@ -25,21 +25,21 @@ EcoRide utilise une architecture de base de données hybride :
 - date_creation, date_modification (TIMESTAMP)
 ```
 
-#### 🎭 Table `role`
+#### Table `role`
 ```sql
 - id_role (INT, PK, AUTO_INCREMENT)
 - libelle (VARCHAR 50) - 'administrateur', 'employe', 'chauffeur', 'passager'
 - description (TEXT)
 ```
 
-#### 🔗 Table `utilisateur_role` (liaison N:N)
+#### Table `utilisateur_role` (liaison N:N)
 ```sql
 - id_utilisateur (INT, FK → utilisateur)
 - id_role (INT, FK → role)
 - PK composite (id_utilisateur, id_role)
 ```
 
-#### 🚗 Table `vehicule`
+#### Table `vehicule`
 ```sql
 - id_vehicule (INT, PK, AUTO_INCREMENT)
 - id_utilisateur (INT, FK → utilisateur)
@@ -51,7 +51,7 @@ EcoRide utilise une architecture de base de données hybride :
 - annee (YEAR)
 ```
 
-#### 🛣️ Table `covoiturage`
+#### Table `covoiturage`
 ```sql
 - id_covoiturage (INT, PK, AUTO_INCREMENT)
 - id_utilisateur (INT, FK → utilisateur) - Chauffeur
@@ -65,7 +65,7 @@ EcoRide utilise une architecture de base de données hybride :
 - statut (ENUM: 'actif','complet','termine','annule')
 ```
 
-#### 🎫 Table `participation`
+#### Table `participation`
 ```sql
 - id_participation (INT, PK, AUTO_INCREMENT)
 - id_utilisateur (INT, FK → utilisateur) - Passager
@@ -77,7 +77,7 @@ EcoRide utilise une architecture de base de données hybride :
 - UNIQUE KEY unique_participation (id_utilisateur, id_covoiturage)
 ```
 
-#### ⭐ Table `avis`
+#### Table `avis`
 ```sql
 - id_avis (INT, PK, AUTO_INCREMENT)
 - id_evaluateur (INT, FK → utilisateur) - Qui donne l'avis
@@ -90,7 +90,7 @@ EcoRide utilise une architecture de base de données hybride :
 - id_validateur (INT, FK → utilisateur, NULL)
 ```
 
-#### 💰 Table `transaction_credit`
+#### Table `transaction_credit`
 ```sql
 - id_transaction (INT, PK, AUTO_INCREMENT)
 - passager_id (INT, FK → utilisateur)
@@ -102,14 +102,14 @@ EcoRide utilise une architecture de base de données hybride :
 - date_transaction (TIMESTAMP)
 ```
 
-## 💰 Système de Crédits EcoRide
+## Système de Crédits EcoRide
 
-### 🎯 Principe
+### Principe
 - **Monnaie virtuelle** : Pas d'argent réel échangé
 - **Inscription** : 20 crédits offerts
 - **Commission** : 2 crédits par transaction pour la plateforme
 
-### 🔄 Flux de Crédits
+### Flux de Crédits
 ```
 Passager (100 crédits) 
     ↓ Réserve trajet (50 crédits)
@@ -122,7 +122,7 @@ Nouveau solde Passager : 50 crédits
 Nouveau solde Chauffeur : solde_initial + 48 crédits
 ```
 
-### 📊 Calculs Automatiques
+### Calculs Automatiques
 ```sql
 -- Mise à jour note moyenne utilisateur
 UPDATE utilisateur SET 
@@ -130,9 +130,9 @@ UPDATE utilisateur SET
     nb_avis_recus = (SELECT COUNT(*) FROM avis WHERE id_evalue = utilisateur.id_utilisateur);
 ```
 
-## 🛡️ Triggers et Contraintes
+## Triggers et Contraintes
 
-### 🔒 Trigger de Sécurité Places
+### Trigger de Sécurité Places
 ```sql
 CREATE TRIGGER check_places_before_participation
 BEFORE INSERT ON participation
@@ -147,7 +147,7 @@ BEGIN
 END;
 ```
 
-### 🗝️ Index de Performance
+### Index de Performance
 ```sql
 -- Index sur colonnes recherchées fréquemment
 INDEX idx_email ON utilisateur(email)
@@ -158,27 +158,27 @@ INDEX idx_date_depart ON covoiturage(date_depart)
 INDEX idx_statut_covoiturage ON covoiturage(statut)
 ```
 
-## 🌿 Données Écologiques
+## Données Écologiques
 
-### 🚗 Types de Véhicules
+### Types de Véhicules
 - **Électrique** : 0 émission, priorité dans l'affichage
 - **Hybride** : Faibles émissions, mise en avant écologique
 - **Essence/Diesel** : Standard, moins mis en avant
 
-### 📈 Indicateurs Écologiques
+### Indicateurs Écologiques
 ```sql
 -- Calcul impact écologique
 CASE 
-    WHEN type_carburant IN ('electrique', 'hybride') THEN '🌱 Écologique'
-    ELSE '⚡ Standard'
+    WHEN type_carburant IN ('electrique', 'hybride') THEN 'Écologique'
+    ELSE ' Standard'
 END as impact_eco
 ```
 
-## 🔮 MongoDB (Phase Future)
+## MongoDB (Phase Future)
 
-### 📝 Collections Prévues
+### Collections Prévues
 
-#### 📊 `activity_logs`
+####  `activity_logs`
 ```javascript
 {
   _id: ObjectId,
@@ -195,7 +195,7 @@ END as impact_eco
 }
 ```
 
-#### 📈 `analytics`
+#### `analytics`
 ```javascript
 {
   _id: ObjectId,
@@ -215,7 +215,7 @@ END as impact_eco
 }
 ```
 
-#### 🔍 `search_cache`
+#### `search_cache`
 ```javascript
 {
   _id: ObjectId,
@@ -232,9 +232,9 @@ END as impact_eco
 }
 ```
 
-## 🧪 Données de Test
+## Données de Test
 
-### 👥 Utilisateurs Test
+### utilisateur Test
 ```
 admin_eco (admin) - admin@ecoride.fr - password123
 jean_eco (chauffeur) - jean.dupont@email.com - password123
@@ -242,27 +242,27 @@ marie_green (chauffeur) - marie.leblanc@email.com - password123
 alex_passenger - alex.rousseau@email.com - password123
 ```
 
-### 💰 Soldes Réalistes
+###  Soldes Réalistes
 - **marie_green** : 551 crédits (chauffeur actif)
 - **jean_eco** : 354 crédits (chauffeur expérimenté) 
 - **alex_passenger** : 38 crédits (passager régulier)
 - **emma_traveler** : 0 crédits (a tout dépensé !)
 
-### 🛣️ Trajets Test
+### Trajets Test
 - **Paris → Marseille** : 73 crédits (Tesla électrique)
 - **Lyon → Toulouse** : 56 crédits (Nissan Leaf)
 - **Nice → Cannes** : 18 crédits (Toyota Prius hybride)
 
-## 📋 Commandes Utiles
+## Commandes Utiles
 
-### 🔄 Réinitialiser les Données
+### Réinitialiser les Données
 ```sql
 -- Exécuter create_tables.sql puis seed_data.sql
 SOURCE database/sql/create_tables.sql;
 SOURCE database/sql/seed_data.sql;
 ```
 
-### 📊 Statistiques Rapides
+### Statistiques Rapides
 ```sql
 -- Vue d'ensemble
 SELECT 
@@ -272,7 +272,7 @@ SELECT
     (SELECT SUM(commission) FROM transaction_credit) AS platform_revenue;
 ```
 
-### 🌱 Covoiturages Écologiques
+### Covoiturages Écologiques
 ```sql
 SELECT ville_depart, ville_arrivee, type_carburant, prix_par_personne
 FROM covoiturage c
@@ -282,9 +282,9 @@ AND c.statut = 'actif'
 ORDER BY c.date_depart;
 ```
 
-## 🛠️ Maintenance
+## Maintenance
 
-### 🧹 Nettoyage Périodique
+### Nettoyage Périodique
 ```sql
 -- Supprimer les participations annulées anciennes
 DELETE FROM participation 
@@ -298,7 +298,7 @@ WHERE statut = 'termine'
 AND date_depart < DATE_SUB(NOW(), INTERVAL 6 MONTH);
 ```
 
-### 📈 Optimisations
+### Optimisations
 ```sql
 -- Recalculer les notes moyennes
 UPDATE utilisateur u SET 
@@ -314,7 +314,7 @@ OPTIMIZE TABLE utilisateur, covoiturage, participation, avis;
 ## ✅ Validation
 
 Cette base de données a été testée et validée avec :
-- ✅ **10 utilisateurs** aux rôles variés
+- ✅ **10 utilisateur** aux rôles variés
 - ✅ **7 véhicules** (électriques, hybrides, essence)
 - ✅ **9 covoiturages** (futurs et passés)
 - ✅ **11 participations** effectives
@@ -323,5 +323,5 @@ Cette base de données a été testée et validée avec :
 - ✅ **Triggers de sécurité** actifs
 - ✅ **Relations** cohérentes
 
-**📅 Dernière mise à jour :** Juillet 2025  
-**🎯 Statut :** Production Ready
+** Dernière mise à jour :** Juillet 2025  
+** Statut :** Production Ready

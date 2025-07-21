@@ -1,5 +1,5 @@
 <?php
-// app/views/rides/index.php - Page covoiturages finale
+// app/views/rides/index.php 
 
 // Récupérer les paramètres de recherche
 $departure = $_GET['departure'] ?? '';
@@ -182,7 +182,7 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
 
 <?php else: ?>
     <!-- ================================================ -->
-    <!-- MODE NAVIGATION NORMALE - TON FICHIER COMPLET -->
+    <!-- MODE NAVIGATION NORMALE - -->
     <!-- ================================================ -->
     
     <!-- CSS de la page -->
@@ -447,7 +447,7 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
         </div>
     </section>
 
-    <!-- TON JAVASCRIPT COMPLET -->
+    <!--JAVASCRIPT COMPLET -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Récupérer les éléments du formulaire
@@ -507,7 +507,7 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
         
         applyHarmonizedColors();
         
-        // AUTO-COMPLÉTION - TON CODE COMPLET
+        // AUTO-COMPLÉTION 
         function createAutocomplete(inputElement) {
             let autocompleteContainer = null;
             let selectedIndex = -1;

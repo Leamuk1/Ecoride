@@ -6,7 +6,7 @@
     <meta name="description" content="<?= $meta_description ?? 'EcoRide - Plateforme de covoiturage écologique conforme à vos valeurs environnementales' ?>">
     <title><?= $page_title ?? 'EcoRide - Covoiturage Écologique' ?></title>
     
-    <!-- Google Fonts - Roboto selon tes maquettes -->
+    <!-- Google Fonts - Roboto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- CSS principal EcoRide -->
+    <!-- CSS principal -->
     <link rel="stylesheet" href="css/styles.css">
     
     <!-- Favicon -->
@@ -104,7 +104,7 @@
         if (file_exists($viewPath)) {
             include $viewPath;
         } else {
-            // Page d'erreur personnalisée conforme à ta charte
+            // Page d'erreur personnalisée
             echo '<div class="container" style="padding: 4rem 1.5rem; text-align: center;">
                     <div style="background: #FFFFFF; padding: 3rem; border-radius: 12px; box-shadow: var(--shadow-medium); max-width: 600px; margin: 0 auto;">
                         <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #f57c00; margin-bottom: 1.5rem;"></i>
@@ -125,7 +125,7 @@
     
     <!-- Scripts EcoRide -->
     <script>
-        // Configuration globale EcoRide
+        // Configuration globale
         window.EcoRide = {
             version: '1.0.0',
             environment: '<?= defined('APP_ENV') ? APP_ENV : 'production' ?>',

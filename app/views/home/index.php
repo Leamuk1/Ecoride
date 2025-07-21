@@ -506,30 +506,30 @@ function createAutocomplete(inputElement) {
     }
 
     function selectCity(cityName) {
-    // CORRECTION 1 : Flag pour empêcher le déclenchement de l'auto-complétion
+    // Flag pour empêcher le déclenchement de l'auto-complétion
     inputElement.setAttribute('data-selecting', 'true');
     
-    // CORRECTION 2 : Fermer immédiatement
+    // Fermer immédiatement
     hideSuggestions();
     
-    // CORRECTION 3 : Mettre à jour la valeur
+    // Mettre à jour la valeur
     inputElement.value = cityName;
     
-    // CORRECTION 4 : Changer la couleur
+    // Changer la couleur
     inputElement.style.setProperty('color', 'var(--text-color)', 'important');
     
-    // CORRECTION 5 : Déclencher les événements APRÈS un délai
+    // Déclencher les événements APRÈS un délai
     setTimeout(() => {
         const changeEvent = new Event('change', { bubbles: true });
         inputElement.dispatchEvent(changeEvent);
         
-        // CORRECTION 6 : Retirer le flag après les événements
+        // Retirer le flag après les événements
         setTimeout(() => {
             inputElement.removeAttribute('data-selecting');
         }, 100);
     }, 50);
     
-    console.log('🏙️ Ville sélectionnée:', cityName);
+    console.log('Ville sélectionnée:', cityName);
 }
 
     function updateSelection() {
@@ -550,7 +550,7 @@ function createAutocomplete(inputElement) {
     let timeoutId = null;
 
     inputElement.addEventListener('input', function() {
-    // CORRECTION : Ignorer si on est en train de sélectionner une ville
+    // Ignorer si on est en train de sélectionner une ville
     if (this.getAttribute('data-selecting') === 'true') {
         return;
     }
@@ -619,7 +619,7 @@ function createAutocomplete(inputElement) {
         }
     });
 
-    // CORRECTION : Meilleure gestion du blur
+    // Meilleure gestion du blur
     inputElement.addEventListener('blur', function() {
         setTimeout(() => {
             if (!isMouseDownOnSuggestion) {
@@ -628,11 +628,11 @@ function createAutocomplete(inputElement) {
         }, 150);
     });
 
-    // CORRECTION : Fermer lors du scroll
+    //Fermer lors du scroll
     window.addEventListener('scroll', hideSuggestions);
     window.addEventListener('resize', hideSuggestions);
 
-    // CORRECTION : Fermer si clic ailleurs
+    // Fermer si clic ailleurs
     document.addEventListener('click', function(e) {
         if (!inputElement.contains(e.target) && !autocompleteContainer?.contains(e.target)) {
             hideSuggestions();

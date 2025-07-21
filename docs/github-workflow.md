@@ -226,7 +226,7 @@ app/config/database.php
 .env
 *.key
 
-# Uploads utilisateurs
+# Uploads utilisateur
 public/uploads/*
 !public/uploads/.gitkeep
 

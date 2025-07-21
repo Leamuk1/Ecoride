@@ -1,26 +1,27 @@
 <?php
-// app/views/layouts/header.php - Header EcoRide US2
+// app/views/layouts/header.php
 
 // Récupérer la page actuelle pour les états actifs
 $currentPage = $_SERVER['REQUEST_URI'] ?? '/';
 $currentPage = rtrim($currentPage, '/'); // Supprimer le slash final
+
 // Fonction pour déterminer si un lien est actif
 function isActive($pagePath, $currentPage) {
-    if ($pagePath === '/' && ($currentPage === '' || $currentPage === '/')) {
+    if ($pagePath === '/' && ($currentPage === '' || $currentPage === '/ecoride/public' || $currentPage === '/ecoride/public/')) {
         return true;
     }
     return strpos($currentPage, $pagePath) !== false && $pagePath !== '/';
 }
-// Simulation état utilisateur (à adapter selon ton système d'auth)
-$isLoggedIn = isset($_SESSION['user_id']) ?? false;
-$userName = $_SESSION['user_name'] ?? 'Utilisateur';
 
-// Gestion état utilisateur (US2 - Gestion connexion/déconnexion)
+// Gestion de l'état utilisateur
+require_once '../app/controllers/AuthController.php';
+$isLoggedIn = AuthController::isLoggedIn();
+$currentUser = AuthController::getCurrentUser();
 
-$userName = $isLoggedIn ? ($_SESSION['user_name'] ?? $_SESSION['user_pseudo'] ?? 'Utilisateur') : null;
-$userEmail = $isLoggedIn ? ($_SESSION['user_email'] ?? '') : null;
-$userCredits = $isLoggedIn ? ($_SESSION['user_credits'] ?? 0) : 0;
-
+// Variables
+$userName = $isLoggedIn ? ($currentUser['pseudo'] ?: $currentUser['prenom'] ?: 'Utilisateur') : null;
+$userEmail = $isLoggedIn ? $currentUser['email'] : null;
+$userCredits = $isLoggedIn ? $currentUser['credits'] : 0;
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +47,11 @@ $userCredits = $isLoggedIn ? ($_SESSION['user_credits'] ?? 0) : 0;
 </head>
 <body>
 
-<!-- Header EcoRide US2 -->
+<!-- Header EcoRide -->
 <header class="header" id="header">
     <nav class="nav-container">
         <!-- Logo EcoRide - Retour page d'accueil -->
-        <a href="/" class="logo">
+        <a href="/ecoride/public/" class="logo">
             <span class="eco">ECO</span><span class="barre">|</span><span class="ride">RIDE</span>
         </a>
 
@@ -58,86 +59,94 @@ $userCredits = $isLoggedIn ? ($_SESSION['user_credits'] ?? 0) : 0;
         <ul class="nav-menu" id="nav-menu">
             <!-- Retour vers la page d'accueil -->
             <li>
-                <a href="/" class="<?= isActive('/', $currentPage) ? 'active' : '' ?>">
+                <a href="/ecoride/public/" class="<?= isActive('/', $currentPage) ? 'active' : '' ?>">
                     <span>Accueil</span>
                 </a>
             </li>
 
             <!-- Accès aux covoiturages -->
             <li>
-                <a href="/rides" class="<?= isActive('/rides', $currentPage) ? 'active' : '' ?>">
+                <a href="/ecoride/public/rides" class="<?= isActive('/rides', $currentPage) ? 'active' : '' ?>">
                 <span>Covoiturages</span>
                 </a>
             </li>
 
             <!-- Contact -->
             <li>
-                <a href="/contact" class="<?= isActive('/contact', $currentPage) ? 'active' : '' ?>">
+                <a href="/ecoride/public/contact" class="<?= isActive('/contact', $currentPage) ? 'active' : '' ?>">
                     <span>Contact</span>
                 </a>
             </li>
 
-            <!-- Connexion / Espace utilisateur -->
-            <?php if ($isLoggedIn): ?>
+            <!--Connexion / Espace utilisateur -->
+            <?php if ($isLoggedIn && $currentUser): ?>
                 <!-- Utilisateur connecté - Dropdown -->
                 <li class="user-dropdown">
                     <a href="#" class="user-toggle">
-                        <img src="https://ui-avatars.com/api/?name=<?= urlencode($userName) ?>&background=435334&color=fff&size=32&bold=true&format=svg" 
+                        <!-- Photo de profil réaliste -->
+                        <img src="https://randomuser.me/api/portraits/<?= (crc32($currentUser['email']) % 2 === 0) ? 'women' : 'men' ?>/<?= abs(crc32($currentUser['email'])) % 99 ?>.jpg" 
                              alt="Avatar <?= htmlspecialchars($userName) ?>" 
-                             class="user-avatar">
+                             class="user-avatar"
+                             onerror="this.src='https://ui-avatars.com/api/?name=<?= urlencode($userName) ?>&background=435334&color=fff&size=32&bold=true&format=svg'">
                         <span class="user-name"><?= htmlspecialchars($userName) ?></span>
                         <i class="fas fa-chevron-down user-arrow"></i>
                     </a>
                     
                     <!-- Menu déroulant utilisateur -->
                     <div class="dropdown-menu">
-<!-- En-tête utilisateur -->
+                        <!-- En-tête utilisateur avec données -->
                         <div class="dropdown-header">
                             <strong><?= htmlspecialchars($userName) ?></strong>
                             <?php if ($userEmail): ?>
                                 <small><?= htmlspecialchars($userEmail) ?></small>
                             <?php endif; ?>
+                            <!-- Affichage des crédits en évidence -->
+                            <div class="user-credits-display">
+                                <i class="fas fa-coins"></i>
+                                <span><?= $userCredits ?> crédits</span>
+                            </div>
                         </div>
                         
                         <div class="dropdown-divider"></div>
                         
                         <!-- Menu utilisateur -->
-                        <a href="/profile">
-                            <i class="fas fa-user"></i> Mon profil
+                        <a href="/ecoride/public/dashboard">
+                             Tableau de bord
                         </a>
-                        <a href="/my-rides">
-                            <i class="fas fa-history"></i> Mes trajets
+                        <a href="/ecoride/public/profile">
+                             Mon profil
                         </a>
-                        <a href="/create-ride">
-                            <i class="fas fa-plus-circle"></i> Proposer un trajet
+                        <a href="/ecoride/public/rides/my-rides">
+                             Mes trajets
                         </a>
-                        <a href="/credits">
-                            <i class="fas fa-coins"></i> Mes crédits
-                            <span class="credits-badge"><?= $userCredits ?></span>
-                        </a>
-                        
-                        <div class="dropdown-divider"></div>
-                        
-                        <a href="/settings">
-                            <i class="fas fa-cog"></i> Paramètres
+                        <a href="/ecoride/public/rides/create">
+                             Proposer un trajet
                         </a>
                         
                         <div class="dropdown-divider"></div>
                         
-                        <a href="/auth/logout" class="logout-link">
+                        <a href="/ecoride/public/settings">
+                            Paramètres
+                        </a>
+                        <a href="/ecoride/public/help">
+                             Aide
+                        </a>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <a href="/ecoride/public/auth/logout" class="logout-link">
                             <i class="fas fa-sign-out-alt"></i> Déconnexion
                         </a>
                     </div>
                 </li>
             <?php else: ?>
-
-                    <!-- Utilisateur non connecté - Bouton connexion -->
-                 <li class="auth-buttons-container">
-                    <a href="/auth/login" class="btn-connexion">
+                <!-- Utilisateur non connecté - Boutons connexion/inscription -->
+                <li class="auth-buttons-container">
+                    <a href="/ecoride/public/auth/login" class="btn-connexion">
                         <i class="fas fa-sign-in-alt"></i>
                         <span>Connexion</span> 
                     </a>
-                    <a href="/auth/register" class="btn-connexion">
+                    <a href="/ecoride/public/auth/register" class="btn-connexion">
                         <i class="fas fa-user-plus"></i>
                         <span>Inscription</span> 
                     </a>
@@ -153,6 +162,53 @@ $userCredits = $isLoggedIn ? ($_SESSION['user_credits'] ?? 0) : 0;
         </div>
     </nav>
 </header>
+
+<!--Messages flash système -->
+<?php if (isset($_GET['message'])): ?>
+    <div class="flash-messages">
+        <?php
+        $message = $_GET['message'];
+        $messageText = '';
+        $messageType = 'info';
+        
+        switch ($message) {
+            case 'disconnected':
+                $messageText = 'Vous avez été déconnecté avec succès.';
+                $messageType = 'success';
+                break;
+            case 'login_required':
+                $messageText = 'Vous devez être connecté pour accéder à cette page.';
+                $messageType = 'warning';
+                break;
+            case 'access_denied':
+                $messageText = 'Accès non autorisé.';
+                $messageType = 'error';
+                break;
+            case 'account_created':
+                $messageText = 'Compte créé avec succès ! Bienvenue sur EcoRide.';
+                $messageType = 'success';
+                break;
+            default:
+                $messageText = htmlspecialchars($message);
+                break;
+        }
+        ?>
+        
+        <?php if ($messageText): ?>
+            <div class="flash-message flash-<?= $messageType ?>" id="flashMessage">
+                <div class="flash-content">
+                    <i class="fas fa-<?= $messageType === 'success' ? 'check-circle' : ($messageType === 'error' ? 'exclamation-circle' : ($messageType === 'warning' ? 'exclamation-triangle' : 'info-circle')) ?>"></i>
+                    <span><?= $messageText ?></span>
+                </div>
+                <button class="flash-close" onclick="closeFlashMessage()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+
 
 <!-- JavaScript Navigation -->
 <script>
@@ -239,25 +295,38 @@ document.addEventListener('DOMContentLoaded', function() {
     if (userDropdown && userToggle) {
         // Gestion mobile du dropdown utilisateur
         userToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             if (window.innerWidth <= 768) {
-                e.preventDefault();
-                e.stopPropagation();
                 userDropdown.classList.toggle('mobile-active');
+            } else {
+                // Desktop : toggle normal
+                userDropdown.classList.toggle('active');
+            }
+        });
+        
+        // Fermer le dropdown en cliquant ailleurs
+        document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target)) {
+                userDropdown.classList.remove('active');
+                userDropdown.classList.remove('mobile-active');
             }
         });
     }
+    
     // ===================================
     // HIGHLIGHT NAVIGATION ACTIVE
     // ===================================
     
-     // Améliorer la visibilité du lien actif
+    // Améliorer la visibilité du lien actif
     const activeLink = document.querySelector('.nav-menu a.active');
     if (activeLink && !activeLink.classList.contains('btn-connexion') && !activeLink.classList.contains('user-toggle')) {
         console.log('Lien actif détecté:', activeLink.textContent.trim());
     }
 
-        // ===================================
-    // US2 - GESTION DÉCONNEXION
+    // ===================================
+    // GESTION DÉCONNEXION RÉELLE
     // ===================================
     
     const logoutLink = document.querySelector('.logout-link');
@@ -267,15 +336,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const confirmLogout = confirm('Êtes-vous sûr de vouloir vous déconnecter ?');
             if (confirmLogout) {
-                // Optionnel : Animation de déconnexion
+                // Animation de déconnexion
                 const userToggle = document.querySelector('.user-toggle');
                 if (userToggle) {
                     userToggle.style.opacity = '0.5';
                     userToggle.style.pointerEvents = 'none';
                 }
                 
-                // Redirection vers la déconnexion
-                window.location.href = '/auth/logout';
+                // Redirection vers la déconnexion réelle
+                window.location.href = '/ecoride/public/auth/logout';
             }
         });
     }
@@ -293,21 +362,39 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileToggle?.classList.remove('active');
                 navMenu?.classList.remove('active');
                 document.body.style.overflow = '';
-              
+                
+                // Fermer aussi le dropdown utilisateur
+                userDropdown?.classList.remove('mobile-active');
             }
         }, 250);
     });
 
-
-// ===================================
-    // US2 - TESTS NAVIGATION (développement)
+    // ===================================
+    // MESSAGES FLASH AUTO-CLOSE
     // ===================================
     
-    console.log('US2 Tests Navigation:');
+    // Auto-fermeture des messages flash après 5 secondes
+    setTimeout(function() {
+        const flashMessage = document.getElementById('flashMessage');
+        if (flashMessage) {
+            closeFlashMessage();
+        }
+    }, 5000);
+
+    // ===================================
+    // TESTS NAVIGATION & AUTH
+    // ===================================
+    
+    console.log('US7 Tests Navigation & Authentification:');
     console.log('Menu burger:', mobileToggle ? 'OK' : 'MANQUANT');
     console.log('Menu navigation:', navMenu ? 'OK' : 'MANQUANT');
     console.log('Dropdown utilisateur:', userDropdown ? 'OK' : 'Non connecté');
     console.log('Page active:', window.location.pathname);
+    console.log('Utilisateur connecté:', <?= $isLoggedIn ? 'true' : 'false' ?>);
+    <?php if ($isLoggedIn): ?>
+    console.log('Utilisateur:', '<?= htmlspecialchars($userName) ?>');
+    console.log('Crédits:', <?= $userCredits ?>);
+    <?php endif; ?>
     
     // Test des liens
     const allNavLinks = document.querySelectorAll('.nav-menu a');
@@ -320,4 +407,15 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`   ${index + 1}. ${text} → ${href} ${isActive ? '(ACTIF)' : ''}`);
     });
 });
+
+// Fonction pour fermer les messages flash
+function closeFlashMessage() {
+    const flashMessage = document.getElementById('flashMessage');
+    if (flashMessage) {
+        flashMessage.style.opacity = '0';
+        setTimeout(() => {
+            flashMessage.style.display = 'none';
+        }, 300);
+    }
+}
 </script>

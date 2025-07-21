@@ -1,13 +1,13 @@
 <?php
 /**
- * Classe pour gérer le système de crédits EcoRide
+ * Classe pour gérer le système de crédits
  */
 class CreditSystem {
     
     private $db;
     
-    const CREDITS_INSCRIPTION = 20;  // Crédits donnés à l'inscription
-    const COMMISSION_PLATEFORME = 2; // Crédits prélevés par trajet
+    const CREDITS_INSCRIPTION = 20; 
+    const COMMISSION_PLATEFORME = 2;
     
     public function __construct($database) {
         $this->db = $database;

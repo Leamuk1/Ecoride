@@ -7,7 +7,7 @@
 // ================================================
 // ENVIRONNEMENT
 // ================================================
-define('APP_ENV', 'development'); // 'development' ou 'production'
+define('APP_ENV', 'development');
 define('APP_NAME', 'EcoRide');
 define('APP_VERSION', '1.0.0');
 define('APP_URL', 'http://ecoride.local');
@@ -58,9 +58,9 @@ ini_set('session.cookie_secure', 0);
 // ================================================
 
 // Système de crédits
-define('CREDITS_INITIAL', 20);           // Crédits à l'inscription
-define('CREDITS_COMMISSION', 2);         // Commission par transaction
-define('CREDITS_MAX_TRANSACTION', 500);  // Maximum par transaction
+define('CREDITS_INITIAL', 20);
+define('CREDITS_COMMISSION', 2);
+define('CREDITS_MAX_TRANSACTION', 500);
 
 // Paramètres des covoiturages
 define('MAX_PASSENGERS_PER_RIDE', 8);    // Maximum 8 passagers
@@ -88,7 +88,7 @@ define('EMAIL_FROM', 'noreply@ecoride.fr');
 define('EMAIL_FROM_NAME', 'EcoRide');
 define('SUPPORT_EMAIL', 'support@ecoride.fr');
 
-// Configuration email (à adapter selon votre service)
+// Configuration email
 define('SMTP_HOST', 'localhost');
 define('SMTP_PORT', 587);
 define('SMTP_USERNAME', '');
@@ -99,20 +99,20 @@ define('SMTP_ENCRYPTION', 'tls');
 // API ET SERVICES EXTERNES
 // ================================================
 
-// Google Maps (optionnel pour plus tard)
+// Google Maps 
 define('GOOGLE_MAPS_API_KEY', '');
 
 // Service de géolocalisation pour les distances
 define('DISTANCE_API_ENABLED', false);
 
-// Service de notification push (optionnel)
+// Service de notification push 
 define('PUSH_NOTIFICATIONS_ENABLED', false);
 
 // ================================================
 // CACHE ET PERFORMANCE
 // ================================================
 define('CACHE_ENABLED', false);
-define('CACHE_LIFETIME', 3600); // 1 heure
+define('CACHE_LIFETIME', 3600);
 define('CACHE_PATH', ROOT_PATH . '/cache');
 
 // ================================================
@@ -121,7 +121,7 @@ define('CACHE_PATH', ROOT_PATH . '/cache');
 define('LOG_ENABLED', true);
 define('LOG_LEVEL', APP_ENV === 'development' ? 'DEBUG' : 'ERROR');
 define('LOG_PATH', ROOT_PATH . '/logs');
-define('LOG_MAX_FILES', 30); // Garder 30 jours de logs
+define('LOG_MAX_FILES', 30); 
 
 // ================================================
 // FONCTIONS UTILITAIRES
@@ -280,7 +280,7 @@ function estimate_distance($city1, $city2) {
         return $distances[$route2];
     }
     
-    return null; // Distance inconnue
+    return null; 
 }
 
 /**
@@ -324,7 +324,7 @@ if (APP_ENV === 'development') {
 date_default_timezone_set('Europe/Paris');
 
 // ================================================
-// AUTOLOADER SIMPLE (optionnel)
+// AUTOLOADER SIMPLE
 // ================================================
 spl_autoload_register(function ($class_name) {
     $possible_paths = [

@@ -51,7 +51,7 @@ INSERT INTO marque (libelle) VALUES
 ('Ford'), ('Peugeot'), ('BMW'), ('Audi'), ('Mercedes');
 
 -- ================================================
--- UTILISATEURS
+-- utilisateur
 -- ================================================
 -- Mot de passe : "password123" hashé avec password_hash()
 INSERT INTO utilisateur (nom, prenom, email, password, telephone, adresse, date_naissance, pseudo, credit) VALUES
@@ -93,7 +93,7 @@ INSERT INTO utilisateur_role (id_utilisateur, id_role) VALUES
 (10, 4);
 
 -- ================================================
--- PRÉFÉRENCES UTILISATEURS
+-- PRÉFÉRENCES utilisateur
 -- ================================================
 INSERT INTO preference (id_utilisateur, fumeur, animal, musique, discussion) VALUES
 (1, 1, 1, 0, 0), -- Admin
@@ -323,7 +323,7 @@ SELECT '   DONNÉES ECORIDE INSÉRÉES AVEC SUCCÈS !   ' AS '';
 SELECT '================================' AS '';
 
 SELECT 
-    (SELECT COUNT(*) FROM utilisateur) AS 'Utilisateurs',
+    (SELECT COUNT(*) FROM utilisateur) AS 'utilisateur',
     (SELECT COUNT(*) FROM vehicule) AS 'Véhicules', 
     (SELECT COUNT(*) FROM covoiturage) AS 'Covoiturages',
     (SELECT COUNT(*) FROM participation) AS 'Participations',
@@ -334,9 +334,9 @@ SELECT 'COMMISSIONS PLATEFORME :' AS '';
 SELECT CONCAT(SUM(commission), ' crédits') AS 'Total Commissions EcoRide' FROM transaction_credit;
 
 SELECT 'CRÉDITS EN CIRCULATION :' AS '';
-SELECT CONCAT(SUM(credit), ' crédits') AS 'Total Crédits Utilisateurs' FROM utilisateur;
+SELECT CONCAT(SUM(credit), ' crédits') AS 'Total Crédits utilisateur' FROM utilisateur;
 
-SELECT 'TOP UTILISATEURS :' AS '';
+SELECT 'TOP utilisateur :' AS '';
 SELECT 
     pseudo AS 'Pseudo',
     CONCAT(credit, ' crédits') AS 'Solde',

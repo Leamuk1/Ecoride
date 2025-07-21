@@ -105,9 +105,9 @@ http://ecoride.local/
 http://ecoride.local/test-db.php
 ```
 
-## 🧪 Données de test
+##  Données de test
 
-### 👤 Comptes utilisateurs
+###  Comptes utilisateur
 | Rôle | Email | Mot de passe | Pseudo |
 |------|-------|--------------|--------|
 | Admin | admin@ecoride.fr | password123 | admin_eco |
@@ -115,17 +115,17 @@ http://ecoride.local/test-db.php
 | Chauffeur | marie.leblanc@email.com | password123 | marie_green |
 | Passager | alex.rousseau@email.com | password123 | alex_passenger |
 
-### 💰 Système de crédits
+###  Système de crédits
 - **Inscription** : 20 crédits offerts
 - **Commission** : 2 crédits par transaction
 - **Exemples de prix** : Paris-Marseille (73 crédits), Lyon-Toulouse (56 crédits)
 
-### 🚗 Véhicules de test
+###  Véhicules de test
 - Tesla Model 3 (électrique) - jean_eco
 - Nissan Leaf (électrique) - marie_green  
 - Toyota Prius (hybride) - pierre_drive
 
-## 📊 Base de données
+##  Base de données
 
 ### Structure MySQL
 - **8 tables principales** : utilisateur, vehicule, covoiturage, participation, avis, etc.
@@ -134,19 +134,19 @@ http://ecoride.local/test-db.php
 - **Index optimisés** pour les performances
 
 ### Documentation complète
-📖 Voir [`docs/documentation-bdd-mysql.md`](docs/documentation-bdd-mysql.md)
+Voir [`docs/documentation-bdd-mysql.md`](docs/documentation-bdd-mysql.md)
 
-## 🎨 Design et UX
+##  Design et UX
 
 ### Maquettes Figma
-🎨 [Lien vers les maquettes Figma](https://www.figma.com/design/SP2eWynqJNo68pc0cPaaao/EcoRide)
+ [Lien vers les maquettes Figma](https://www.figma.com/design/SP2eWynqJNo68pc0cPaaao/EcoRide)
 
 ### Charte graphique
 - **Couleurs principales** : Verts écologiques (#27ae60, #2ecc71)
 - **Police** : Système (sans-serif moderne)
 - **Style** : Moderne, épuré, éco-responsable
 
-## 📱 User Stories implémentées
+##  User Stories implémentées
 
 ### Phase 1 - MVP
 - [x] **US1** - Page d'accueil avec présentation
@@ -167,9 +167,9 @@ http://ecoride.local/test-db.php
 - [ ] **US12** - Modération des contenus
 - [ ] **US13** - Statistiques et analytics
 
-## 🚀 Roadmap
+##  Roadmap
 
-### Phase actuelle : Setup et fondations ✅
+### Phase actuelle : Setup et fondations 
 - [x] Architecture MVC
 - [x] Base de données MySQL
 - [x] Système de crédits
@@ -184,7 +184,7 @@ http://ecoride.local/test-db.php
 5. **Tests et debugging**
 6. **Déploiement production**
 
-## 🧪 Tests
+##  Tests
 
 ### Tests fonctionnels
 ```bash
@@ -195,17 +195,17 @@ http://ecoride.local/test-db.php
 http://ecoride.local/test-final.php
 ```
 
-### Tests utilisateurs
+### Tests utilisateur
 - Création de compte
 - Connexion/déconnexion
 - Recherche de covoiturages
 - Réservation et paiement en crédits
 - Système d'évaluation
 
-## 📈 Métriques du projet
+##  Métriques du projet
 
 ### Base de données (données actuelles)
-- **Utilisateurs** : 10 comptes de test
+- **utilisateur** : 10 comptes de test
 - **Véhicules** : 7 véhicules (3 électriques, 2 hybrides, 2 essence)
 - **Covoiturages** : 9 trajets (7 futurs, 2 passés)
 - **Crédits en circulation** : 1,276 crédits
@@ -216,7 +216,7 @@ http://ecoride.local/test-final.php
 - **Base de données** : Optimisée avec index
 - **Sécurité** : Passwords hashés, protection SQL injection
 
-## 🤝 Contribution
+##  Contribution
 
 Ce projet est développé dans le cadre d'une formation. Les contributions externes ne sont pas acceptées pour le moment.
 
@@ -226,11 +226,11 @@ Ce projet est développé dans le cadre d'une formation. Les contributions exter
 - **BEM methodology** pour le CSS
 - **Conventional Commits** pour les messages Git
 
-## 📄 Licence
+##  Licence
 
 Ce projet est développé à des fins éducatives dans le cadre d'un ECF (Evaluation en Cours de Formation).
 
-## 📞 Contact
+##  Contact
 
 **Développeur** : [Ton Nom]  
 **Email** : [ton.email@example.com]  
@@ -239,7 +239,7 @@ Ce projet est développé à des fins éducatives dans le cadre d'un ECF (Evalua
 
 ---
 
-## 🌟 Remerciements
+##  Remerciements
 
 - **Formateurs** pour l'accompagnement technique
 - **Figma Community** pour les ressources design
@@ -247,4 +247,4 @@ Ce projet est développé à des fins éducatives dans le cadre d'un ECF (Evalua
 
 ---
 
-⭐ **N'hésitez pas à mettre une étoile si ce projet vous intéresse !**
+ **N'hésitez pas à mettre une étoile si ce projet vous intéresse !**
