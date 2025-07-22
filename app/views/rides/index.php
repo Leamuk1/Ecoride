@@ -154,9 +154,10 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
                                     <i class="fas fa-envelope"></i>
                                     Contacter
                                 </button>
-                                <button class="ride-action-btn btn-details" onclick="alert('Page de détails à implémenter dans US5')">
+                                <a href="/ecoride/public/rides?id=<?= $ride['id_covoiturage'] ?>" class="ride-action-btn btn-details">
+                                    <i class="fas fa-info-circle"></i>
                                     Voir détails
-                                </button>
+                                </a>
                                 <button class="ride-action-btn btn-reserve" onclick="alert('Système de réservation à implémenter dans US6 !')">
                                     Réserver
                                 </button>
@@ -467,10 +468,10 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
                                 <i class="fas fa-envelope"></i>
                                 Contacter
                             </button>
-                            <button class="btn-details" onclick="alert('Page de détails US5 à implémenter')">
+                            <a href="/ecoride/public/rides?id=<?= $ride['id_covoiturage'] ?>" class="btn-details">
                                 <i class="fas fa-info-circle"></i>
                                 Détails
-                            </button>
+                            </a>
                             <button class="btn-book" onclick="alert('Système de réservation US6 à implémenter')">
                                 <i class="fas fa-check"></i>
                                 Réserver

@@ -783,7 +783,7 @@ header .btn-connexion:hover {
     width: 100%;
     padding: 15px 12px 13px 36px;
     border: 1px solid var(--eco-green-light);
-    border-radius: 3px;
+    border-radius: 4px;
     font-size: 18px;
     background: var(--white);
     font-family: var(--font-roboto);
@@ -863,7 +863,7 @@ select.form-input option {
     color: var(--white);
     padding: 18px 14px; 
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     font-size: 1.1rem; 
     font-weight: 200;
     cursor: pointer;
@@ -980,14 +980,14 @@ select.form-input option {
 .cta-section {
     padding: 5rem 0;
     background: var(--background-light);
+    margin: 36px;
 }
 
 .cta-content {
-    display: flex;
-    gap: 0.5rem;
+   display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
-    flex-direction: column;
-    padding-bottom: 5rem;
 }
 
 .cta-text {

@@ -683,4 +683,153 @@ class HomeController {
         
         return ($diff > 0 ? '+' : '') . $diff . ' jours';
     }
+
+
+    /**
+     * US5 - Page détail d'un covoiturage
+     * Méthode simple qui récupère toutes les infos d'un trajet
+     */
+    public function rideDetail($id) {
+    try {
+        // Récupérer les détails du covoiturage
+        $ride = $this->getRideDetails($id);
+        
+        // Si le trajet n'existe pas, retourner à la liste
+        if (!$ride) {
+            header("Location: /ecoride/public/rides");
+            exit();
+        }
+        
+        // Récupérer les avis du conducteur
+        $reviews = $this->getDriverReviews($ride['id_conducteur']);
+        
+        // Variables pour la vue
+        $title = "Détail du trajet - EcoRide";
+        
+    } catch (Exception $e) {
+        error_log("Erreur détail covoiturage: " . $e->getMessage());
+        header("Location: /ecoride/public/rides");
+        exit();
+    }
+    
+    // Charger la vue détail
+    include '../app/views/layouts/header.php';
+    include '../app/views/rides/detail.php';
+    include '../app/views/layouts/footer.php';
+}
+    
+    /**
+     * Récupérer toutes les informations d'un covoiturage
+     * Requête simple avec toutes les données nécessaires
+     */
+   private function getRideDetails($id) {
+    try {
+        if (!$this->pdo) {
+            return null;
+        }
+        
+        // Requête avec les préférences (table "preference")
+        $sql = "SELECT 
+                    c.id_covoiturage,
+                    c.ville_depart,
+                    c.ville_arrivee,
+                    c.date_depart,
+                    c.heure_depart,
+                    c.prix_par_personne,
+                    c.nb_places_disponibles,
+                    c.commentaire,
+                    
+                    u.id_utilisateur as id_conducteur,
+                    u.pseudo as conducteur_pseudo,
+                    u.prenom as conducteur_prenom,
+                    u.note_moyenne as conducteur_note,
+                    u.date_creation as conducteur_depuis,
+                    
+                    p.fumeur,
+                    p.animal,
+                    p.musique,
+                    p.discussion,
+                    p.autres_preferences
+                    
+                FROM covoiturage c
+                JOIN utilisateur u ON c.id_conducteur = u.id_utilisateur
+                LEFT JOIN preference p ON u.id_utilisateur = p.id_utilisateur
+                WHERE c.id_covoiturage = :id
+                AND c.statut = 'planifie'";
+        
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $ride = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if ($ride) {
+            // Ajouter les données par défaut
+            $ride['nb_places_total'] = 4;
+            $ride['conducteur_email'] = 'contact@ecoride.fr';
+            $ride['conducteur_telephone'] = '0123456789';
+            $ride['marque'] = 'Peugeot';
+            $ride['modele'] = '308';
+            $ride['couleur'] = 'Blanche';
+            $ride['type_vehicule'] = 'essence';
+            $ride['nombre_places'] = 4;
+            
+            // Formater les données
+            $ride['eco_badge'] = $this->getEcoBadge($ride['type_vehicule']);
+            $ride['formatted_date'] = date('d/m/Y', strtotime($ride['date_depart']));
+            $ride['formatted_time'] = substr($ride['heure_depart'], 0, 5);
+            $ride['duree_estimee'] = $this->estimerDuree($ride['ville_depart'], $ride['ville_arrivee']);
+            $ride['distance_estimee'] = $this->estimerDistance($ride['ville_depart'], $ride['ville_arrivee']);
+            $ride['conducteur_depuis_format'] = date('F Y', strtotime($ride['conducteur_depuis']));
+            
+            return $ride;
+        }
+        
+        return null;
+        
+    } catch (Exception $e) {
+        error_log("Erreur getRideDetails: " . $e->getMessage());
+        return null;
+    }
+}
+    /**
+     * Récupérer les avis du conducteur
+     * Méthode simple pour afficher les derniers avis
+     */
+    private function getDriverReviews($conducteur_id) {
+        try {
+            if (!$this->pdo) {
+                return [];
+            }
+            
+            // Requête simple pour récupérer les avis
+            $sql = "SELECT 
+                        a.note,
+                        a.commentaire,
+                        a.date_avis,
+                        u.prenom as passager_prenom
+                    FROM avis a
+                    JOIN utilisateur u ON a.id_passager = u.id_utilisateur
+                    WHERE a.id_conducteur = :conducteur_id
+                    AND a.statut = 'valide'
+                    ORDER BY a.date_avis DESC
+                    LIMIT 5"; // Limiter à 5 avis pour simplifier
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindValue(':conducteur_id', $conducteur_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Formater les dates simplement
+            foreach ($reviews as &$review) {
+                $review['formatted_date'] = date('d/m/Y', strtotime($review['date_avis']));
+            }
+            
+            return $reviews;
+            
+        } catch (Exception $e) {
+            error_log("Erreur getDriverReviews: " . $e->getMessage());
+            return [];
+        }
+    }
+
 }

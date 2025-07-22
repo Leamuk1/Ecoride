@@ -33,6 +33,8 @@ $cleanPath = trim($path, '/');
 // ============================================
 // TRAITEMENT DES REQUÊTES POST
 // ============================================
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController = new AuthController();
     
@@ -133,12 +135,21 @@ switch ($cleanPath) {
         break;
         
     // ================================================
-    // AUTRES PAGES - AVEC HOMECONTROLLER
+    // US3 + US5 - COVOITURAGES
     // ================================================
     case 'rides':
         require_once '../app/controllers/HomeController.php';
         $homeController = new HomeController();
-        $homeController->rides();
+        
+        // Vérifier s'il y a un ID dans l'URL pour US5
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+            // Route: /rides?id=123 pour voir le détail (US5)
+            $ride_id = (int)$_GET['id'];
+            $homeController->rideDetail($ride_id);
+        } else {
+            // Route normale: /rides pour la liste (US3)
+            $homeController->rides();
+        }
         break;
 
     case 'contact':

@@ -1,0 +1,484 @@
+/* ===================================
+   CSS RIDE DETAIL - US5
+   Style simple et cohérent avec l'existant
+=================================== */
+
+.ride-detail-main {
+    background: var(--background-light, #f8f9fa);
+    min-height: calc(100vh - 80px);
+    padding: 2rem 0;
+    margin-top: 80px;
+}
+
+/* ===================================
+   NAVIGATION DE RETOUR
+=================================== */
+
+.back-navigation {
+    margin-bottom: 2rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--eco-green, #435334);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--text-color, #333);
+}
+
+/* ===================================
+   EN-TÊTE DU TRAJET
+=================================== */
+
+.ride-header {
+    background: white;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ride-route h1 {
+    color: var(--text-color, #333);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.ride-datetime {
+    color: var(--eco-green, #435334);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ride-info {
+    display: flex;
+    gap: 2rem;
+}
+
+.ride-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-color, #666);
+}
+
+.ride-price {
+    text-align: right;
+}
+
+.price-amount {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--eco-green, #435334);
+}
+
+.price-per {
+    color: var(--text-color, #666);
+    margin-bottom: 0.5rem;
+}
+
+.places-available {
+    color: var(--eco-green, #435334);
+    font-weight: 500;
+}
+
+/* ===================================
+   CONTENU PRINCIPAL
+=================================== */
+
+.detail-content {
+    display: grid;
+    gap: 2rem;
+}
+
+.detail-content section {
+    background: white;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.detail-content h2 {
+    color: var(--text-color, #333);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--eco-green, #435334);
+    padding-bottom: 0.5rem;
+}
+
+/* ===================================
+   SECTION CONDUCTEUR
+=================================== */
+
+.driver-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.driver-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--eco-green-light, rgba(67, 83, 52, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--eco-green, #435334);
+    flex-shrink: 0;
+}
+
+.driver-info h3 {
+    color: var(--text-color, #333);
+    margin-bottom: 0.5rem;
+}
+
+.driver-pseudo {
+    color: var(--eco-green, #435334);
+    margin-bottom: 1rem;
+}
+
+.driver-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat .label {
+    font-weight: 500;
+    color: var(--text-color, #666);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.rating .fa-star {
+    color: #ddd;
+}
+
+.rating .fa-star.active {
+    color: #ffc107;
+}
+
+.trip-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--background-light, #f8f9fa);
+    border-radius: 4px;
+}
+
+.trip-message h4 {
+    color: var(--text-color, #333);
+    margin-bottom: 0.5rem;
+}
+
+/* ===================================
+   SECTION VÉHICULE
+=================================== */
+
+.vehicle-card {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.vehicle-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    background: var(--eco-green-light, rgba(67, 83, 52, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--eco-green, #435334);
+    flex-shrink: 0;
+}
+
+.vehicle-details h3 {
+    color: var(--text-color, #333);
+    margin-bottom: 1rem;
+}
+
+.vehicle-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.spec {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.spec .label {
+    font-weight: 500;
+    color: var(--text-color, #666);
+    min-width: 120px;
+}
+
+.energy-type {
+    color: var(--eco-green, #435334);
+    font-weight: 500;
+}
+
+.eco-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+
+/* ===================================
+   SECTION AVIS
+=================================== */
+
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-item {
+    padding: 1rem;
+    background: var(--background-light, #f8f9fa);
+    border-radius: 4px;
+    border-left: 4px solid var(--eco-green, #435334);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.reviewer-name {
+    font-weight: 500;
+    color: var(--text-color, #333);
+}
+
+.review-date {
+    color: var(--text-color, #666);
+    font-size: 0.9rem;
+}
+
+.review-rating {
+    margin-bottom: 0.5rem;
+}
+
+.review-comment {
+    color: var(--text-color, #555);
+    line-height: 1.5;
+}
+
+.no-reviews {
+    color: var(--text-color, #666);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* ===================================
+   SECTION ACTIONS
+=================================== */
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.action-buttons button,
+.action-buttons a {
+    flex: 1;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-participate {
+    background: var(--eco-green, #435334);
+    color: white;
+}
+
+.btn-participate:hover {
+    background: var(--text-color, #333);
+}
+
+.btn-login {
+    background: var(--eco-green, #435334);
+    color: white;
+}
+
+.btn-login:hover {
+    background: var(--text-color, #333);
+}
+
+.btn-contact {
+    background: transparent !important;
+    color: var(--eco-green, #435334)!important;
+    border: 2px solid var(--eco-green, #435334)!important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+
+}
+
+.btn-contact:hover {
+    background: var(--eco-green, #435334)!important;
+    color: white!important;
+}
+
+.btn-full {
+    background: #6c757d;
+    color: white;
+    cursor: not-allowed;
+}
+
+.action-note {
+    color: var(--text-color, #666);
+    font-size: 0.9rem;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media (max-width: 768px) {
+    .ride-detail-main {
+        padding: 1rem 0;
+    }
+    
+    .ride-header {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    
+    .ride-route h1 {
+        font-size: 1.5rem;
+    }
+    
+    .ride-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .driver-card,
+    .vehicle-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}
+
+/* ===================================
+   PRÉFÉRENCES DE VOYAGE
+=================================== */
+
+.preferences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.preference-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--background-light, #f8f9fa);
+    border-radius: 4px;
+}
+
+
+.preference-item i {
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.preference-item.allowed i {
+    color: var(--green-logo);
+}
+
+.preference-item.forbidden i {
+    color: #ab3742;
+}
+
+.preference-item span {
+    color: var(--text-color, #333);
+    font-weight: 500;
+}
+
+.other-preferences {
+    padding: 1rem;
+    background: var(--background-light, #f8f9fa);
+    border-radius: 4px;
+}
+
+.other-preferences h4 {
+    color: var(--text-color, #333);
+    margin-bottom: 0.5rem;
+}
+
+.other-preferences p {
+    color: var(--text-color, #555);
+    margin: 0;
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .preferences-grid {
+        grid-template-columns: 1fr;
+    }
+}
