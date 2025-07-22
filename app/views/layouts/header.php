@@ -109,27 +109,43 @@ $userCredits = $isLoggedIn ? $currentUser['credits'] : 0;
                         
                         <div class="dropdown-divider"></div>
                         
-                        <!-- Menu utilisateur -->
+                        <!-- ✅ SECTION PRINCIPALE - Dashboard et Profil -->
                         <a href="/ecoride/public/dashboard">
-                             Tableau de bord
+                            <i class="fas fa-tachometer-alt"></i> Tableau de bord
                         </a>
-                        <a href="/ecoride/public/profile">
-                             Mon profil
+                        
+                        <!-- ✅ NOUVEAUX LIENS US8 - Espace utilisateur -->
+                        <a href="/ecoride/public/mon-profil">
+                            <i class="fas fa-user"></i> Mon profil
                         </a>
-                        <a href="/ecoride/public/rides/my-rides">
-                             Mes trajets
+                        <a href="/ecoride/public/mon-vehicule">
+                            <i class="fas fa-car"></i> Mon véhicule
                         </a>
-                        <a href="/ecoride/public/rides/create">
-                             Proposer un trajet
+                        <a href="/ecoride/public/mes-preferences">
+                            <i class="fas fa-cog"></i> Mes préférences
                         </a>
                         
                         <div class="dropdown-divider"></div>
                         
+                        <!-- Section Trajets -->
+                        <a href="/ecoride/public/mes-reservations">
+                            <i class="fas fa-calendar-check"></i> Mes réservations
+                        </a>
+                        <a href="/ecoride/public/rides/create">
+                            <i class="fas fa-plus-circle"></i> Proposer un trajet
+                        </a>
+                        
+                        <div class="dropdown-divider"></div>
+                        
+                        <!-- Section Paramètres et Aide -->
+                        <a href="/ecoride/public/upload-photo">
+                            <i class="fas fa-camera"></i> Changer ma photo
+                        </a>
                         <a href="/ecoride/public/settings">
-                            Paramètres
+                            <i class="fas fa-sliders-h"></i> Paramètres
                         </a>
                         <a href="/ecoride/public/help">
-                             Aide
+                            <i class="fas fa-question-circle"></i> Aide
                         </a>
                         
                         <div class="dropdown-divider"></div>
@@ -207,8 +223,6 @@ $userCredits = $isLoggedIn ? $currentUser['credits'] : 0;
         <?php endif; ?>
     </div>
 <?php endif; ?>
-
-
 
 <!-- JavaScript Navigation -->
 <script>
@@ -382,10 +396,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
 
     // ===================================
-    // TESTS NAVIGATION & AUTH
+    // TESTS NAVIGATION & AUTH US8
     // ===================================
     
-    console.log('US7 Tests Navigation & Authentification:');
+    console.log('US8 Tests Navigation & Authentification:');
     console.log('Menu burger:', mobileToggle ? 'OK' : 'MANQUANT');
     console.log('Menu navigation:', navMenu ? 'OK' : 'MANQUANT');
     console.log('Dropdown utilisateur:', userDropdown ? 'OK' : 'Non connecté');
@@ -394,17 +408,25 @@ document.addEventListener('DOMContentLoaded', function() {
     <?php if ($isLoggedIn): ?>
     console.log('Utilisateur:', '<?= htmlspecialchars($userName) ?>');
     console.log('Crédits:', <?= $userCredits ?>);
+    console.log('✅ Liens US8 ajoutés: Mon profil, Mon véhicule, Mes préférences');
     <?php endif; ?>
     
     // Test des liens
-    const allNavLinks = document.querySelectorAll('.nav-menu a');
-    console.log(`Nombre de liens navigation: ${allNavLinks.length}`);
+    const allNavLinks = document.querySelectorAll('.dropdown-menu a');
+    console.log(`Nombre de liens dans le dropdown: ${allNavLinks.length}`);
     
-    allNavLinks.forEach((link, index) => {
-        const href = link.getAttribute('href');
-        const text = link.textContent.trim();
-        const isActive = link.classList.contains('active');
-        console.log(`   ${index + 1}. ${text} → ${href} ${isActive ? '(ACTIF)' : ''}`);
+    // Vérifier que les liens US8 sont présents
+    const us8Links = {
+        'Mon profil': '/ecoride/public/mon-profil',
+        'Mon véhicule': '/ecoride/public/mon-vehicule', 
+        'Mes préférences': '/ecoride/public/mes-preferences'
+    };
+    
+    Object.entries(us8Links).forEach(([name, href]) => {
+        const linkExists = Array.from(allNavLinks).some(link => 
+            link.getAttribute('href') === href
+        );
+        console.log(`US8 - ${name}: ${linkExists ? '✅ OK' : '❌ MANQUANT'}`);
     });
 });
 

@@ -34,7 +34,6 @@ $cleanPath = trim($path, '/');
 // TRAITEMENT DES REQUÊTES POST
 // ============================================
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authController = new AuthController();
     
@@ -45,6 +44,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         case 'auth/login':
             $authController->login();
+            break;
+            
+        // ============================================
+        // ROUTES US6 - SYSTÈME DE RÉSERVATION
+        // ============================================
+        case 'reservation/create':
+            require_once '../app/controllers/ReservationController.php';
+            $reservationController = new ReservationController();
+            $reservationController->createReservation();
+            break;
+            
+        case 'reservation/cancel':
+            require_once '../app/controllers/ReservationController.php';
+            $reservationController = new ReservationController();
+            $reservationController->cancelReservation();
+            break;
+            
+        // ============================================
+        // NOUVELLES ROUTES US8 - ESPACE UTILISATEUR
+        // ============================================
+        case 'profile/update-role':
+            if (!AuthController::isLoggedIn()) {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(['success' => false, 'message' => 'Non connecté']);
+                exit;
+            }
+            
+            require_once '../app/controllers/ProfileController.php';
+            $profileController = new ProfileController();
+            $profileController->updateRole();
+            break;
+
+        case 'profile/add-vehicle':
+            if (!AuthController::isLoggedIn()) {
+                header('Location: /ecoride/public/auth/login');
+                exit;
+            }
+            
+            require_once '../app/controllers/ProfileController.php';
+            $profileController = new ProfileController();
+            $profileController->addVehicle();
+            break;
+
+        case 'profile/update-preferences':
+            if (!AuthController::isLoggedIn()) {
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(['success' => false, 'message' => 'Non connecté']);
+                exit;
+            }
+            
+            require_once '../app/controllers/ProfileController.php';
+            $profileController = new ProfileController();
+            $profileController->updatePreferences();
             break;
     }
 }
@@ -116,22 +168,91 @@ switch ($cleanPath) {
         include '../app/views/layouts/footer.php';
         break;
 
-    case 'profile':
-        $title = "Mon profil - EcoRide";
+    // ============================================
+    // ROUTES US6 - RÉSERVATIONS
+    // ============================================
+    case 'mes-reservations':
+        $title = "Mes réservations - EcoRide";
         
-        // Vérifier si connecté
         if (!AuthController::isLoggedIn()) {
             header('Location: /ecoride/public/auth/login');
             exit;
         }
         
+        require_once '../app/controllers/ReservationController.php';
+        $reservationController = new ReservationController();
+        $reservations = $reservationController->getUserReservations($_SESSION['user_id']);
+        
         include '../app/views/layouts/header.php';
-        echo "<div class='container' style='padding: 8rem 2rem 2rem;'>";
-        echo "<h1>Profil utilisateur</h1>";
-        echo "<p>Page en cours de développement...</p>";
-        echo "<a href='/ecoride/public/dashboard'>← Retour au dashboard</a>";
-        echo "</div>";
+        echo "<h1>Mes réservations (page en cours de création)</h1>";
         include '../app/views/layouts/footer.php';
+        break;
+
+    // ============================================
+    // NOUVELLES ROUTES US8 - ESPACE UTILISATEUR
+    // ============================================
+    case 'profile':
+    case 'mon-profil':
+        $title = "Mon profil - EcoRide";
+        
+        if (!AuthController::isLoggedIn()) {
+            header('Location: /ecoride/public/auth/login');
+            exit;
+        }
+        
+        require_once '../app/controllers/ProfileController.php';
+        $profileController = new ProfileController();
+        
+        //  CORRECTION: Utiliser la méthode du controller qui gère tout
+        $profileController->index();
+        break;
+
+    case 'profile/vehicle':
+    case 'mon-vehicule':
+        $title = "Mon véhicule - EcoRide";
+        
+        if (!AuthController::isLoggedIn()) {
+            header('Location: /ecoride/public/auth/login');
+            exit;
+        }
+        
+        require_once '../app/controllers/ProfileController.php';
+        $profileController = new ProfileController();
+        
+        //  CORRECTION: Utiliser la méthode du controller qui gère tout
+        $profileController->vehicle();
+        break;
+
+    case 'profile/preferences':
+    case 'mes-preferences':
+        $title = "Mes préférences - EcoRide";
+        
+        if (!AuthController::isLoggedIn()) {
+            header('Location: /ecoride/public/auth/login');
+            exit;
+        }
+        
+        require_once '../app/controllers/ProfileController.php';
+        $profileController = new ProfileController();
+        
+        //  CORRECTION: Utiliser la méthode du controller qui gère tout
+        $profileController->preferences();
+        break;
+
+    // ================================================
+    // ROUTE UPLOAD PHOTO (existante)
+    // ================================================
+    case 'upload-photo':
+        $title = "Changer ma photo - EcoRide";
+        
+        if (!AuthController::isLoggedIn()) {
+            header('Location: /ecoride/public/auth/login');
+            exit;
+        }
+        
+        require_once '../app/controllers/ProfileController.php';
+        $profileController = new ProfileController();
+        $profileController->uploadPhoto();
         break;
         
     // ================================================
@@ -171,13 +292,13 @@ switch ($cleanPath) {
                 );
                 
                 echo "<p style='color: green;'> Connexion MySQL réussie !</p>";
-                echo "<p>Base de données : " . DB_NAME . "</p>";
+                echo "<p> Base de données : " . DB_NAME . "</p>";
                 
                 // Test table utilisateur
                 $stmt = $db->prepare("SELECT COUNT(*) as count FROM utilisateur");
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo "<p> Nombre d'utilisateurs : " . $result['count'] . "</p>";
+                echo "<p>👥 Nombre d'utilisateurs : " . $result['count'] . "</p>";
                 
                 // Test table covoiturage
                 $stmt = $db->prepare("SELECT COUNT(*) as count FROM covoiturage WHERE statut = 'planifie'");
@@ -189,7 +310,7 @@ switch ($cleanPath) {
                 $stmt = $db->prepare("SELECT MAX(date_creation) as last_user FROM utilisateur");
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                echo "<p> Dernier utilisateur inscrit : " . ($result['last_user'] ?: 'Aucun') . "</p>";
+                echo "<p>📅 Dernier utilisateur inscrit : " . ($result['last_user'] ?: 'Aucun') . "</p>";
                 
             } catch (Exception $e) {
                 echo "<p style='color: red;'> Erreur : " . $e->getMessage() . "</p>";
@@ -216,10 +337,13 @@ switch ($cleanPath) {
         echo "<p>EcoRide est une plateforme de covoiturage écologique.</p>";
         echo "<p>Fonctionnalités actuelles :</p>";
         echo "<ul style='text-align: left; max-width: 400px; margin: 0 auto;'>";
-        echo "<li> Inscription et connexion sécurisées</li>";
-        echo "<li> Dashboard utilisateur</li>";
-        echo "<li> Système de crédits</li>";
-        echo "<li> Recherche de covoiturages (en cours)</li>";
+        echo "<li>✅ Inscription et connexion sécurisées</li>";
+        echo "<li>✅ Dashboard utilisateur</li>";
+        echo "<li>✅ Système de crédits</li>";
+        echo "<li>✅ Recherche de covoiturages</li>";
+        echo "<li>✅ Page détail des trajets</li>";
+        echo "<li>✅ Système de réservation</li>";
+        echo "<li>✅ Espace utilisateur (US8 - Étape 1)</li>";
         echo "</ul>";
         echo "<a href='/ecoride/public/'>← Retour à l'accueil</a>";
         echo "</div>";
