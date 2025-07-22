@@ -378,6 +378,97 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
         </div>
     </section>
 
+
+         <!-- Filtres -->
+    <section class="rides-filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <h3 class="filters-title">Filtrer les résultats</h3>
+                
+                <form class="filters-form" name="filtersForm">
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label for="priceMax">Crédits maximum</label>
+                            <input type="range" 
+                                   id="priceMax"
+                                   name="priceMax" 
+                                   class="price-slider" 
+                                   min="5" 
+                                   max="100" 
+                                   value="50"
+                                   aria-label="Crédits maximum"> 
+                            <span class="price-display" aria-live="polite">50 crédits</span>
+                        </div>
+                        
+                        <fieldset class="filter-group">
+                            <legend>Type de véhicule</legend>
+                            <div class="checkbox-filters">
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" 
+                                           name="vehicle[]" 
+                                           value="electrique" 
+                                           id="vehicle-electric">
+                                    <span class="checkmark"></span>
+                                    Électrique
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" 
+                                           name="vehicle[]" 
+                                           value="hybride" 
+                                           id="vehicle-hybrid">
+                                    <span class="checkmark"></span>
+                                    Hybride
+                                </label>
+                                <label class="filter-checkbox">
+                                    <input type="checkbox" 
+                                           name="vehicle[]" 
+                                           value="essence" 
+                                           id="vehicle-gasoline">
+                                    <span class="checkmark"></span>
+                                    Essence
+                                </label>
+                            </div>
+                        </fieldset>
+                        
+                        <div class="filter-group">
+                            <label for="minRating">Note minimum</label>
+                            <select id="minRating" 
+                                    name="minRating"
+                                    class="filter-select"
+                                    aria-label="Note minimum requise">
+                                <option value="0">Toutes les notes</option>
+                                <option value="3">3+ étoiles</option>
+                                <option value="4">4+ étoiles</option>
+                                <option value="4.5">4.5+ étoiles</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="durationFilter">Durée du trajet</label>
+                            <select id="durationFilter" name="durationFilter" class="filter-select">
+                                <option value="">Toutes les durées</option>
+                                <option value="1">Moins d'1h</option>
+                                <option value="2">1h à 2h</option>
+                                <option value="4">2h à 4h</option>
+                                <option value="6">4h à 6h</option>
+                                <option value="12">Plus de 6h</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" 
+                                class="btn-reset-filters" 
+                                id="resetFilters"
+                                name="resetFilters"
+                                aria-label="Réinitialiser tous les filtres">
+                            <i class="fas fa-times" aria-hidden="true"></i>
+                            Réinitialiser
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Résultats des covoiturages avec VRAIES DONNÉES -->
     <section class="rides-results-section">
         <div class="container">
@@ -472,10 +563,10 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
                                 <i class="fas fa-info-circle"></i>
                                 Détails
                             </a>
-                            <button class="btn-book" onclick="alert('Système de réservation US6 à implémenter')">
+                            <a href="/ecoride/public/rides?id=<?= $ride['id_covoiturage'] ?>" class="btn-book">
                                 <i class="fas fa-check"></i>
                                 Réserver
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -876,6 +967,147 @@ $isSearch = !empty($departure) || !empty($arrival) || !empty($date);
         if (departureInput) createAutocomplete(departureInput);
         if (arrivalInput) createAutocomplete(arrivalInput);
     });
+
+
+
+    // JavaScript pour les filtres
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion du slider prix
+    const priceSlider = document.getElementById('priceMax');
+    const priceDisplay = document.querySelector('.price-display');
+    
+    if (priceSlider && priceDisplay) {
+        priceSlider.addEventListener('input', function() {
+            priceDisplay.textContent = this.value + ' crédits';
+            applyFilters();
+        });
+    }
+    
+    // Gestion des checkboxes véhicules
+    const vehicleCheckboxes = document.querySelectorAll('input[name="vehicle[]"]');
+    vehicleCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', applyFilters);
+    });
+    
+    // Gestion des selects
+    const minRatingSelect = document.getElementById('minRating');
+    const durationSelect = document.getElementById('durationFilter');
+    
+    if (minRatingSelect) {
+        minRatingSelect.addEventListener('change', applyFilters);
+    }
+    
+    if (durationSelect) {
+        durationSelect.addEventListener('change', applyFilters);
+    }
+    
+    // Bouton reset
+    const resetButton = document.getElementById('resetFilters');
+    if (resetButton) {
+        resetButton.addEventListener('click', function() {
+            // Reset prix
+            if (priceSlider) {
+                priceSlider.value = 50;
+                priceDisplay.textContent = '50 crédits';
+            }
+            
+            // Reset checkboxes (toutes cochées par défaut)
+            vehicleCheckboxes.forEach(checkbox => {
+                checkbox.checked = true;
+            });
+            
+            // Reset selects
+            if (minRatingSelect) {
+                minRatingSelect.value = '0';
+            }
+            
+            if (durationSelect) {
+                durationSelect.value = '';
+            }
+            
+            // Réappliquer les filtres
+            applyFilters();
+        });
+    }
+    
+    // Fonction principale de filtrage
+    function applyFilters() {
+        const rides = document.querySelectorAll('.ride-card-modern');
+        let visibleCount = 0;
+        
+        // Récupérer les valeurs des filtres
+        const maxPrice = parseInt(priceSlider ? priceSlider.value : 100);
+        const selectedVehicles = Array.from(vehicleCheckboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.value);
+        const minRating = parseFloat(minRatingSelect ? minRatingSelect.value : 0);
+        const maxDuration = durationSelect ? durationSelect.value : '';
+        
+        rides.forEach(ride => {
+            let showRide = true;
+            
+            // Filtre prix
+            const priceElement = ride.querySelector('.price-badge');
+            if (priceElement) {
+                const price = parseInt(priceElement.textContent.replace(/\D/g, ''));
+                if (price > maxPrice) {
+                    showRide = false;
+                }
+            }
+            
+            // Filtre type de véhicule
+            if (selectedVehicles.length > 0) {
+                const vehicleInfo = ride.querySelector('.ride-details');
+                let vehicleFound = false;
+                
+                if (vehicleInfo) {
+                    const vehicleText = vehicleInfo.textContent.toLowerCase();
+                    vehicleFound = selectedVehicles.some(vehicle => {
+                        switch(vehicle) {
+                            case 'electrique':
+                                return vehicleText.includes('électrique');
+                            case 'hybride':
+                                return vehicleText.includes('hybride');
+                            case 'essence':
+                                return vehicleText.includes('essence');
+                            default:
+                                return false;
+                        }
+                    });
+                }
+                
+                if (!vehicleFound) {
+                    showRide = false;
+                }
+            }
+            
+            // Afficher/masquer la carte
+            ride.style.display = showRide ? 'block' : 'none';
+            if (showRide) visibleCount++;
+        });
+        
+        // Mettre à jour le compteur de résultats
+        updateResultsCount(visibleCount);
+    }
+    
+    // Mettre à jour le compteur de résultats
+    function updateResultsCount(count) {
+        const counters = document.querySelectorAll('#resultsCount, .results-count span');
+        counters.forEach(counter => {
+            if (counter) {
+                counter.textContent = count + ' trajet' + (count > 1 ? 's' : '') + ' disponible' + (count > 1 ? 's' : '');
+            }
+        });
+    }
+    
+    // Initialiser les filtres avec toutes les checkboxes cochées
+    vehicleCheckboxes.forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    
+    // Appliquer les filtres au chargement
+    applyFilters();
+});
     </script>
 
 <?php endif; ?>

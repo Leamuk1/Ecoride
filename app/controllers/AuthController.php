@@ -192,15 +192,16 @@ class AuthController {
         $_SESSION['user_pseudo'] = $user['pseudo'] ?? $user['prenom'] ?? 'Utilisateur';
         $_SESSION['user_nom'] = $user['nom'] ?? '';
         $_SESSION['user_prenom'] = $user['prenom'] ?? '';
-        $_SESSION['user_credits'] = $user['credit'] ?? 20;
+        $_SESSION['credit'] = $user['credit'] ?? 20;
+        $_SESSION['user_credits'] = (int)($user['credit'] ?? 20); // Ajouter cette ligne aussi
         $_SESSION['user_created'] = $user['date_inscription'] ?? date('Y-m-d');
         $_SESSION['logged_in'] = true;
         $_SESSION['login_time'] = time();
         
         if ($rememberMe) {
-            ini_set('session.gc_maxlifetime', 30 * 24 * 3600);
-            setcookie(session_name(), session_id(), time() + (30 * 24 * 3600), '/');
-        }
+    // ini_set('session.gc_maxlifetime', 30 * 24 * 3600); // Ne marche pas si session active
+    setcookie(session_name(), session_id(), time() + (30 * 24 * 3600), '/');
+}
     }
     
     /**
@@ -219,7 +220,7 @@ class AuthController {
             'pseudo' => $_SESSION['user_pseudo'] ?? '',
             'nom' => $_SESSION['user_nom'] ?? '',
             'prenom' => $_SESSION['user_prenom'] ?? '',
-            'credits' => $_SESSION['user_credits'] ?? 0,
+            'credits' => $_SESSION['credit'] ?? $_SESSION['user_credits'] ?? 0,
             'created' => $_SESSION['user_created'] ?? '',
         ];
     }

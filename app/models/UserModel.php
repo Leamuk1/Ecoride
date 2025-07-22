@@ -75,8 +75,7 @@ class UserModel {
             $user = $stmt->fetch();
             
             if ($user && password_verify($password, $user['password'])) {
-                // Mettre à jour dernière connexion
-                $this->query("UPDATE utilisateur SET derniere_connexion = NOW() WHERE id_utilisateur = ?", [$user['id_utilisateur']]);
+                // Pas de mise à jour derniere_connexion car colonne n'existe pas
                 
                 return [
                     'success' => true,

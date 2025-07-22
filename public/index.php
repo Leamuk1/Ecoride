@@ -46,8 +46,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'auth/login':
             $authController->login();
             break;
+
+            // NOUVELLES ROUTES US6
+case 'reservation/create':
+    require_once '../app/controllers/ReservationController.php';
+    $reservationController = new ReservationController();
+    $reservationController->createReservation();
+    break;
+    
+case 'reservation/cancel':
+    require_once '../app/controllers/ReservationController.php';
+    $reservationController = new ReservationController();
+    $reservationController->cancelReservation();
+    break;
     }
 }
+    
+
 
 // ============================================
 // ROUTER PRINCIPAL (GET)
@@ -133,11 +148,59 @@ switch ($cleanPath) {
         echo "</div>";
         include '../app/views/layouts/footer.php';
         break;
+
+        case 'api/user-credits':
+    if (!AuthController::isLoggedIn()) {
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'Non connecté']);
+        exit;
+    }
+    
+    try {
+        $pdo = new PDO(
+            "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8",
+            DB_USER,
+            DB_PASS,
+            [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+        );
+        
+        $stmt = $pdo->prepare("SELECT solde_credits FROM utilisateur WHERE id_utilisateur = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        header('Content-Type: application/json');
+        echo json_encode([
+            'credits' => $user ? (int)$user['solde_credits'] : 0
+        ]);
+    } catch (Exception $e) {
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'Erreur serveur']);
+    }
+    exit;
+    break;
+
+        case 'mes-reservations':
+    $title = "Mes réservations - EcoRide";
+    
+    if (!AuthController::isLoggedIn()) {
+        header('Location: /ecoride/public/auth/login');
+        exit;
+    }
+    
+    require_once '../app/controllers/ReservationController.php';
+    $reservationController = new ReservationController();
+    $reservations = $reservationController->getUserReservations($_SESSION['user_id']);
+    
+    include '../app/views/layouts/header.php';
+    echo "<h1>Mes réservations (page en cours de création)</h1>";
+    include '../app/views/layouts/footer.php';
+    break;
         
     // ================================================
     // US3 + US5 - COVOITURAGES
     // ================================================
     case 'rides':
+        
         require_once '../app/controllers/HomeController.php';
         $homeController = new HomeController();
         

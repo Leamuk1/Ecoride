@@ -158,7 +158,8 @@ class HomeController {
                     LEFT JOIN marque m ON v.id_marque = m.id_marque
                     WHERE c.statut = 'planifie'
                     AND c.date_depart > NOW()
-                    AND c.nb_places_disponibles >= :passengers";
+                    AND c.nb_places_disponibles >= :passengers
+                    AND c.nb_places_disponibles > 0";
 
             // Array pour stocker les paramètres
             $params = [':passengers' => $passengers];
@@ -250,6 +251,7 @@ class HomeController {
                     LEFT JOIN marque m ON v.id_marque = m.id_marque
                     WHERE c.date_depart > NOW()
                     AND c.statut = 'planifie'
+                    AND c.nb_places_disponibles > 0
                     ORDER BY c.date_depart ASC
                     LIMIT 6";
             
@@ -303,6 +305,7 @@ class HomeController {
                     LEFT JOIN marque m ON v.id_marque = m.id_marque
                     WHERE c.date_depart > NOW()
                     AND c.statut = 'planifie'
+                    AND c.nb_places_disponibles > 0
                     ORDER BY c.date_depart ASC
                     LIMIT :limit OFFSET :offset";
             
@@ -690,6 +693,16 @@ class HomeController {
      * Méthode simple qui récupère toutes les infos d'un trajet
      */
     public function rideDetail($id) {
+        // TEMPORAIRE - Forcer mise à jour crédits
+if (isset($_SESSION['user_id'])) {
+    $stmt = $this->pdo->prepare("SELECT credit FROM utilisateur WHERE id_utilisateur = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user) {
+        $_SESSION['credit'] = $user['credit'];
+        $user_credits = (int)$user['credit'];
+    }
+}
     try {
         // Récupérer les détails du covoiturage
         $ride = $this->getRideDetails($id);
@@ -722,7 +735,7 @@ class HomeController {
      * Récupérer toutes les informations d'un covoiturage
      * Requête simple avec toutes les données nécessaires
      */
-   private function getRideDetails($id) {
+  private function getRideDetails($id) {
     try {
         if (!$this->pdo) {
             return null;
@@ -802,17 +815,8 @@ class HomeController {
             }
             
             // Requête simple pour récupérer les avis
-            $sql = "SELECT 
-                        a.note,
-                        a.commentaire,
-                        a.date_avis,
-                        u.prenom as passager_prenom
-                    FROM avis a
-                    JOIN utilisateur u ON a.id_passager = u.id_utilisateur
-                    WHERE a.id_conducteur = :conducteur_id
-                    AND a.statut = 'valide'
-                    ORDER BY a.date_avis DESC
-                    LIMIT 5"; // Limiter à 5 avis pour simplifier
+            // Pas d'avis pour l'instant - table pas encore créée
+            return []; // Retourner tableau vide pour l'instant
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindValue(':conducteur_id', $conducteur_id, PDO::PARAM_INT);

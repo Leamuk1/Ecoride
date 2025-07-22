@@ -218,5 +218,3 @@ function animateCards() {
     });
 }
 </script>
-
-<?php include_once __DIR__ . '/../layouts/footer.php'; ?>

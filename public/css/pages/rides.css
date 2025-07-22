@@ -296,7 +296,7 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Input avec icône - HARMONISÉ avec page d'accueil */
+/* Input avec icône */
 .input-with-icon {
     position: relative;
     width: 100%;
@@ -318,7 +318,7 @@ body {
     font-size: 16px;
 }
 
-/* STYLES DES CHAMPS - HARMONISÉS avec page d'accueil */
+/* STYLES DES CHAMPS  */
 .search-input {
     width: 100%;
     padding: 15px 12px 13px 36px;
@@ -652,6 +652,7 @@ select.search-input option {
     background: transparent;
     color: var(--eco-green);
     border: 2px solid var(--eco-green);
+    text-decoration: none;
 }
 
 .btn-details:hover {
@@ -662,6 +663,7 @@ select.search-input option {
 .btn-book {
     background: var(--eco-green);
     color: var(--white);
+    text-decoration: none;
 }
 
 .btn-book:hover {
@@ -871,6 +873,10 @@ select.search-input option {
     position: relative;
     z-index: 2;
     background: transparent !important;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cta-buttons {
@@ -1043,5 +1049,205 @@ select.search-input option {
     .ecoride-autocomplete-item {
         padding: 8px 10px !important;
         font-size: 14px !important;
+    }
+}
+/* CSS pour les filtres */
+.rides-filters-section {
+    background: #f8f9fa;
+    padding: 2rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.filters-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filters-title {
+    color: #333;
+    margin: 0 0 1.5rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.filters-form {
+    width: 100%;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-group label,
+.filter-group legend {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.filter-group legend {
+    padding: 0;
+    border: none;
+    font-size: 0.9rem;
+}
+
+/* Slider prix */
+.price-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #435334;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.price-slider::-webkit-slider-thumb:hover {
+    background: #5d6e47;
+}
+
+.price-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #435334;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+.price-display {
+    font-size: 0.9rem;
+    color: #435334;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 0.25rem;
+}
+
+/* Checkboxes personnalisées */
+.checkbox-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.filter-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #435334;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.filter-checkbox input[type="checkbox"]:checked + .checkmark {
+    background: #435334;
+    border-color: #435334;
+}
+
+.filter-checkbox input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.filter-checkbox:hover {
+    color: #435334;
+}
+
+.filter-checkbox:hover .checkmark {
+    border-color: #5d6e47;
+}
+
+/* Selects */
+.filter-select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #435334;
+}
+
+/* Bouton reset */
+.btn-reset-filters {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s;
+    align-self: end;
+}
+
+.btn-reset-filters:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.btn-reset-filters i {
+    font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .btn-reset-filters {
+        align-self: stretch;
+        justify-content: center;
     }
 }

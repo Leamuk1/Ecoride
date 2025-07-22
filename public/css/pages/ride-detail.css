@@ -1,7 +1,30 @@
 /* ===================================
    CSS RIDE DETAIL - US5
-   Style simple et cohérent avec l'existant
 =================================== */
+
+/* Reset global pour éviter les marges */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+footer {
+    width: 100% !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Container footer sans marge */
+footer .container {
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+}
 
 .ride-detail-main {
     background: var(--background-light, #f8f9fa);
@@ -336,6 +359,8 @@
 .btn-participate {
     background: var(--eco-green, #435334);
     color: white;
+    font-weight: 600 !important;
+    font-size: 1rem;
 }
 
 .btn-participate:hover {
@@ -481,4 +506,486 @@
     .preferences-grid {
         grid-template-columns: 1fr;
     }
+}
+/* ===================================
+   US6 - MODAL DE RÉSERVATION
+=================================== */
+
+/* Overlay modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(2px);
+}
+
+/* Container principal */
+.modal-container {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Étapes de la modal */
+.modal-step {
+    display: none;
+}
+
+.modal-step.active {
+    display: block;
+}
+
+/* Header */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    background: var(--eco-green, #435334);
+    color: white;
+    border-radius: 4px 4px 0 0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Body */
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Récapitulatif du trajet */
+.trip-recap {
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.trip-recap h4 {
+    margin: 0 0 0.75rem 0;
+    color: var(--text-color, #333);
+    font-size: 1rem;
+}
+
+.recap-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.recap-route {
+    font-size: 1.1rem;
+    color: var(--eco-green, #435334);
+}
+
+.recap-datetime, .recap-driver {
+    color: var(--text-color, #666);
+    font-size: 0.9rem;
+}
+
+/* Sélection des places */
+.places-selection {
+    margin-bottom: 1.5rem;
+}
+
+.places-selection label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color, #333);
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--eco-green, #435334);
+}
+
+/* Calcul du prix */
+.price-calculation {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.price-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.price-line.total {
+    border-top: 1px solid #ddd;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.price-total {
+    color: var(--eco-green, #435334);
+    font-weight: 700;
+}
+
+/* Crédits utilisateur */
+.user-credits {
+    background: #e8f5e8;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.credits-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--eco-green, #435334);
+}
+
+.credits-warning {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #dc3545;
+    background: #f8d7da;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+}
+
+/* Avertissement confirmation */
+.confirmation-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.confirmation-warning i {
+    color: #856404;
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+.confirmation-warning p {
+    margin: 0;
+    color: #856404;
+    line-height: 1.4;
+}
+
+/* Récapitulatif final */
+.final-recap {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.final-recap h4 {
+    margin: 0 0 1rem 0;
+    color: var(--text-color, #333);
+    font-size: 1rem;
+}
+
+.recap-grid {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.recap-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+}
+
+.recap-item .label {
+    color: var(--text-color, #666);
+    font-weight: 500;
+}
+
+.recap-item .value {
+    color: var(--text-color, #333);
+    font-weight: 600;
+}
+
+.final-price {
+    color: var(--eco-green, #435334) !important;
+    font-size: 1.1rem;
+}
+
+/* Acceptation des conditions */
+.terms-acceptance {
+    margin-bottom: 1rem;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--eco-green, #435334);
+}
+
+.checkbox-container a {
+    color: var(--green-logo);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+/* Footer */
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 1px solid #eee;
+    background: #f8f9fa;
+    border-radius: 0 0 4px 4px;
+}
+
+.btn-secondary, .btn-primary {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-primary {
+    background: var(--eco-green, #435334);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #2d3d24;
+}
+
+.btn-primary:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Loading overlay */
+.modal-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    backdrop-filter: blur(1px);
+}
+
+.loading-spinner {
+    text-align: center;
+    color: var(--eco-green, #435334);
+}
+
+.loading-spinner i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.loading-spinner p {
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Alertes de notification */
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 400px;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10001;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.alert-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+
+.alert i {
+    font-size: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+.alert strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.alert p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.alert small {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+        margin: 1rem;
+    }
+    
+    .modal-header, .modal-body, .modal-footer {
+        padding: 1rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+    
+    .alert {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+/* Fix footer modal et layout */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Correction du layout de la page détail */
+.ride-detail-main {
+    background: var(--background-light, #f8f9fa);
+    min-height: calc(100vh - 160px); /* Augmenté pour laisser place au footer */
+    padding: 2rem 0 3rem 0; /* Ajout padding bottom */
+    margin-top: 80px;
+}
+
+/* Assurer que le footer reste normal */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Fix spécifique pour la page détail */
+.container {
+    min-height: auto !important;
 }
